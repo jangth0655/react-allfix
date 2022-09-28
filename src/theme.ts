@@ -9,7 +9,8 @@ export const darkTheme: DefaultTheme = {
       full: "black",
     },
     textColor: {
-      xs: "rgb(228 228 231)", //200
+      xxs: "rgb(228 228 231)", //200
+      xs: "rgb(212 212 216)", //300
       sm: "rgb(161 161 170)", // 400
       md: "rgb(250 250 250)", // 50
       lg: "white",
@@ -44,6 +45,7 @@ export const darkTheme: DefaultTheme = {
     xl: "1.25rem",
     xxl: "1.5rem",
     xxxl: "1.875rem",
+    xxxxl: "2.5rem",
   },
   borderRadius: {
     sm: "0.125rem",
@@ -95,7 +97,8 @@ export const lightTheme: DefaultTheme = {
       full: "white",
     },
     textColor: {
-      xs: "rgb(228 228 231)", //200
+      xxs: "rgb(228 228 231)", //200
+      xs: "rgb(212 212 216)", //300
       sm: "rgb(161 161 170)", // 400
       md: "rgb(39 39 42)", // 800
       lg: "rgb(24 24 27)", // 900
@@ -130,6 +133,7 @@ export const lightTheme: DefaultTheme = {
     xl: "1.25rem",
     xxl: "1.5rem",
     xxxl: "1.875rem",
+    xxxxl: "2.5rem",
   },
 
   borderRadius: {
@@ -205,7 +209,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1.2;
 	font-family: 'Source Sans Pro', sans-serif;
-  background-color: ${(props) => props.theme.color.bg.lg};
+  background-color: ${(props) => props.theme.color.bg.full};
   color: ${(props) => props.theme.color.textColor.md};
 }
 a { 

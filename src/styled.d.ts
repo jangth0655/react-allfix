@@ -10,9 +10,11 @@ declare module "styled-components" {
       xl: string;
       xxl: string;
       xxxl: string;
+      xxxxl: string;
     };
     color: {
       textColor: {
+        xxs: string;
         xs: string;
         sm: string;
         md: string;

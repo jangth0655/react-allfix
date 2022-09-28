@@ -1,4 +1,11 @@
+import styled from "styled-components";
+import Layout from "../components/Layout";
+
 const Home = () => {
-  return <h1>Hello World</h1>;
+  return (
+    <Layout showHeader={true}>
+      <h1>home</h1>
+    </Layout>
+  );
 };
 export default Home;
