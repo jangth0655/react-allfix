@@ -12,6 +12,7 @@ import Footer from "./Footer";
 
 const Section = styled.section``;
 const Navbar = styled.nav`
+  z-index: 100;
   padding: ${(props) => props.theme.mp.md} ${(props) => props.theme.mp.xxxxl};
   display: flex;
   justify-content: space-between;
@@ -89,10 +90,11 @@ const NavbarMark = styled(motion.div)`
   background-color: ${(props) => props.theme.color.red.md};
 `;
 
-const Main = styled.main<{ padding?: boolean }>`
-  max-width: ${(props) => props.theme.responsive.xl};
+const Main = styled.main<{ padding?: boolean; isMainMaxWidth?: boolean }>`
+  max-width: ${(props) =>
+    props.isMainMaxWidth ? props.theme.responsive.xl : ""};
+  padding: ${(props) => (props.padding ? "10rem 1.2rem" : "0")};
   margin: auto;
-  padding: ${(props) => (props.padding ? "10rem 1.2rem" : "0 1.2rem")};
 `;
 
 const Header = styled.header`
@@ -153,12 +155,13 @@ const HeaderSubtitle = styled.span`
 `;
 
 const HeaderStartButton = styled.button`
-  padding: ${(props) => props.theme.mp.sm} ${(props) => props.theme.mp.lg};
+  padding: ${(props) => props.theme.mp.md} ${(props) => props.theme.mp.xl};
   background-color: ${(props) => props.theme.color.red.lg};
   border-radius: ${(props) => props.theme.borderRadius.lg};
   margin-top: ${(props) => props.theme.mp.lg};
   color: white;
   font-weight: 600;
+  font-size: ${(props) => props.theme.textSize.lg};
   cursor: pointer;
   transition: ${(props) => props.theme.transition.md};
   &:hover {
@@ -170,6 +173,7 @@ interface LayoutProps {
   children: React.ReactNode;
   isMainPaddingTop?: boolean;
   showHeader?: boolean;
+  isMainMaxWidth?: boolean;
 }
 
 export const navbarLiArray = [
@@ -183,6 +187,7 @@ const Layout: React.FC<LayoutProps> = ({
   children,
   isMainPaddingTop,
   showHeader,
+  isMainMaxWidth,
 }) => {
   const [showingNav, setShowingNav] = useState(false);
   const { windowSize } = useWindowSize();
@@ -277,7 +282,11 @@ const Layout: React.FC<LayoutProps> = ({
 
         <AnimatePresence>{showingNav ? <NavbarBoard /> : null}</AnimatePresence>
       </Navbar>
-      <Main padding={isMainPaddingTop} onClick={() => setShowingNav(false)}>
+      <Main
+        isMainMaxWidth={isMainMaxWidth}
+        padding={isMainPaddingTop}
+        onClick={() => setShowingNav(false)}
+      >
         {children}
       </Main>
       <Footer />

@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 const FooterBox = styled.div`
   padding: ${(props) => props.theme.mp.xxxl};
-  border: 1px solid white;
   color: ${(prosp) => prosp.theme.color.textColor.sm};
-  position: absolute;
+  position: relative;
   width: 100%;
   bottom: 0;
 `;
