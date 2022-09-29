@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import headerImage from "../assets/home/allflix-header.png";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -73,7 +73,7 @@ const NavShowingIconBox = styled.div`
   z-index: 10;
 `;
 
-const NavbarMark = styled(motion.div)`
+const NavbarMark = styled.div`
   position: absolute;
   width: 50%;
   left: 0;
@@ -87,7 +87,7 @@ const NavbarMark = styled(motion.div)`
 const Main = styled.main<{ padding?: boolean; isMainMaxWidth?: boolean }>`
   max-width: ${(props) =>
     props.isMainMaxWidth ? props.theme.responsive.xl : ""};
-  padding: ${(props) => (props.padding ? "10rem 1.2rem" : "0")};
+  padding: ${(props) => (props.padding ? "10rem 1.2rem 3rem 1.2rem" : "0")};
   margin: auto;
 `;
 
@@ -226,7 +226,7 @@ const Layout: React.FC<LayoutProps> = ({
   }, []);
 
   return (
-    <Section ref={layoutRef}>
+    <Section>
       {showHeader ? (
         <Header onClick={() => setShowingNav(false)}>
           <HeaderLayer />
@@ -244,7 +244,7 @@ const Layout: React.FC<LayoutProps> = ({
           </HeaderImageBox>
         </Header>
       ) : null}
-      <Navbar>
+      <Navbar ref={layoutRef}>
         <Link to={"/"}>
           <LogoBox>
             <LogoImageBox>
@@ -261,7 +261,7 @@ const Layout: React.FC<LayoutProps> = ({
             {navbarLiArray.map((item) => (
               <NavLi onClick={() => onPage(item.name)} key={item.key}>
                 {item.name}
-                {pathname === item.pathname && <NavbarMark layoutId="bar" />}
+                {pathname === item.pathname && <NavbarMark />}
               </NavLi>
             ))}
           </NavUl>

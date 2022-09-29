@@ -77,20 +77,34 @@ const MoreItemsButton = styled.div`
   align-items: center;
 `;
 
-const MoreButtonText = styled.span`
+const MoreNumber = styled.span`
+  position: relative;
   display: inline-block;
-
-  border-radius: ${(props) => props.theme.borderRadius.md};
+  border: 1px solid white;
   color: ${(props) => props.theme.color.textColor.xs};
-  background-color: ${(props) => props.theme.color.red.md};
   font-weight: 700;
-  padding: ${(props) => props.theme.mp.sm} ${(props) => props.theme.mp.lg};
+  padding: ${(props) => props.theme.mp.xs};
   cursor: pointer;
   transition: ${(props) => props.theme.transition.md};
+  margin-right: ${(props) => props.theme.mp.md};
+  z-index: 10;
+  &:last-child {
+    margin-right: 0;
+  }
   &:hover {
     color: white;
-    background-color: ${(props) => props.theme.color.red.lg};
+    background-color: ${(props) => props.theme.color.red.xl};
   }
+`;
+
+const MoreNumberMark = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: ${(props) => props.theme.color.red.xl};
 `;
 
 const moviesContainerVar: Variants = {
@@ -123,13 +137,15 @@ const categoryTapTextArray: CategoryTapType[] = [
   "평점높은 영화",
 ];
 
+const pageNumbers = [1, 2, 3, 4, 5];
+
 const Movies = () => {
-  const PopularMovie = React.lazy(
+  const MovieList = React.lazy(
     () => import("../../components/ItemList/MoviesAndTVs")
   );
-
   const [tapName, setTapName] = useState<CategoryTapType>("인기 영화");
   const [page, setPage] = useState(1);
+
   const { data: moviePopularData, refetch } = useQuery<getPopularMovie>(
     ["popularMovies"],
     () => fetchPopularMovie(page),
@@ -143,10 +159,10 @@ const Movies = () => {
     if (!!page) {
       refetch();
     }
-  }, [page]);
+  }, [page, refetch]);
 
-  const handlePage = () => {
-    setPage((prev) => prev + 1);
+  const handlePage = (pageNumber: number) => {
+    setPage(pageNumber);
   };
 
   return (
@@ -172,13 +188,18 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <PopularMovie isMovie movies={moviePopularData?.results} />
+              <MovieList isMovie movies={moviePopularData?.results} />
             </MoviesContainer>
           </Suspense>
         ) : null}
       </AnimatePresence>
       <MoreItemsButton>
-        <MoreButtonText onClick={handlePage}>더 보기</MoreButtonText>
+        {pageNumbers.map((number) => (
+          <MoreNumber onClick={() => handlePage(number)} key={number}>
+            {number}
+            {number === page && <MoreNumberMark />}
+          </MoreNumber>
+        ))}
       </MoreItemsButton>
     </Layout>
   );
