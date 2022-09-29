@@ -8,7 +8,6 @@ import headerImage from "../assets/home/allflix-header.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useWindowSize from "../libs/WindowSize";
 import NavbarBoard from "./NavbarBoard";
-import Footer from "./Footer";
 
 const Section = styled.section``;
 const Navbar = styled.nav`
@@ -107,8 +106,8 @@ const Header = styled.header`
 const HeaderImageBox = styled.div`
   width: 100%;
   height: 33rem;
-  @media screen and (min-width: ${(props) => props.theme.responsive.xl}) {
-    height: 40rem;
+  @media screen and (min-width: ${(props) => props.theme.responsive.md}) {
+    height: 43rem;
   }
 `;
 const HeaderImage = styled.img`
@@ -289,7 +288,6 @@ const Layout: React.FC<LayoutProps> = ({
       >
         {children}
       </Main>
-      <Footer />
     </Section>
   );
 };

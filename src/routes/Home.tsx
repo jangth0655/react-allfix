@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Footer from "../components/Footer";
 import SectionTem from "../components/home/SectionTem";
 import Layout from "../components/Layout";
 
@@ -42,6 +43,7 @@ const Home = () => {
           />
         </BorderBox>
       </Main>
+      <Footer />
     </Layout>
   );
 };
