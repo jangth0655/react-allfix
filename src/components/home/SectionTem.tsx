@@ -6,9 +6,10 @@ const Section = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: ${(props) => props.theme.mp.xxxxl};
+  padding: ${(props) => props.theme.mp.xxxxl} 0;
   @media screen and (min-width: ${(props) => props.theme.responsive.lg}) {
     flex-direction: row;
+    padding: ${(props) => props.theme.mp.xxxl};
   }
 `;
 
@@ -17,43 +18,52 @@ const TitleBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: start;
   @media screen and (min-width: ${(props) => props.theme.responsive.lg}) {
-    width: 50%;
-    margin-right: ${(props) => props.theme.mp.xxxl};
+    width: 40%;
+  }
+  @media screen and (max-width: ${(props) => props.theme.responsive.lg}) {
+    width: 100%;
+    text-align: center;
+    padding: 0 ${(props) => props.theme.mp.xl};
   }
 `;
 
 const Title = styled.span`
-  font-size: ${(props) => props.theme.textSize.xxxl};
+  font-size: ${(props) => props.theme.textSize.xxxxl};
   font-weight: 700;
   margin-bottom: ${(props) => props.theme.mp.lg};
-  text-align: center;
+  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
+    font-size: ${(props) => props.theme.textSize.xxl};
+    text-align: center;
+  }
 `;
 
 const SubTitle = styled.span`
   display: inline-block;
-  text-align: center;
+  width: 100%;
   color: ${(props) => props.theme.color.textColor.xs};
   font-size: ${(props) => props.theme.textSize.lg};
+  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
+    font-size: ${(props) => props.theme.textSize.md};
+    text-align: center;
+  }
 `;
 
 const ImageBox = styled.div`
   position: relative;
-  width: 30rem;
-  height: 28rem;
+  width: 40rem;
+  height: auto;
   @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
-    width: 22rem;
-    height: 20rem;
-    padding: 0 ${(props) => props.theme.mp.xs};
+    width: 100%;
   }
 `;
-const Image = styled.div<{ url: string }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center center;
-  background-image: url(${(props) => props.url});
+const Image = styled.img`
+  position: relative;
+  z-index: 2;
+  border: 0;
+  height: auto;
+  max-width: 100%;
 `;
 
 const VideoBox = styled.div`
@@ -78,7 +88,6 @@ const SecondVideoBox = styled.div`
   transform: translate(-50%, -50%);
   width: 100%;
   z-index: -1;
-  border: 1px solid white;
 `;
 
 const Video = styled.video`
@@ -108,21 +117,20 @@ const SectionTem: React.FC<SectionTemProps> = ({
         <SubTitle>{subTitle}</SubTitle>
       </TitleBox>
       <ImageBox>
-        <Image url={url}>
-          {secondVideo ? (
-            <SecondVideoBox>
-              <Video loop={true} autoPlay muted={true}>
-                <source src={videoUrl} type="video/mp4" />
-              </Video>
-            </SecondVideoBox>
-          ) : (
-            <VideoBox>
-              <Video loop={true} autoPlay muted={true}>
-                <source src={videoUrl} type="video/mp4" />
-              </Video>
-            </VideoBox>
-          )}
-        </Image>
+        <Image src={url}></Image>
+        {secondVideo ? (
+          <SecondVideoBox>
+            <Video loop={true} autoPlay muted={true}>
+              <source src={videoUrl} type="video/mp4" />
+            </Video>
+          </SecondVideoBox>
+        ) : (
+          <VideoBox>
+            <Video loop={true} autoPlay muted={true}>
+              <source src={videoUrl} type="video/mp4" />
+            </Video>
+          </VideoBox>
+        )}
       </ImageBox>
     </Section>
   );

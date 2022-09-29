@@ -32,7 +32,7 @@ const NavLayer = styled.div`
   left: 0;
   right: 0;
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.7;
 `;
 const LogoBox = styled.div`
   display: flex;
