@@ -20,19 +20,14 @@ const Navbar = styled.nav`
   width: 100%;
   top: 0;
   left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 100;
   @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
     padding: ${(props) => props.theme.mp.md} ${(props) => props.theme.mp.md};
   }
 `;
-const NavLayer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  background-color: black;
-  opacity: 0.7;
-`;
+
 const LogoBox = styled.div`
   display: flex;
   align-items: center;
@@ -250,7 +245,6 @@ const Layout: React.FC<LayoutProps> = ({
         </Header>
       ) : null}
       <Navbar>
-        <NavLayer />
         <Link to={"/"}>
           <LogoBox>
             <LogoImageBox>
