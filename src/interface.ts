@@ -1,4 +1,4 @@
-export interface getPopularMovie {
+export interface GetMovies {
   page: number;
   results: Movie[];
   total_result: number;

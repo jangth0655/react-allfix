@@ -1,11 +1,7 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPopularMovie } from "../../apis/movie/movie-api";
-
-import { getPopularMovie } from "../../interface";
 import Loading from "../../components/Loading";
 
 const TitleContainer = styled.div`
@@ -110,7 +106,7 @@ const MoreNumberMark = styled.div`
 const moviesContainerVar: Variants = {
   initial: {
     opacity: 0,
-    translateY: "100px",
+    translateY: "50px",
   },
   animate: {
     opacity: 1,
@@ -140,26 +136,24 @@ const categoryTapTextArray: CategoryTapType[] = [
 const pageNumbers = [1, 2, 3, 4, 5];
 
 const Movies = () => {
-  const MovieList = React.lazy(
-    () => import("../../components/ItemList/MoviesAndTVs")
-  );
   const [tapName, setTapName] = useState<CategoryTapType>("인기 영화");
   const [page, setPage] = useState(1);
 
-  const { data: moviePopularData, refetch } = useQuery<getPopularMovie>(
-    ["popularMovies"],
-    () => fetchPopularMovie(page),
-    {
-      staleTime: 50000,
-      suspense: true,
-    }
+  const PopularMovies = React.lazy(
+    () => import("../../components/movieList/PopularMovies")
   );
 
-  useEffect(() => {
-    if (!!page) {
-      refetch();
-    }
-  }, [page, refetch]);
+  const NowPlayingMovies = React.lazy(
+    () => import("../../components/movieList/NowPlayingMovies")
+  );
+
+  const UpcomingMovies = React.lazy(
+    () => import("../../components/movieList/UpcomingMovies")
+  );
+
+  const TopRatedMovies = React.lazy(
+    () => import("../../components/movieList/TopRatedMovies")
+  );
 
   const handlePage = (pageNumber: number) => {
     setPage(pageNumber);
@@ -188,11 +182,59 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <MovieList isMovie movies={moviePopularData?.results} />
+              <PopularMovies page={page} />
             </MoviesContainer>
           </Suspense>
         ) : null}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {tapName === "현재 상영중" ? (
+          <Suspense fallback={<Loading />}>
+            <MoviesContainer
+              variants={moviesContainerVar}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <NowPlayingMovies page={page} />
+            </MoviesContainer>
+          </Suspense>
+        ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {tapName === "상영 예정" ? (
+          <Suspense fallback={<Loading />}>
+            <MoviesContainer
+              variants={moviesContainerVar}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <UpcomingMovies page={page} />
+            </MoviesContainer>
+          </Suspense>
+        ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {tapName === "평점높은 영화" ? (
+          <Suspense fallback={<Loading />}>
+            <MoviesContainer
+              variants={moviesContainerVar}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <TopRatedMovies page={page} />
+            </MoviesContainer>
+          </Suspense>
+        ) : null}
+      </AnimatePresence>
+
+      {/* page button */}
+
       <MoreItemsButton>
         {pageNumbers.map((number) => (
           <MoreNumber onClick={() => handlePage(number)} key={number}>
