@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../../components/Layout";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Loading from "../../components/Loading";
+import PageNumber from "../../components/PageNumber";
 
 const TitleContainer = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ const CategoryTap = styled.li`
   border-radius: ${(props) => props.theme.borderRadius.lg};
   transition: ${(props) => props.theme.transition.md};
   color: ${(props) => props.theme.color.textColor.xs};
+  font-weight: 700;
   &:last-child {
     margin-right: 0;
   }
@@ -66,41 +68,11 @@ const MoviesContainer = styled(motion.div)`
   margin-bottom: 7rem;
 `;
 
-const MoreItemsButton = styled.div`
+const MoreButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const MoreNumber = styled.span`
-  position: relative;
-  display: inline-block;
-  border: 1px solid white;
-  color: ${(props) => props.theme.color.textColor.xs};
-  font-weight: 700;
-  padding: ${(props) => props.theme.mp.xs};
-  cursor: pointer;
-  transition: ${(props) => props.theme.transition.md};
-  margin-right: ${(props) => props.theme.mp.md};
-  z-index: 10;
-  &:last-child {
-    margin-right: 0;
-  }
-  &:hover {
-    color: white;
-    background-color: ${(props) => props.theme.color.red.xl};
-  }
-`;
-
-const MoreNumberMark = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background-color: ${(props) => props.theme.color.red.xl};
 `;
 
 const moviesContainerVar: Variants = {
@@ -154,10 +126,6 @@ const Movies = () => {
   const TopRatedMovies = React.lazy(
     () => import("../../components/movieList/TopRatedMovies")
   );
-
-  const handlePage = (pageNumber: number) => {
-    setPage(pageNumber);
-  };
 
   return (
     <Layout isMainPaddingTop={true}>
@@ -233,16 +201,9 @@ const Movies = () => {
         ) : null}
       </AnimatePresence>
 
-      {/* page button */}
-
-      <MoreItemsButton>
-        {pageNumbers.map((number) => (
-          <MoreNumber onClick={() => handlePage(number)} key={number}>
-            {number}
-            {number === page && <MoreNumberMark />}
-          </MoreNumber>
-        ))}
-      </MoreItemsButton>
+      <MoreButtonContainer>
+        <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
+      </MoreButtonContainer>
     </Layout>
   );
 };

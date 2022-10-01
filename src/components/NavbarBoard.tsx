@@ -12,6 +12,9 @@ const SliderNav = styled(motion.div)`
   align-items: center;
   left: 0;
   top: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 100;
   transform-origin: top right;
 `;
 const SliderUl = styled.ul`

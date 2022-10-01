@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { fetchTopRatedMovie } from "../../apis/movie/movie-api";
+import { fetchTopRatedMovie } from "../../apis/movie-api";
 import { GetMovies } from "../../interface";
 import MovieAndTV from "../MovieAndTV";
 import { TotalContainer } from "../sharedStyled";

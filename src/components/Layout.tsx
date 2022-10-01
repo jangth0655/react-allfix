@@ -85,8 +85,6 @@ const NavbarMark = styled.div`
 `;
 
 const Main = styled.main<{ padding?: boolean; isMainMaxWidth?: boolean }>`
-  max-width: ${(props) =>
-    props.isMainMaxWidth ? props.theme.responsive.xl : ""};
   padding: ${(props) => (props.padding ? "10rem 1.2rem 3rem 1.2rem" : "0")};
   margin: auto;
 `;
