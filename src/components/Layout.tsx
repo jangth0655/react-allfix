@@ -2,12 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import {
+  AnimatePresence,
+  useAnimation,
+  useScroll,
+  Variants,
+  motion,
+} from "framer-motion";
 import headerImage from "../assets/home/allflix-header.png";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useWindowSize from "../libs/WindowSize";
 import NavbarBoard from "./NavbarBoard";
+import { FaArrowUp } from "react-icons/fa";
 
 const Section = styled.section``;
 const Navbar = styled.nav`
@@ -161,6 +168,36 @@ const HeaderStartButton = styled.button`
   }
 `;
 
+const ScrollUpButton = styled(motion.div)`
+  position: fixed;
+  padding: ${(props) => props.theme.mp.sm};
+  width: 2rem;
+  height: 2rem;
+  background-color: ${(props) => props.theme.color.highlight.xs};
+  border-radius: 50%;
+  transition: ${(props) => props.theme.transition.md};
+  cursor: pointer;
+  bottom: 10px;
+  right: 10px;
+  &:hover {
+    background-color: ${(props) => props.theme.color.highlight.md};
+  }
+`;
+
+const OnTopDiv = styled.div`
+  position: absolute;
+  top: 0;
+`;
+
+const ScrollVar: Variants = {
+  top: {
+    opacity: 0,
+  },
+  scroll: {
+    opacity: 1,
+  },
+};
+
 interface LayoutProps {
   children: React.ReactNode;
   isMainPaddingTop?: boolean;
@@ -186,6 +223,18 @@ const Layout: React.FC<LayoutProps> = ({
   const { pathname } = useLocation();
   const layoutRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { scrollY } = useScroll();
+  const scrollAnimation = useAnimation();
+
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() < window.innerHeight / 2) {
+        scrollAnimation.start("top");
+      } else {
+        scrollAnimation.start("scroll");
+      }
+    });
+  }, [scrollAnimation, scrollY]);
 
   const onPage = (pageName: string) => {
     switch (pageName) {
@@ -217,6 +266,10 @@ const Layout: React.FC<LayoutProps> = ({
     }
   }, [windowSize]);
 
+  const scrollOnTop = () => {
+    layoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   useEffect(() => {
     if (layoutRef) {
       layoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -225,6 +278,7 @@ const Layout: React.FC<LayoutProps> = ({
 
   return (
     <Section>
+      <OnTopDiv ref={layoutRef} />
       {showHeader ? (
         <Header onClick={() => setShowingNav(false)}>
           <HeaderLayer />
@@ -242,7 +296,7 @@ const Layout: React.FC<LayoutProps> = ({
           </HeaderImageBox>
         </Header>
       ) : null}
-      <Navbar ref={layoutRef}>
+      <Navbar>
         <Link to={"/"}>
           <LogoBox>
             <LogoImageBox>
@@ -279,6 +333,14 @@ const Layout: React.FC<LayoutProps> = ({
         onClick={() => setShowingNav(false)}
       >
         {children}
+        <ScrollUpButton
+          variants={ScrollVar}
+          initial="top"
+          animate={scrollAnimation}
+          onClick={scrollOnTop}
+        >
+          <FaArrowUp />
+        </ScrollUpButton>
       </Main>
     </Section>
   );
