@@ -91,7 +91,7 @@ const NavbarMark = styled.div`
   background-color: ${(props) => props.theme.color.red.md};
 `;
 
-const Main = styled.main<{ padding?: boolean; isMainMaxWidth?: boolean }>`
+const Main = styled.main<{ padding?: boolean }>`
   padding: ${(props) => (props.padding ? "10rem 1.2rem 3rem 1.2rem" : "0")};
   margin: auto;
 `;
@@ -330,11 +330,7 @@ const Layout: React.FC<LayoutProps> = ({
 
         <AnimatePresence>{showingNav ? <NavbarBoard /> : null}</AnimatePresence>
       </Navbar>
-      <Main
-        isMainMaxWidth={isMainMaxWidth}
-        padding={isMainPaddingTop}
-        onClick={() => setShowingNav(false)}
-      >
+      <Main padding={isMainPaddingTop} onClick={() => setShowingNav(false)}>
         {children}
         <ScrollUpButton
           variants={ScrollVar}

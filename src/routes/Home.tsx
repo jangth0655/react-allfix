@@ -22,7 +22,7 @@ const Home = () => {
           <SectionTem
             url="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png"
             title="TV 즐기세요"
-            subTitle="스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어 등 다양한 디바이스에서 시청하세요."
+            subTitle={`스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어 등 \n다양한 디바이스에서 시청하세요.`}
             videoUrl={`https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-tv-0819.m4v`}
           />
         </BorderBox>

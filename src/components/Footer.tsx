@@ -10,8 +10,8 @@ const FooterBox = styled.div`
 `;
 
 const InquiryPhone = styled.div`
-  font-size: ${(props) => props.theme.textSize.lg};
-  margin-bottom: ${(props) => props.theme.mp.xxxxl};
+  font-size: ${(props) => props.theme.textSize.sm};
+  margin-bottom: ${(props) => props.theme.mp.xl};
   & span:first-child {
     margin-right: ${(props) => props.theme.mp.sm};
   }
@@ -27,6 +27,7 @@ const MenuBox = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: ${(props) => props.theme.textSize.xs};
 `;
 
 const Footer = () => {

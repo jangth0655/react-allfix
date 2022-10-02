@@ -3,12 +3,13 @@ import axios from "axios";
 const BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-type Arg = {
+type MovieArg = {
   id?: number;
   page?: number;
+  keyword?: string;
 };
 
-export const fetchPopularMovie = async ({ page }: Arg) => {
+export const fetchPopularMovie = async ({ page }: MovieArg) => {
   const response = await (
     await axios(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ko&page=${page}`
@@ -78,7 +79,7 @@ export const fetchMovieVideos = async (id?: number) => {
   return response;
 };
 
-export const fetchMovieReviews = async ({ id, page }: Arg) => {
+export const fetchMovieReviews = async ({ id, page }: MovieArg) => {
   try {
     const response = await (
       await axios(
@@ -95,6 +96,15 @@ export const fetchMovieReviews = async ({ id, page }: Arg) => {
 export const fetchMovieKeywords = async (id?: number) => {
   const response = await (
     await axios(`${BASE_URL}/movie/${id}/keywords?api_key=${API_KEY}`)
+  ).data;
+  return response;
+};
+
+export const fetchMovieSearch = async ({ keyword }: MovieArg) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko&query=${keyword}`
+    )
   ).data;
   return response;
 };
