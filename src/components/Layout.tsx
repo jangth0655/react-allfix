@@ -9,7 +9,6 @@ import {
   Variants,
   motion,
 } from "framer-motion";
-import headerImage from "../assets/home/allflix-header.png";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useWindowSize from "../libs/WindowSize";
@@ -105,10 +104,7 @@ const Header = styled.header`
 
 const HeaderImageBox = styled.div`
   width: 100%;
-  height: 33rem;
-  @media screen and (min-width: ${(props) => props.theme.responsive.md}) {
-    height: 43rem;
-  }
+  height: 70vh;
 `;
 const HeaderImage = styled.img`
   width: 100%;
@@ -289,7 +285,11 @@ const Layout: React.FC<LayoutProps> = ({
             </HeaderStartButton>
           </HeaderTitleBox>
           <HeaderImageBox>
-            <HeaderImage src={headerImage} />
+            <HeaderImage
+              src={
+                "https://assets.nflxext.com/ffe/siteui/vlv3/b321426e-35ae-4661-b899-d63bca17648a/8ad9e9f9-b386-4068-a360-d270e14f7d34/KR-ko-20220926-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+              }
+            />
           </HeaderImageBox>
         </Header>
       ) : null}
