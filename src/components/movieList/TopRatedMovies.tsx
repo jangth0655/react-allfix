@@ -1,24 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchTopRatedMovie } from "../../apis/movie-api";
 import { GetMovies } from "../../interface/movie-interface";
+import { pageNumbers } from "../../routes/movie/Movies";
 
 import MovieAndTV from "../MovieAndTV";
-import { TotalContainer } from "../sharedStyled";
+import PageNumber from "../PageNumber";
+import { MoreButtonContainer, TotalContainer } from "../sharedStyled";
 
-interface TopRatedMoviesProps {
-  page: number;
-}
-
-const TopRatedMovies: React.FC<TopRatedMoviesProps> = ({ page }) => {
-  const { data: topRatedMovies, refetch } = useQuery<GetMovies>(
-    ["topRated"],
-    () => fetchTopRatedMovie(page),
-    {
-      staleTime: 60 * 60 * 24 * 7,
-      suspense: true,
-    }
-  );
+const TopRatedMovies: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const {
+    data: topRatedMovies,
+    refetch,
+    isLoading,
+  } = useQuery<GetMovies>(["topRated"], () => fetchTopRatedMovie(page), {
+    staleTime: 60 * 60 * 24 * 7,
+    suspense: true,
+  });
 
   useEffect(() => {
     if (!!page) {
@@ -26,11 +25,18 @@ const TopRatedMovies: React.FC<TopRatedMoviesProps> = ({ page }) => {
     }
   }, [page, refetch]);
   return (
-    <TotalContainer>
-      {topRatedMovies?.results.map((movie) => (
-        <MovieAndTV key={movie.id} movie={movie} />
-      ))}
-    </TotalContainer>
+    <>
+      <TotalContainer>
+        {topRatedMovies?.results.map((movie) => (
+          <MovieAndTV key={movie.id} movie={movie} />
+        ))}
+      </TotalContainer>
+      {!isLoading && (
+        <MoreButtonContainer>
+          <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
+        </MoreButtonContainer>
+      )}
+    </>
   );
 };
 

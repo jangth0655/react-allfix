@@ -44,4 +44,5 @@ export const MoreButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 6.5em;
 `;

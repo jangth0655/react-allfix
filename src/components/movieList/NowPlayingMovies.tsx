@@ -1,24 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchNowPlayingMovie } from "../../apis/movie-api";
 import { GetMovies } from "../../interface/movie-interface";
+import { pageNumbers } from "../../routes/movie/Movies";
 
 import MovieAndTV from "../MovieAndTV";
-import { TotalContainer } from "../sharedStyled";
+import PageNumber from "../PageNumber";
+import { MoreButtonContainer, TotalContainer } from "../sharedStyled";
 
-interface NowPlayingMoviesProps {
-  page: number;
-}
-
-const NowPlayingMovies: React.FC<NowPlayingMoviesProps> = ({ page }) => {
-  const { data: nowPlayingMovies, refetch } = useQuery<GetMovies>(
-    ["nowPlaying"],
-    () => fetchNowPlayingMovie(page),
-    {
-      staleTime: 60 * 60 * 24 * 7,
-      suspense: true,
-    }
-  );
+const NowPlayingMovies: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const {
+    data: nowPlayingMovies,
+    refetch,
+    isLoading,
+  } = useQuery<GetMovies>(["nowPlaying"], () => fetchNowPlayingMovie(page), {
+    staleTime: 60 * 60 * 24 * 7,
+    suspense: true,
+  });
 
   useEffect(() => {
     if (!!page) {
@@ -26,11 +25,18 @@ const NowPlayingMovies: React.FC<NowPlayingMoviesProps> = ({ page }) => {
     }
   }, [page, refetch]);
   return (
-    <TotalContainer>
-      {nowPlayingMovies?.results.map((movie) => (
-        <MovieAndTV key={movie.id} movie={movie} />
-      ))}
-    </TotalContainer>
+    <>
+      <TotalContainer>
+        {nowPlayingMovies?.results.map((movie) => (
+          <MovieAndTV key={movie.id} movie={movie} />
+        ))}
+      </TotalContainer>
+      {!isLoading && (
+        <MoreButtonContainer>
+          <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
+        </MoreButtonContainer>
+      )}
+    </>
   );
 };
 

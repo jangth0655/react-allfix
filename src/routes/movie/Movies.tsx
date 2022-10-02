@@ -2,14 +2,12 @@ import React, { Suspense, useState } from "react";
 import Layout from "../../components/Layout";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../../components/Loading";
-import PageNumber from "../../components/PageNumber";
 import MainTitleContainer, {
   CategoryTapType,
 } from "../../components/MainTitleContainer";
 import {
   ComponentContainer,
   containerVar,
-  MoreButtonContainer,
 } from "../../components/sharedStyled";
 import { Helmet } from "react-helmet-async";
 
@@ -32,14 +30,13 @@ const categoryTapTextArray: CategoryTapType[] = [
   },
 ];
 
-const pageNumbers = [1, 2, 3, 4, 5];
+export const pageNumbers = [1, 2, 3, 4, 5];
 
 const Movies = () => {
   const [tapName, setTapName] = useState<CategoryTapType>({
     title: "인기 영화",
     subtitle: "현재 인기 있는 영화 목록",
   });
-  const [page, setPage] = useState(1);
 
   const PopularMovies = React.lazy(
     () => import("../../components/movieList/PopularMovies")
@@ -82,7 +79,7 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <PopularMovies page={page} />
+              <PopularMovies />
             </ComponentContainer>
           </Suspense>
         ) : null}
@@ -97,7 +94,7 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <NowPlayingMovies page={page} />
+              <NowPlayingMovies />
             </ComponentContainer>
           </Suspense>
         ) : null}
@@ -112,7 +109,7 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <UpcomingMovies page={page} />
+              <UpcomingMovies />
             </ComponentContainer>
           </Suspense>
         ) : null}
@@ -127,15 +124,11 @@ const Movies = () => {
               animate="animate"
               exit="exit"
             >
-              <TopRatedMovies page={page} />
+              <TopRatedMovies />
             </ComponentContainer>
           </Suspense>
         ) : null}
       </AnimatePresence>
-
-      <MoreButtonContainer>
-        <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
-      </MoreButtonContainer>
     </Layout>
   );
 };

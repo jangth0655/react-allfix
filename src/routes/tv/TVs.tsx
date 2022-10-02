@@ -3,15 +3,13 @@ import Layout from "../../components/Layout";
 import MainTitleContainer, {
   CategoryTapType,
 } from "../../components/MainTitleContainer";
-
 import { AnimatePresence } from "framer-motion";
 import {
   ComponentContainer,
   containerVar,
-  MoreButtonContainer,
 } from "../../components/sharedStyled";
 import Loading from "../../components/Loading";
-import PageNumber from "../../components/PageNumber";
+
 import { Helmet } from "react-helmet-async";
 
 const categoryTapTextArray: CategoryTapType[] = [
@@ -30,14 +28,13 @@ const categoryTapTextArray: CategoryTapType[] = [
   },
 ];
 
-const pageNumbers = [1, 2, 3, 4, 5];
+export const pageNumbers = [1, 2, 3, 4, 5];
 
 const TVs: React.FC = () => {
   const [tapName, setTapName] = useState<CategoryTapType>({
     title: "인기 TV",
     subtitle: "현재 인기 있는 TV 목록",
   });
-  const [page, setPage] = useState(1);
 
   const PopularTVs = React.lazy(
     () => import("../../components/tvList/PopularTVs")
@@ -76,7 +73,7 @@ const TVs: React.FC = () => {
               animate="animate"
               exit="exit"
             >
-              <PopularTVs page={page} />
+              <PopularTVs />
             </ComponentContainer>
           </Suspense>
         ) : null}
@@ -91,7 +88,7 @@ const TVs: React.FC = () => {
               animate="animate"
               exit="exit"
             >
-              <NowPlayingTVs page={page} />
+              <NowPlayingTVs />
             </ComponentContainer>
           </Suspense>
         ) : null}
@@ -106,15 +103,11 @@ const TVs: React.FC = () => {
               animate="animate"
               exit="exit"
             >
-              <TopRatedTVs page={page} />
+              <TopRatedTVs />
             </ComponentContainer>
           </Suspense>
         ) : null}
       </AnimatePresence>
-
-      <MoreButtonContainer>
-        <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
-      </MoreButtonContainer>
     </Layout>
   );
 };
