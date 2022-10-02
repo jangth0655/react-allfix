@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { fetchPopularMovie } from "../../apis/movie-api";
-import { GetMovies } from "../../interface";
+import { GetMovies } from "../../interface/movie-interface";
 import MovieAndTV from "../MovieAndTV";
 import { TotalContainer } from "../sharedStyled";
 
-interface MoviesAndTVsProps {
+interface PopularMoviesProps {
   page: number;
 }
 
-const PopularMovies: React.FC<MoviesAndTVsProps> = ({ page }) => {
+const PopularMovies: React.FC<PopularMoviesProps> = ({ page }) => {
   const { data: popularMovies, refetch } = useQuery<GetMovies>(
     ["popularMovies"],
-    () => fetchPopularMovie(page),
+    () => fetchPopularMovie({ page }),
     {
-      staleTime: 50000,
+      staleTime: 60 * 60 * 24 * 7,
       suspense: true,
     }
   );

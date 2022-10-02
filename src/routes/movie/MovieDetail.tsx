@@ -79,23 +79,23 @@ const MovieDetail = () => {
   }, []);
 
   const InfoSectionComponent = React.lazy(
-    () => import("../../components/detail/InfoSection")
+    () => import("../../components/detailSection/InfoSection")
   );
 
   const VideoSectionComponent = React.lazy(
-    () => import("../../components/detail/VideoSection")
+    () => import("../../components/detailSection/VideoSection")
   );
 
   const CastSectionComponent = React.lazy(
-    () => import("../../components/detail/CastSection")
+    () => import("../../components/detailSection/CastSection")
   );
 
   const ReviewSectionComponent = React.lazy(
-    () => import("../../components/detail/ReviewSection")
+    () => import("../../components/detailSection/ReviewSection")
   );
 
   const RecommendationComponent = React.lazy(
-    () => import("../../components/detail/RecommendationSection")
+    () => import("../../components/detailSection/RecommendationSection")
   );
 
   useEffect(() => {

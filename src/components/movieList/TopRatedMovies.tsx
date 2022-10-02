@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { fetchTopRatedMovie } from "../../apis/movie-api";
-import { GetMovies } from "../../interface";
+import { GetMovies } from "../../interface/movie-interface";
+
 import MovieAndTV from "../MovieAndTV";
 import { TotalContainer } from "../sharedStyled";
 
@@ -14,7 +15,7 @@ const TopRatedMovies: React.FC<TopRatedMoviesProps> = ({ page }) => {
     ["topRated"],
     () => fetchTopRatedMovie(page),
     {
-      staleTime: 50000,
+      staleTime: 60 * 60 * 24 * 7,
       suspense: true,
     }
   );

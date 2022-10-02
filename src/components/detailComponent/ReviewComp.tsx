@@ -1,12 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { fetchReviews } from "../../apis/movie-api";
-import { GetReview } from "../../interface";
-
+import { ReviewResult } from "../../interface/shared-interface";
 import { FaUser } from "react-icons/fa";
 import ImageUrl from "../../libs/imageUrl";
-
-const Container = styled.div``;
 
 const ReviewContainer = styled.div`
   display: flex;
@@ -71,21 +66,11 @@ const Review = styled.div`
   color: ${(props) => props.theme.color.textColor.md};
 `;
 
-interface ReviewSectionProps {
-  movieId?: number;
-  tvId?: number;
+interface ReviewCompProps {
+  reviewResultArray?: ReviewResult[];
 }
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({ movieId }) => {
-  const { data: reviewData } = useQuery<GetReview>(
-    ["movieReview", movieId],
-    () => fetchReviews({ id: movieId, page: 1 })
-  );
-
-  const dateForm = (date: Date) => {
-    return new Date(date).toLocaleDateString("ko");
-  };
-
+const ReviewComp: React.FC<ReviewCompProps> = ({ reviewResultArray }) => {
   const confirmAvatarPath = (avatar?: string) => {
     if (avatar?.startsWith("/https") || !avatar) {
       return false;
@@ -93,9 +78,12 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ movieId }) => {
     return true;
   };
 
+  const dateForm = (date: Date) => {
+    return new Date(date).toLocaleDateString("ko");
+  };
   return (
-    <Container>
-      {reviewData?.results.map((review) => (
+    <>
+      {reviewResultArray?.map((review) => (
         <ReviewContainer key={review.author}>
           <ReviewAvatarBox>
             {confirmAvatarPath(review.author_details.avatar_path) ? (
@@ -122,7 +110,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ movieId }) => {
           </ReviewBox>
         </ReviewContainer>
       ))}
-    </Container>
+    </>
   );
 };
-export default ReviewSection;
+export default ReviewComp;

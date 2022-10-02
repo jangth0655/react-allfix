@@ -171,14 +171,17 @@ const HeaderStartButton = styled.button`
 const ScrollUpButton = styled(motion.div)`
   position: fixed;
   padding: ${(props) => props.theme.mp.sm};
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: ${(props) => props.theme.color.highlight.xs};
   border-radius: 50%;
   transition: ${(props) => props.theme.transition.md};
   cursor: pointer;
-  bottom: 10px;
-  right: 10px;
+  bottom: 50px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     background-color: ${(props) => props.theme.color.highlight.md};
   }

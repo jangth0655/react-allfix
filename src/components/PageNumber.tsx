@@ -14,7 +14,7 @@ const MoreNumber = styled.span`
   border: 1px solid white;
   color: ${(props) => props.theme.color.textColor.xs};
   font-weight: 700;
-  padding: ${(props) => props.theme.mp.xs};
+  padding: ${(props) => props.theme.mp.md};
   cursor: pointer;
   transition: ${(props) => props.theme.transition.md};
   margin-right: ${(props) => props.theme.mp.md};

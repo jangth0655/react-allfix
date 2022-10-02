@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import styled from "styled-components";
-import { fetchMovieDetail, fetchMovieKeywords } from "../../apis/movie-api";
-import { GetKeyword, IMovieDetail } from "../../interface";
+import { GetMovieKeyword } from "../../interface/movie-interface";
+import { Genre } from "../../interface/shared-interface";
+import { GetTVKeyword } from "../../interface/tv-interface";
 import ImageUrl from "../../libs/imageUrl";
 import NoImageWithVideo from "../NoImageWithVideo";
 
@@ -130,45 +130,47 @@ const Keyword = styled.li`
   }
 `;
 
-interface InfoSectionProps {
-  movieId?: number;
-  tvId?: number;
+interface InfoCompProps {
+  poster_path?: string;
+  title?: string;
+  name?: string;
+  release_date?: string;
+  first_air_date?: string;
+  overview?: string;
+  vote_average?: number;
+  genres?: Genre[];
+  movieKeywords?: GetMovieKeyword;
+  tvKeywords?: GetTVKeyword;
 }
 
-const InfoSection: React.FC<InfoSectionProps> = ({ movieId }) => {
-  const { data: detailData } = useQuery<IMovieDetail>(
-    ["movieDetail", movieId],
-    () => fetchMovieDetail(movieId && movieId),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true }
-  );
-  const { data: keywordData } = useQuery<GetKeyword>(
-    ["movieKeyword", movieId],
-    () => fetchMovieKeywords(movieId && movieId),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true }
-  );
-
-  const errorText = !detailData?.poster_path
-    ? ImageUrl(detailData?.poster_path)
-    : "";
+const InfoComp: React.FC<InfoCompProps> = ({
+  poster_path,
+  title,
+  name,
+  release_date,
+  first_air_date,
+  overview,
+  vote_average,
+  genres,
+  movieKeywords,
+  tvKeywords,
+}) => {
+  const errorText = !poster_path ? ImageUrl(poster_path) : "";
   return (
     <>
-      {detailData?.poster_path ? (
+      {poster_path ? (
         <PosterBox>
-          <Poster
-            poster={ImageUrl(
-              detailData?.poster_path ? detailData?.poster_path : ""
-            )}
-          />
+          <Poster poster={ImageUrl(poster_path ? poster_path : "")} />
         </PosterBox>
       ) : (
         <NoImageWithVideo text={errorText} />
       )}
       <InfoBox>
         <Title>
-          <span>{detailData?.title}</span>
+          <span>{title ? title : name}</span>
         </Title>
         <Genres>
-          {detailData?.genres?.map((genre) => (
+          {genres?.map((genre) => (
             <React.Fragment key={genre.id}>
               <span>{genre.name}</span>
               <span>·</span>
@@ -176,27 +178,40 @@ const InfoSection: React.FC<InfoSectionProps> = ({ movieId }) => {
           ))}
         </Genres>
         <ReleaseDate>
-          <span>{detailData?.release_date}</span>
+          <span>{release_date ? release_date : first_air_date}</span>
         </ReleaseDate>
         <Vote>
           <span>평점</span>
-          <span>{detailData?.vote_average?.toFixed(2)}</span>
+          <span>{vote_average?.toFixed(2)}</span>
         </Vote>
         <Overview>
-          <p>{detailData?.overview}</p>
+          <p>{overview}</p>
         </Overview>
         <KeywordsBox>
           <h1>키워드</h1>
-          <Keywords>
-            {keywordData?.keywords.map((keyword) => (
-              <Keyword key={keyword.id}>
-                <span>＃{keyword.name}</span>
-              </Keyword>
-            ))}
-          </Keywords>
+          {movieKeywords && (
+            <Keywords>
+              {movieKeywords?.keywords?.map((keyword) => (
+                <Keyword key={keyword.id}>
+                  <span>＃{keyword.name}</span>
+                </Keyword>
+              ))}
+            </Keywords>
+          )}
+
+          {tvKeywords && (
+            <Keywords>
+              {tvKeywords?.results?.map((keyword) => (
+                <Keyword key={keyword.id}>
+                  <span>＃{keyword.name}</span>
+                </Keyword>
+              ))}
+            </Keywords>
+          )}
         </KeywordsBox>
       </InfoBox>
     </>
   );
 };
-export default InfoSection;
+
+export default InfoComp;

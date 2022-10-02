@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { fetchRecommendation } from "../../apis/movie-api";
-import { GetMovies } from "../../interface";
+
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import ImageUrl from "../../libs/imageUrl";
-import NoImageWithVideo from "../NoImageWithVideo";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { GetMovies } from "../../interface/movie-interface";
+import { fetchTVRecommendation } from "../../apis/tv-api";
+import { fetchMovieRecommendation } from "../../apis/movie-api";
+import RecommendationComp from "../detailComponent/RecommendationComp";
+import { GetTVs } from "../../interface/tv-interface";
 
 const SliderContainer = styled.div`
   width: 100%;
@@ -32,37 +33,6 @@ const SliderBox = styled.div`
     background-color: ${(props) => props.theme.color.bg.xl};
     border-radius: 10px;
   }
-`;
-
-const SliderItem = styled.div`
-  margin-right: ${(props) => props.theme.mp.md};
-  cursor: pointer;
-  transition: ${(props) => props.theme.transition.md};
-  &:last-child {
-    margin-right: 0;
-  }
-  &:hover {
-    transform: translateY(-10px);
-  }
-`;
-
-const ItemImage = styled.div<{ poster?: string }>`
-  border-radius: ${(props) => props.theme.borderRadius.md};
-  box-shadow: ${(props) => props.theme.shadow.md};
-  background-image: url(${(props) => props.poster});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: ${(props) => props.theme.mp.md};
-  width: 15rem;
-  height: 90%;
-  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
-  }
-`;
-
-const ItemTitle = styled.h1`
-  width: 100%;
-  height: 10%;
 `;
 
 const Direction = styled.div`
@@ -93,8 +63,6 @@ const Right = styled(Direction)`
   right: 0;
 `;
 
-const NoImageContainer = styled(ItemImage)``;
-
 interface RecommendationSectionProps {
   movieId?: number;
   tvId?: number;
@@ -104,13 +72,19 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
   movieId,
   tvId,
 }) => {
-  const navigate = useNavigate();
-  const { data: recommendationData } = useQuery<GetMovies>(
-    ["movieRecommendation", movieId],
-    () => fetchRecommendation(movieId),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true }
-  );
   const sliderRef = useRef<HTMLDivElement>(null);
+
+  const { data: movieRecommendationData } = useQuery<GetMovies>(
+    ["movieRecommendation", movieId],
+    () => fetchMovieRecommendation(movieId),
+    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
+  );
+
+  const { data: tvRecommendationData } = useQuery<GetTVs>(
+    ["tvRecommendation", tvId],
+    () => fetchTVRecommendation({ id: tvId }),
+    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
+  );
 
   const onHandleRightDirection = () => {
     if (sliderRef.current) {
@@ -128,15 +102,6 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
     }
   };
 
-  const onDetailPage = (id: number, backdrop_path: string) => {
-    navigate(`/movies/${id}`, {
-      state: {
-        backdrop_path,
-        id,
-      },
-    });
-  };
-
   return (
     <SliderContainer>
       <Left onClick={onHandleLeftDirection}>
@@ -146,23 +111,29 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
         <FaArrowRight />
       </Right>
       <SliderBox ref={sliderRef}>
-        {recommendationData?.results.map((movie) => (
-          <SliderItem
-            onClick={() => onDetailPage(movie.id, movie.backdrop_path)}
-            key={movie.id}
-          >
-            {movie?.poster_path ? (
-              <ItemImage
-                poster={ImageUrl(movie?.poster_path ? movie?.poster_path : "")}
-              />
-            ) : (
-              <NoImageContainer>
-                <NoImageWithVideo text="이미지가 없습니다." />
-              </NoImageContainer>
-            )}
-            <ItemTitle>{movie.title}</ItemTitle>
-          </SliderItem>
-        ))}
+        <>
+          {movieId
+            ? movieRecommendationData &&
+              movieRecommendationData?.results.map((movie) => (
+                <RecommendationComp
+                  key={movie.id}
+                  backdrop_path={movie.backdrop_path}
+                  id={movie.id}
+                  poster_path={movie.poster_path}
+                  title={movie.title}
+                />
+              ))
+            : tvRecommendationData &&
+              tvRecommendationData.results.map((tv) => (
+                <RecommendationComp
+                  key={tv.id}
+                  backdrop_path={tv.backdrop_path}
+                  id={tv.id}
+                  poster_path={tv.poster_path}
+                  name={tv.name}
+                />
+              ))}
+        </>
       </SliderBox>
     </SliderContainer>
   );

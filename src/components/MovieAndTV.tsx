@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Movie, TV } from "../interface";
+import { Movie } from "../interface/movie-interface";
+import { TV } from "../interface/tv-interface";
+
 import ImageUrl from "../libs/imageUrl";
 import NoImageWithVideo from "./NoImageWithVideo";
 
@@ -102,11 +104,21 @@ interface MovieAndTVProps {
 const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   const [showingLayer, setShowingLayer] = useState(false);
   const navigate = useNavigate();
+
   const onMovieDetail = (id: number) => {
     navigate(`/movies/${id}`, {
       state: {
         backdrop_path: movie?.backdrop_path ? movie?.backdrop_path : "",
         id: movie?.id,
+      },
+    });
+  };
+
+  const onTVDetail = (id: number) => {
+    navigate(`/tvs/${id}`, {
+      state: {
+        backdrop_path: tv?.backdrop_path ? tv?.backdrop_path : "",
+        id: tv?.id,
       },
     });
   };
@@ -150,6 +162,41 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
             <Title>{movie?.title}</Title>
             <OpeningDate>{movie?.release_date}</OpeningDate>
             <Rate>{`⭐️ ${movie?.vote_average}`}</Rate>
+          </InfoBox>
+        </>
+      )}
+
+      {tv && (
+        <>
+          {tv?.poster_path ? (
+            <PosterBox
+              onMouseOver={mouseHover}
+              onMouseLeave={() => setShowingLayer(false)}
+              onClick={() => onTVDetail(tv?.id)}
+            >
+              {showingLayer && (
+                <LayerBox>
+                  <PosterLayer />
+                  <DetailButton onClick={() => onTVDetail(tv?.id)}>
+                    상세보기
+                  </DetailButton>
+                </LayerBox>
+              )}
+              <Poster
+                poster={ImageUrl(
+                  tv?.poster_path ? tv?.poster_path : "이미지가 없습니다."
+                )}
+              />
+            </PosterBox>
+          ) : (
+            <NoImageContainer>
+              <NoImageWithVideo text={errorText} />
+            </NoImageContainer>
+          )}
+          <InfoBox>
+            <Title>{tv?.name}</Title>
+            <OpeningDate>{tv?.first_air_date}</OpeningDate>
+            <Rate>{`⭐️ ${tv?.vote_average}`}</Rate>
           </InfoBox>
         </>
       )}

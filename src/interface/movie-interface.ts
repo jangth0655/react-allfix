@@ -1,58 +1,25 @@
-type Genres = {
-  id: number;
-  name: string;
-};
+import { Genre } from "./shared-interface";
 
 type Keyword = {
   id: number;
   name: string;
 };
 
-type Video = {
-  id: string;
-  key: string;
-  name: string;
-};
-
-type Cast = {
+export type Cast = {
   character: string;
   original_name: string;
   name: string;
   profile_path: string;
 };
 
-type ReviewAuthor = {
-  avatar_path: string;
-  name: string;
-  rating: number;
-};
-
-type ReviewResult = {
-  author: string;
-  author_details: ReviewAuthor;
-  created_at: Date;
-  content: string;
-};
-
-export interface GetReview {
-  id: number;
-  page: number;
-  results: ReviewResult[];
-}
-
-export interface GetKeyword {
+export interface GetMovieKeyword {
   id: number;
   keywords: Keyword[];
 }
 
-export interface GetCast {
+export interface GetMovieCast {
   id: number;
   cast: Cast[];
-}
-
-export interface GetVideos {
-  id: number;
-  results: Video[];
 }
 
 export interface GetMovies {
@@ -68,7 +35,7 @@ export interface Movie {
   id: number;
   title: string;
   overview: string;
-  release_date: number;
+  release_date: string;
   vote_average: number;
 }
 
@@ -79,9 +46,7 @@ export interface IMovieDetail {
   overview: string;
   title: string;
   video: boolean;
-  release_date: number;
+  release_date: string;
   vote_average: number;
-  genres: Genres[];
+  genres: Genre[];
 }
-
-export interface TV {}

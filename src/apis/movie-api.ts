@@ -8,7 +8,7 @@ type Arg = {
   page?: number;
 };
 
-export const fetchPopularMovie = async (page?: number) => {
+export const fetchPopularMovie = async ({ page }: Arg) => {
   const response = await (
     await axios(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ko&page=${page}`
@@ -53,7 +53,7 @@ export const fetchMovieDetail = async (id?: number) => {
   return response;
 };
 
-export const fetchRecommendation = async (id?: number) => {
+export const fetchMovieRecommendation = async (id?: number) => {
   const response = await (
     await axios(
       `${BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=ko`
@@ -62,7 +62,7 @@ export const fetchRecommendation = async (id?: number) => {
   return response;
 };
 
-export const fetchCasts = async (id?: number) => {
+export const fetchMovieCasts = async (id?: number) => {
   const response = await (
     await axios(
       `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=ko`
@@ -71,14 +71,14 @@ export const fetchCasts = async (id?: number) => {
   return response;
 };
 
-export const fetchVideos = async (id?: number) => {
+export const fetchMovieVideos = async (id?: number) => {
   const response = await (
     await axios(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=ko`)
   ).data;
   return response;
 };
 
-export const fetchReviews = async ({ id, page }: Arg) => {
+export const fetchMovieReviews = async ({ id, page }: Arg) => {
   try {
     const response = await (
       await axios(
