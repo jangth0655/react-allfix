@@ -63,6 +63,7 @@
 
 <br></br>
 <img height="500" src="./preview/movie.gif" />
+<br></br>
 
 > TV
 
@@ -74,6 +75,7 @@
 <br></br>
 
 > TV 상세정보
+> <br></br>
 
 - TV제목과, 평점, 날짜 , 장르, 설명, 키워드, 포스터 등 TV 정보를 확인 할 수 있습니다.
 - `react-query`를 이용하여 서버에서 영화 데이터를 가져왔습니다.
@@ -82,6 +84,7 @@
 
 <br></br>
 <img height="500" src="./preview/tv.gif" />
+<br></br>
 
 > TV 프로그램, 영화 검색
 
@@ -91,6 +94,7 @@
 <br></br>
 <img height="500" src="./preview/search.gif" />
 
+<br></br>
 <br></br>
 
 ---
@@ -121,6 +125,8 @@
 
 ---
 
+<br></br>
+
 ## Features
 
 ### 🎬
@@ -142,6 +148,8 @@
 - 추천 TV 프로그램 보기
 
 ---
+
+<br></br>
 
 ## Code
 

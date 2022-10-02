@@ -19,13 +19,20 @@ const TitleContainer = styled.div`
   align-items: center;
   padding: ${(props) => props.theme.mp.lg};
   font-weight: 700;
-  font-size: ${(props) => props.theme.textSize.xxl};
 `;
 const Title = styled.h1`
   margin-bottom: ${(props) => props.theme.mp.md};
   font-size: ${(props) => props.theme.textSize.xxxl};
+  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
+    font-size: ${(props) => props.theme.textSize.xxl};
+  }
 `;
-const SubTitle = styled.h2``;
+const SubTitle = styled.h2`
+  font-size: ${(props) => props.theme.textSize.xxl};
+  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
+    font-size: ${(props) => props.theme.textSize.lg};
+  }
+`;
 
 const Form = styled.form`
   width: 80%;
