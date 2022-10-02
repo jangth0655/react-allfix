@@ -54,12 +54,22 @@ const RecommendationComp: React.FC<RecommendationCompProps> = ({
   const navigate = useNavigate();
   const onDetailPage = (id?: number, backdrop_path?: string) => {
     if (!id || !backdrop_path) return;
-    navigate(`/movies/${id}`, {
-      state: {
-        backdrop_path,
-        id,
-      },
-    });
+    if (title) {
+      navigate(`/movies/${id}`, {
+        state: {
+          backdrop_path,
+          id,
+        },
+      });
+    }
+    if (name) {
+      navigate(`/tvs/${id}`, {
+        state: {
+          backdrop_path,
+          id,
+        },
+      });
+    }
   };
 
   return (
