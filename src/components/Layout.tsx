@@ -187,6 +187,8 @@ const ScrollUpButton = styled(motion.div)`
   }
 `;
 
+const TopDiv = styled.div``;
+
 const ScrollVar: Variants = {
   top: {
     opacity: 0,
@@ -214,7 +216,6 @@ const Layout: React.FC<LayoutProps> = ({
   children,
   isMainPaddingTop,
   showHeader,
-  isMainMaxWidth,
 }) => {
   const [showingNav, setShowingNav] = useState(false);
   const { windowSize } = useWindowSize();
@@ -274,6 +275,7 @@ const Layout: React.FC<LayoutProps> = ({
 
   return (
     <Section>
+      <TopDiv ref={layoutRef} />
       {showHeader ? (
         <Header onClick={() => setShowingNav(false)}>
           <HeaderLayer />
