@@ -2,8 +2,8 @@
 
 <div>
     <div>
-    <a display="block" href="https://re-movie.netlify.app/" >
-      https://re-movie.netlify.app/
+    <a display="block" href="https://taehee-allflix.netlify.app" >
+      https://taehee-allflix.netlify.app
     </a>
     </div>
     <br />
@@ -52,7 +52,6 @@
 - 총 5페이지로 구분하여 데이터를 페이지별로 확인할 수 있습니다.
 
 <br></br>
-<img height="500" src="./preview/mian-preview.gif" />
 
 > 영화 상세정보
 
@@ -63,7 +62,7 @@
 - 추천영화들을 확인해 볼 수 있습니다.
 
 <br></br>
-<img height="500" src="./preview/movieDetail-preview.gif" />
+<img height="500" src="./preview/movie.gif" />
 
 > TV
 
@@ -82,7 +81,7 @@
 - 추천TV들을 확인해 볼 수 있습니다.
 
 <br></br>
-<img height="500" src="./preview/tv-preview.gif" />
+<img height="500" src="./preview/tv.gif" />
 
 > TV 프로그램, 영화 검색
 
@@ -90,7 +89,7 @@
 - 영화 또는 TV프로그램의 제목을 입력하여 검색시, 해당 제목이 포함된 전체 영화와 TV프로그램을 찾을 수 있습니다.
 
 <br></br>
-<img height="500" src="./preview/search-preview.gif" />
+<img height="500" src="./preview/search.gif" />
 
 <br></br>
 
@@ -146,6 +145,6 @@
 
 ## Code
 
-<a href="https://github.com/jangth0655/ReMovie-client">🔥 GitHub</a>
+<a href="https://github.com/jangth0655/react-allfix">🔥 GitHub</a>
 
 <br /><br />
