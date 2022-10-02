@@ -12,6 +12,7 @@ import {
 } from "../../components/sharedStyled";
 import Loading from "../../components/Loading";
 import PageNumber from "../../components/PageNumber";
+import { Helmet } from "react-helmet-async";
 
 const categoryTapTextArray: CategoryTapType[] = [
   {
@@ -57,6 +58,9 @@ const TVs: React.FC = () => {
 
   return (
     <Layout isMainPaddingTop={true}>
+      <Helmet>
+        <title>{`${tapName.title}-AllFlix`}</title>
+      </Helmet>
       <MainTitleContainer
         tapArray={categoryTapTextArray}
         handleTap={handleTap}

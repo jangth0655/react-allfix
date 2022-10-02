@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
+import { Helmet } from "react-helmet-async";
 
 const Container = styled.div`
   max-width: ${(props) => props.theme.responsive.xl};
@@ -136,6 +137,9 @@ const Search = () => {
 
   return (
     <Layout isMainPaddingTop={true} isMainMaxWidth={true}>
+      <Helmet>
+        <title>{`Search | AllFlix`}</title>
+      </Helmet>
       <Container>
         <TitleContainer>
           <Title>수 많은 영화, TV 프로그램이 있습니다.</Title>

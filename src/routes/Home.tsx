@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import SectionTem from "../components/home/SectionTem";
@@ -17,6 +18,9 @@ const BorderBox = styled.div`
 const Home = () => {
   return (
     <Layout showHeader={true} isMainMaxWidth={false}>
+      <Helmet>
+        <title>{`Main | AllFLix`}</title>
+      </Helmet>
       <Main>
         <BorderBox>
           <SectionTem

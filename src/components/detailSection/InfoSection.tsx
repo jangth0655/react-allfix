@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { fetchMovieDetail, fetchMovieKeywords } from "../../apis/movie-api";
 import { fetchTVDetail, fetchTVKeywords } from "../../apis/tv-api";
 import { IMovieDetail, GetMovieKeyword } from "../../interface/movie-interface";
@@ -37,6 +38,12 @@ const InfoSection: React.FC<InfoSectionProps> = ({ movieId, tvId }) => {
 
   return (
     <>
+      <Helmet>
+        {movieDetailData && movieId && (
+          <title>{`${movieDetailData.title} | Movie`}</title>
+        )}
+        {tvDetailData && tvId && <title>{`${tvDetailData.name} | TV`}</title>}
+      </Helmet>
       {movieId
         ? movieDetailData && (
             <InfoComp

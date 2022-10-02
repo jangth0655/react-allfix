@@ -1,5 +1,4 @@
 import React, { Suspense, useState } from "react";
-import styled from "styled-components";
 import Layout from "../../components/Layout";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../../components/Loading";
@@ -12,6 +11,7 @@ import {
   containerVar,
   MoreButtonContainer,
 } from "../../components/sharedStyled";
+import { Helmet } from "react-helmet-async";
 
 const categoryTapTextArray: CategoryTapType[] = [
   {
@@ -64,6 +64,9 @@ const Movies = () => {
 
   return (
     <Layout isMainPaddingTop={true}>
+      <Helmet>
+        <title>{`${tapName.title}-AllFlix`}</title>
+      </Helmet>
       <MainTitleContainer
         tapArray={categoryTapTextArray}
         handleTap={handleTap}
