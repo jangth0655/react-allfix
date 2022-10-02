@@ -187,11 +187,6 @@ const ScrollUpButton = styled(motion.div)`
   }
 `;
 
-const OnTopDiv = styled.div`
-  position: absolute;
-  top: 0;
-`;
-
 const ScrollVar: Variants = {
   top: {
     opacity: 0,
@@ -274,14 +269,11 @@ const Layout: React.FC<LayoutProps> = ({
   };
 
   useEffect(() => {
-    if (layoutRef) {
-      layoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   return (
     <Section>
-      <OnTopDiv ref={layoutRef} />
       {showHeader ? (
         <Header onClick={() => setShowingNav(false)}>
           <HeaderLayer />

@@ -49,10 +49,15 @@ const PageNumber: React.FC<PageNumberProps> = ({
   page,
   setPage,
 }) => {
+  const handlePage = (number: number) => {
+    setPage(number);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <MoreItemsButton>
       {pageNumbers.map((number) => (
-        <MoreNumber onClick={() => setPage(number)} key={number}>
+        <MoreNumber onClick={() => handlePage(number)} key={number}>
           {number}
           {number === page && <MoreNumberMark />}
         </MoreNumber>

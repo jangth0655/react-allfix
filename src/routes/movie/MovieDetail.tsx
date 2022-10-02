@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
@@ -73,10 +73,6 @@ interface LocationState {
 
 const MovieDetail = () => {
   const { backdrop_path, id: movieId } = useLocation().state as LocationState;
-  const startRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    startRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
-  }, []);
 
   const InfoSectionComponent = React.lazy(
     () => import("../../components/detailSection/InfoSection")
@@ -110,7 +106,7 @@ const MovieDetail = () => {
         />
       )}
       <BackgroundLayer />
-      <Container ref={startRef}>
+      <Container>
         <InfoContainer>
           <Suspense fallback={<Loading />}>
             <InfoSectionComponent movieId={movieId} />
