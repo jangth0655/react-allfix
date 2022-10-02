@@ -43,6 +43,10 @@ const CategoryTap = styled.li`
     background-color: ${(props) => props.theme.color.red.xl};
     color: ${(props) => props.theme.color.textColor.md};
   }
+  &:focus-within {
+    background-color: ${(props) => props.theme.color.red.xl};
+    color: ${(props) => props.theme.color.textColor.md};
+  }
   @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
     font-size: ${(props) => props.theme.textSize.sm};
     margin-right: ${(props) => props.theme.mp.sm};
