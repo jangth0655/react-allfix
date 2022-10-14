@@ -305,21 +305,26 @@ const Layout: React.FC<LayoutProps> = ({
             </LogoTitle>
           </LogoBox>
         </Link>
+
         {windowSize > 640 ? (
-          <NavUl>
-            {navbarLiArray.map((item) => (
-              <NavLi onClick={() => onPage(item.name)} key={item.key}>
-                {item.name}
-                {pathname === item.pathname && <NavbarMark />}
-              </NavLi>
-            ))}
-          </NavUl>
+          <>
+            <NavUl>
+              {navbarLiArray.map((item) => (
+                <NavLi onClick={() => onPage(item.name)} key={item.key}>
+                  {item.name}
+                  {pathname === item.pathname && <NavbarMark />}
+                </NavLi>
+              ))}
+            </NavUl>
+          </>
         ) : null}
 
         {windowSize < 640 ? (
-          <NavShowingIconBox onClick={onShowingNav}>
-            <MdKeyboardArrowDown size={40} />
-          </NavShowingIconBox>
+          <>
+            <NavShowingIconBox onClick={onShowingNav}>
+              <MdKeyboardArrowDown size={40} />
+            </NavShowingIconBox>
+          </>
         ) : null}
 
         <AnimatePresence>{showingNav ? <NavbarBoard /> : null}</AnimatePresence>

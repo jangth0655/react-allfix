@@ -2,9 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "styled-components";
+
 import App from "./App";
-import { darkTheme } from "./theme";
 
 const queryClient = new QueryClient();
 
@@ -14,11 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={darkTheme}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
-      </ThemeProvider>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
