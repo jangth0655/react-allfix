@@ -1,9 +1,9 @@
-import React, { Suspense, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import Layout from "../../components/Layout";
-import Loading from "../../components/Loading";
-import ImageUrl from "../../libs/imageUrl";
+import React, { Suspense, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import Layout from '../../components/Layout/Layout';
+import Loading from '../../components/Loading';
+import ImageUrl from '../../libs/imageUrl';
 
 const Background = styled.div<{ backgroundImage?: string }>`
   position: fixed;
@@ -75,34 +75,34 @@ const MovieDetail = () => {
   const { backdrop_path, id: movieId } = useLocation().state as LocationState;
 
   const InfoSectionComponent = React.lazy(
-    () => import("../../components/detailSection/InfoSection")
+    () => import('../../components/detailSection/InfoSection')
   );
 
   const VideoSectionComponent = React.lazy(
-    () => import("../../components/detailSection/VideoSection")
+    () => import('../../components/detailSection/VideoSection')
   );
 
   const CastSectionComponent = React.lazy(
-    () => import("../../components/detailSection/CastSection")
+    () => import('../../components/detailSection/CastSection')
   );
 
   const ReviewSectionComponent = React.lazy(
-    () => import("../../components/detailSection/ReviewSection")
+    () => import('../../components/detailSection/ReviewSection')
   );
 
   const RecommendationComponent = React.lazy(
-    () => import("../../components/detailSection/RecommendationSection")
+    () => import('../../components/detailSection/RecommendationSection')
   );
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
 
   return (
     <Layout isMainPaddingTop={false} isMainMaxWidth={false}>
       {backdrop_path && (
         <Background
-          backgroundImage={ImageUrl(backdrop_path ? backdrop_path : "")}
+          backgroundImage={ImageUrl(backdrop_path ? backdrop_path : '')}
         />
       )}
       <BackgroundLayer />

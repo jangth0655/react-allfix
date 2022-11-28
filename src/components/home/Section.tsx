@@ -1,11 +1,56 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import HomeVideo from './Video';
+
+interface Props {
+  title: string;
+  subTitle: string;
+  url: string;
+  videoUrl?: string;
+  secondVideo?: boolean;
+  firstVideo?: boolean;
+}
+
+const SectionContainer: React.FC<Props> = ({
+  title,
+  subTitle,
+  url,
+  videoUrl,
+  firstVideo,
+  secondVideo,
+}) => {
+  return (
+    <Section>
+      <TitleBox>
+        <Title>{title}</Title>
+        <SubTitle>{subTitle}</SubTitle>
+      </TitleBox>
+      <ImageBox>
+        <Image src={url} />
+        {firstVideo && (
+          <FirstVideoBox>
+            <HomeVideo url={videoUrl} />
+          </FirstVideoBox>
+        )}
+
+        {secondVideo && (
+          <SecondVideoBox>
+            <HomeVideo url={videoUrl} />
+          </SecondVideoBox>
+        )}
+      </ImageBox>
+    </Section>
+  );
+};
+export default SectionContainer;
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-bottom: ${(props) => props.theme.mp.xs} solid
+    ${(props) => props.theme.color.textColor.sm};
   padding: ${(props) => props.theme.mp.xxxxl} 0;
   @media screen and (min-width: ${(props) => props.theme.responsive.lg}) {
     flex-direction: row;
@@ -66,7 +111,7 @@ const Image = styled.img`
   max-width: 100%;
 `;
 
-const VideoBox = styled.div`
+const FirstVideoBox = styled.div`
   position: absolute;
   top: 46%;
   left: 50%;
@@ -89,50 +134,3 @@ const SecondVideoBox = styled.div`
   width: 100%;
   z-index: -1;
 `;
-
-const Video = styled.video`
-  width: 100%;
-  object-fit: cover;
-`;
-
-interface SectionTemProps {
-  title: string;
-  subTitle: string;
-  url: string;
-  videoUrl?: string;
-  secondVideo?: boolean;
-}
-
-const SectionTem: React.FC<SectionTemProps> = ({
-  title,
-  subTitle,
-  url,
-  videoUrl,
-  secondVideo,
-}) => {
-  return (
-    <Section>
-      <TitleBox>
-        <Title>{title}</Title>
-        <SubTitle>{subTitle}</SubTitle>
-      </TitleBox>
-      <ImageBox>
-        <Image src={url}></Image>
-        {secondVideo ? (
-          <SecondVideoBox>
-            <Video loop={true} autoPlay muted={true}>
-              <source src={videoUrl} type="video/mp4" />
-            </Video>
-          </SecondVideoBox>
-        ) : (
-          <VideoBox>
-            <Video loop={true} autoPlay muted={true}>
-              <source src={videoUrl} type="video/mp4" />
-            </Video>
-          </VideoBox>
-        )}
-      </ImageBox>
-    </Section>
-  );
-};
-export default SectionTem;

@@ -1,11 +1,11 @@
-import React, { Suspense, useState } from "react";
-import styled from "styled-components";
-import Layout from "../components/Layout";
+import React, { Suspense, useState } from 'react';
+import styled from 'styled-components';
+import Layout from '../components/Layout/Layout';
 
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import Loading from "../components/Loading";
-import { Helmet } from "react-helmet-async";
+import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import Loading from '../components/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const Container = styled.div`
   max-width: ${(props) => props.theme.responsive.xl};
@@ -119,12 +119,12 @@ interface SearchForm {
   keyword: string;
 }
 
-const tapNameArray = ["영화", "TV"];
+const tapNameArray = ['영화', 'TV'];
 
 const Search = () => {
-  const [tapName, setTapName] = useState("영화");
+  const [tapName, setTapName] = useState('영화');
 
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const handleTapName = (tap: string) => {
     setTapName(tap);
   };
@@ -136,10 +136,10 @@ const Search = () => {
   };
 
   const MovieSearchComponent = React.lazy(
-    () => import("../components/search/MovieSearch")
+    () => import('../components/search/MovieSearch')
   );
   const TVSearchComponent = React.lazy(
-    () => import("../components/search/TVSearch")
+    () => import('../components/search/TVSearch')
   );
 
   return (
@@ -154,8 +154,8 @@ const Search = () => {
         </TitleContainer>
         <Form onSubmit={handleSubmit(onValid)}>
           <Input
-            {...register("keyword", { required: true })}
-            placeholder="영화 또는 TV프로그램을 검색해보세요."
+            {...register('keyword', { required: true })}
+            placeholder='영화 또는 TV프로그램을 검색해보세요.'
           />
           <Button>검색</Button>
         </Form>
@@ -163,17 +163,17 @@ const Search = () => {
       <TapCategoryContainer>
         {tapNameArray.map((tap) => (
           <TapName onClick={() => handleTapName(tap)} key={tap}>
-            {tap} {tap === tapName && <TapMark layoutId="searchTap" />}
+            {tap} {tap === tapName && <TapMark layoutId='searchTap' />}
           </TapName>
         ))}
       </TapCategoryContainer>
       <SearchItemContainer>
-        {tapName === "영화" && keyword && (
+        {tapName === '영화' && keyword && (
           <Suspense fallback={<Loading />}>
             <MovieSearchComponent keyword={keyword} />
           </Suspense>
         )}
-        {tapName === "TV" && keyword && (
+        {tapName === 'TV' && keyword && (
           <Suspense fallback={<Loading />}>
             <TVSearchComponent keyword={keyword} />
           </Suspense>

@@ -1,7 +1,7 @@
-import { motion, Variants } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { navbarLiArray } from "./Layout";
+import { motion, Variants } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { navbarLiArray } from './Layout/Layout';
 
 const SliderNav = styled(motion.div)`
   position: absolute;
@@ -53,7 +53,7 @@ const sliderVar: Variants = {
   animate: {
     scaleY: 1,
     transition: {
-      type: "linear",
+      type: 'linear',
     },
   },
   exit: {
@@ -65,25 +65,25 @@ const NavbarBoard = () => {
   const navigate = useNavigate();
   const onPage = (pageName: string) => {
     switch (pageName) {
-      case "홈":
-        navigate("/");
+      case '홈':
+        navigate('/');
         break;
-      case "영화":
-        navigate("/movies");
+      case '영화':
+        navigate('/movies');
         break;
-      case "TV":
-        navigate("/tvs");
+      case 'TV':
+        navigate('/tvs');
         break;
-      case "검색":
-        navigate("/search");
+      case '검색':
+        navigate('/search');
     }
   };
   return (
     <SliderNav
       variants={sliderVar}
-      initial="initial"
-      animate="animate"
-      exit="exit"
+      initial='initial'
+      animate='animate'
+      exit='exit'
     >
       <SliderUl>
         {navbarLiArray.map((item) => (

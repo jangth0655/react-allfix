@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { motion, Variants } from "framer-motion";
+import styled from 'styled-components';
+import { motion, Variants } from 'framer-motion';
 
 export const TotalContainer = styled.div`
   height: auto;
@@ -31,7 +31,7 @@ export const containerVar: Variants = {
     opacity: 1,
 
     transition: {
-      ease: "linear",
+      ease: 'linear',
     },
   },
   exit: {

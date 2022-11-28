@@ -1,32 +1,32 @@
-import React, { Suspense, useState } from "react";
-import Layout from "../../components/Layout";
-import { AnimatePresence } from "framer-motion";
-import Loading from "../../components/Loading";
+import React, { Suspense, useState } from 'react';
+import Layout from '../../components/Layout/Layout';
+import { AnimatePresence } from 'framer-motion';
+import Loading from '../../components/Loading';
 import MainTitleContainer, {
   CategoryTapType,
-} from "../../components/MainTitleContainer";
+} from '../../components/MainTitleContainer';
 import {
   ComponentContainer,
   containerVar,
-} from "../../components/sharedStyled";
-import { Helmet } from "react-helmet-async";
+} from '../../components/sharedStyled';
+import { Helmet } from 'react-helmet-async';
 
 const categoryTapTextArray: CategoryTapType[] = [
   {
-    title: "인기 영화",
-    subtitle: "현재 인기 있는 영화 목록",
+    title: '인기 영화',
+    subtitle: '현재 인기 있는 영화 목록',
   },
   {
-    title: "현재 상영중",
-    subtitle: "현재 상영중인 영화 목록",
+    title: '현재 상영중',
+    subtitle: '현재 상영중인 영화 목록',
   },
   {
-    title: "개봉 예정",
-    subtitle: "개뵹 예정 영화 목록",
+    title: '개봉 예정',
+    subtitle: '개뵹 예정 영화 목록',
   },
   {
-    title: "평점높은 영화",
-    subtitle: "평점 높은 영화 목록",
+    title: '평점높은 영화',
+    subtitle: '평점 높은 영화 목록',
   },
 ];
 
@@ -34,24 +34,24 @@ export const pageNumbers = [1, 2, 3, 4, 5];
 
 const Movies = () => {
   const [tapName, setTapName] = useState<CategoryTapType>({
-    title: "인기 영화",
-    subtitle: "현재 인기 있는 영화 목록",
+    title: '인기 영화',
+    subtitle: '현재 인기 있는 영화 목록',
   });
 
   const PopularMovies = React.lazy(
-    () => import("../../components/movieList/PopularMovies")
+    () => import('../../components/movieList/PopularMovies')
   );
 
   const NowPlayingMovies = React.lazy(
-    () => import("../../components/movieList/NowPlayingMovies")
+    () => import('../../components/movieList/NowPlayingMovies')
   );
 
   const UpcomingMovies = React.lazy(
-    () => import("../../components/movieList/UpcomingMovies")
+    () => import('../../components/movieList/UpcomingMovies')
   );
 
   const TopRatedMovies = React.lazy(
-    () => import("../../components/movieList/TopRatedMovies")
+    () => import('../../components/movieList/TopRatedMovies')
   );
 
   const handleTap = (title?: string, subtitle?: string) => {
@@ -71,13 +71,13 @@ const Movies = () => {
         tapSubTitle={tapName.subtitle}
       />
       <AnimatePresence>
-        {tapName.title === "인기 영화" ? (
+        {tapName.title === '인기 영화' ? (
           <Suspense fallback={<Loading />}>
             <ComponentContainer
               variants={containerVar}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial='initial'
+              animate='animate'
+              exit='exit'
             >
               <PopularMovies />
             </ComponentContainer>
@@ -86,13 +86,13 @@ const Movies = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {tapName.title === "현재 상영중" ? (
+        {tapName.title === '현재 상영중' ? (
           <Suspense fallback={<Loading />}>
             <ComponentContainer
               variants={containerVar}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial='initial'
+              animate='animate'
+              exit='exit'
             >
               <NowPlayingMovies />
             </ComponentContainer>
@@ -101,13 +101,13 @@ const Movies = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {tapName.title === "개봉 예정" ? (
+        {tapName.title === '개봉 예정' ? (
           <Suspense fallback={<Loading />}>
             <ComponentContainer
               variants={containerVar}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial='initial'
+              animate='animate'
+              exit='exit'
             >
               <UpcomingMovies />
             </ComponentContainer>
@@ -116,13 +116,13 @@ const Movies = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {tapName.title === "평점높은 영화" ? (
+        {tapName.title === '평점높은 영화' ? (
           <Suspense fallback={<Loading />}>
             <ComponentContainer
               variants={containerVar}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial='initial'
+              animate='animate'
+              exit='exit'
             >
               <TopRatedMovies />
             </ComponentContainer>

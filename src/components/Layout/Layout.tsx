@@ -1,20 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import logo from "../assets/logo.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+// import 정리하기
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import logo from '../../assets/logo.png';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   AnimatePresence,
   useAnimation,
   useScroll,
   Variants,
   motion,
-} from "framer-motion";
+} from 'framer-motion';
 
-import { MdKeyboardArrowDown } from "react-icons/md";
-import useWindowSize from "../libs/WindowSize";
-import NavbarBoard from "./NavbarBoard";
-import { FaArrowUp } from "react-icons/fa";
+import { MdKeyboardArrowDown } from 'react-icons/md';
+import useWindowSize from '../../libs/WindowSize';
+import NavbarBoard from '../NavbarBoard';
+import { FaArrowUp } from 'react-icons/fa';
 
+// styled-components 정리하기 - 파일 분리
 const Section = styled.section``;
 const Navbar = styled.nav`
   z-index: 100;
@@ -91,77 +93,8 @@ const NavbarMark = styled.div`
 `;
 
 const Main = styled.main<{ padding?: boolean }>`
-  padding: ${(props) => (props.padding ? "10rem 1.2rem 3rem 1.2rem" : "0")};
+  padding: ${(props) => (props.padding ? '10rem 1.2rem 3rem 1.2rem' : '0')};
   margin: auto;
-`;
-
-const Header = styled.header`
-  position: relative;
-  left: 0;
-  right: 0;
-  top: 0;
-`;
-
-const HeaderImageBox = styled.div`
-  width: 100%;
-  height: 70vh;
-`;
-const HeaderImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-`;
-
-const HeaderLayer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
-`;
-
-const HeaderTitleBox = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-`;
-
-const HeaderTitle = styled.span`
-  font-weight: 700;
-  margin-bottom: ${(props) => props.theme.mp.md};
-  font-size: ${(props) => props.theme.textSize.xxxxl};
-  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
-    font-size: ${(props) => props.theme.textSize.xxxl};
-  }
-`;
-
-const HeaderSubtitle = styled.span`
-  font-weight: 500;
-  font-size: ${(props) => props.theme.textSize.lg};
-  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
-    font-size: ${(props) => props.theme.textSize.md};
-  }
-`;
-
-const HeaderStartButton = styled.button`
-  padding: ${(props) => props.theme.mp.md} ${(props) => props.theme.mp.xl};
-  background-color: ${(props) => props.theme.color.red.lg};
-  border-radius: ${(props) => props.theme.borderRadius.lg};
-  margin-top: ${(props) => props.theme.mp.lg};
-  color: white;
-  font-weight: 600;
-  font-size: ${(props) => props.theme.textSize.lg};
-  cursor: pointer;
-  transition: ${(props) => props.theme.transition.md};
-  &:hover {
-    background-color: ${(props) => props.theme.color.red.xl};
-  }
 `;
 
 const ScrollUpButton = styled(motion.div)`
@@ -197,22 +130,18 @@ const ScrollVar: Variants = {
 interface LayoutProps {
   children: React.ReactNode;
   isMainPaddingTop?: boolean;
-  showHeader?: boolean;
   isMainMaxWidth?: boolean;
 }
 
+// class로 분리하기, 변수이름 = navbarText
 export const navbarLiArray = [
-  { key: "home", name: "홈", pathname: "/" },
-  { key: "movie", name: "영화", pathname: "/movies" },
-  { key: "tv", name: "TV", pathname: "/tvs" },
-  { key: "search", name: "검색", pathname: "/search" },
+  { key: 'home', name: '홈', pathname: '/' },
+  { key: 'movie', name: '영화', pathname: '/movies' },
+  { key: 'tv', name: 'TV', pathname: '/tvs' },
+  { key: 'search', name: '검색', pathname: '/search' },
 ];
 
-const Layout: React.FC<LayoutProps> = ({
-  children,
-  isMainPaddingTop,
-  showHeader,
-}) => {
+const Layout: React.FC<LayoutProps> = ({ children, isMainPaddingTop }) => {
   const [showingNav, setShowingNav] = useState(false);
   const { windowSize } = useWindowSize();
   const { pathname } = useLocation();
@@ -221,38 +150,36 @@ const Layout: React.FC<LayoutProps> = ({
   const { scrollY } = useScroll();
   const scrollAnimation = useAnimation();
 
+  // useEffect 마지막으로 모으기 (관련있는 데이터)
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() < window.innerHeight / 2) {
-        scrollAnimation.start("top");
+        scrollAnimation.start('top');
       } else {
-        scrollAnimation.start("scroll");
+        scrollAnimation.start('scroll');
       }
     });
   }, [scrollAnimation, scrollY]);
 
+  // NavbarBoard에서 중복사용되므로 함수 생성
   const onPage = (pageName: string) => {
     switch (pageName) {
-      case "홈":
-        navigate("/");
+      case '홈':
+        navigate('/');
         break;
-      case "영화":
-        navigate("/movies");
+      case '영화':
+        navigate('/movies');
         break;
-      case "TV":
-        navigate("/tvs");
+      case 'TV':
+        navigate('/tvs');
         break;
-      case "검색":
-        navigate("/search");
+      case '검색':
+        navigate('/search');
     }
   };
 
   const onShowingNav = () => {
     setShowingNav((prev) => !prev);
-  };
-
-  const onMoviePage = () => {
-    navigate("/movies");
   };
 
   useEffect(() => {
@@ -262,42 +189,22 @@ const Layout: React.FC<LayoutProps> = ({
   }, [windowSize]);
 
   const scrollOnTop = () => {
-    layoutRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    layoutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
 
   return (
     <Section>
       <TopDiv ref={layoutRef} />
-      {showHeader ? (
-        <Header onClick={() => setShowingNav(false)}>
-          <HeaderLayer />
-          <HeaderTitleBox>
-            <HeaderTitle>영화와 시리즈를 무제한으로</HeaderTitle>
-            <HeaderSubtitle>
-              다양한 디바이스에서 시청하세요 언제든지 해지하실 수 있습니다.
-            </HeaderSubtitle>
-            <HeaderStartButton onClick={onMoviePage}>
-              시작하기
-            </HeaderStartButton>
-          </HeaderTitleBox>
-          <HeaderImageBox>
-            <HeaderImage
-              src={
-                "https://assets.nflxext.com/ffe/siteui/vlv3/b321426e-35ae-4661-b899-d63bca17648a/8ad9e9f9-b386-4068-a360-d270e14f7d34/KR-ko-20220926-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-              }
-            />
-          </HeaderImageBox>
-        </Header>
-      ) : null}
+      {/* Navbar 컴포넌트 분리하기 */}
       <Navbar>
-        <Link to={"/"}>
+        <Link to={'/'}>
           <LogoBox>
             <LogoImageBox>
-              <LogoImage src={logo} alt="" />
+              <LogoImage src={logo} alt='' />
             </LogoImageBox>
             <LogoTitle>
               <span>All</span>
@@ -329,11 +236,12 @@ const Layout: React.FC<LayoutProps> = ({
 
         <AnimatePresence>{showingNav ? <NavbarBoard /> : null}</AnimatePresence>
       </Navbar>
+
       <Main padding={isMainPaddingTop} onClick={() => setShowingNav(false)}>
         {children}
         <ScrollUpButton
           variants={ScrollVar}
-          initial="top"
+          initial='top'
           animate={scrollAnimation}
           onClick={scrollOnTop}
         >
