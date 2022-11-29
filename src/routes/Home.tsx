@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 
 import SectionContainer from '../components/home/Section';
-import Footer from '../components/Footer';
 import Header from '../components/Layout/Header';
 import Layout from '../components/Layout/Layout';
 
@@ -34,7 +33,6 @@ const Home = () => {
           videoUrl={`https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-devices.m4v`}
         />
       </Main>
-      <Footer />
     </Layout>
   );
 };

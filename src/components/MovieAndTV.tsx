@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Movie } from "../interface/movie-interface";
-import { TV } from "../interface/tv-interface";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Movie } from '../interface/movie-interface';
+import { TV } from '../interface/tv-interface';
 
-import ImageUrl from "../libs/imageUrl";
-import NoImageWithVideo from "./NoImageWithVideo";
+import ImageUrl from '../utils/imageUrl';
+import NoImageWithVideo from './NoImageWithVideo';
 
 const Container = styled.div`
   transition: ${(props) => props.theme.transition.md};
@@ -108,7 +108,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   const onMovieDetail = (id: number) => {
     navigate(`/movies/${id}`, {
       state: {
-        backdrop_path: movie?.backdrop_path ? movie?.backdrop_path : "",
+        backdrop_path: movie?.backdrop_path ? movie?.backdrop_path : '',
         id: movie?.id,
       },
     });
@@ -117,7 +117,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   const onTVDetail = (id: number) => {
     navigate(`/tvs/${id}`, {
       state: {
-        backdrop_path: tv?.backdrop_path ? tv?.backdrop_path : "",
+        backdrop_path: tv?.backdrop_path ? tv?.backdrop_path : '',
         id: tv?.id,
       },
     });
@@ -127,7 +127,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
     setShowingLayer(true);
   };
 
-  const errorText = !movie?.poster_path ? ImageUrl(movie?.poster_path) : "";
+  const errorText = !movie?.poster_path ? ImageUrl(movie?.poster_path) : '';
 
   return (
     <Container>
@@ -149,7 +149,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
               )}
               <Poster
                 poster={ImageUrl(
-                  movie?.poster_path ? movie?.poster_path : "이미지가 없습니다."
+                  movie?.poster_path ? movie?.poster_path : '이미지가 없습니다.'
                 )}
               />
             </PosterBox>
@@ -184,7 +184,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
               )}
               <Poster
                 poster={ImageUrl(
-                  tv?.poster_path ? tv?.poster_path : "이미지가 없습니다."
+                  tv?.poster_path ? tv?.poster_path : '이미지가 없습니다.'
                 )}
               />
             </PosterBox>

@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { Video } from "../../interface/shared-interface";
-import { videoUrl } from "../../libs/videoUrl";
-import NoImageWithVideo from "../NoImageWithVideo";
+import React from 'react';
+import styled from 'styled-components';
+import { Video } from '../../interface/shared-interface';
+import { videoUrl } from '../../utils/videoUrl';
+import NoImageWithVideo from '../NoImageWithVideo';
 
 const Container = styled.div`
   padding-bottom: ${(props) => props.theme.mp.lg};
@@ -55,7 +55,7 @@ const VideoComp: React.FC<VideoCompProps> = ({ videoArray }) => {
       {videoArray?.slice(0, 3).map((video) => (
         <VideoContainer key={video.id}>
           <VideoPlayerBox>
-            <VideoPlay src={videoUrl(video.key)} width="100%" height="100%" />
+            <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />
           </VideoPlayerBox>
           <VideoTitle>{video.name}</VideoTitle>
         </VideoContainer>
@@ -63,7 +63,7 @@ const VideoComp: React.FC<VideoCompProps> = ({ videoArray }) => {
     </Container>
   ) : (
     <NoVideoContainer>
-      <NoImageWithVideo text="영상이 없습니다." />
+      <NoImageWithVideo text='영상이 없습니다.' />
     </NoVideoContainer>
   );
 };

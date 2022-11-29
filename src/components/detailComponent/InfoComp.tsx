@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { GetMovieKeyword } from "../../interface/movie-interface";
-import { Genre } from "../../interface/shared-interface";
-import { GetTVKeyword } from "../../interface/tv-interface";
-import ImageUrl from "../../libs/imageUrl";
-import NoImageWithVideo from "../NoImageWithVideo";
+import React from 'react';
+import styled from 'styled-components';
+import { GetMovieKeyword } from '../../interface/movie-interface';
+import { Genre } from '../../interface/shared-interface';
+import { GetTVKeyword } from '../../interface/tv-interface';
+import ImageUrl from '../../utils/imageUrl';
+import NoImageWithVideo from '../NoImageWithVideo';
 
 const PosterBox = styled.div`
   width: 30%;
@@ -155,12 +155,12 @@ const InfoComp: React.FC<InfoCompProps> = ({
   movieKeywords,
   tvKeywords,
 }) => {
-  const errorText = !poster_path ? ImageUrl(poster_path) : "";
+  const errorText = !poster_path ? ImageUrl(poster_path) : '';
   return (
     <>
       {poster_path ? (
         <PosterBox>
-          <Poster poster={ImageUrl(poster_path ? poster_path : "")} />
+          <Poster poster={ImageUrl(poster_path ? poster_path : '')} />
         </PosterBox>
       ) : (
         <NoImageWithVideo text={errorText} />

@@ -56,6 +56,9 @@ const Section = styled.section`
     flex-direction: row;
     padding: ${(props) => props.theme.mp.xxxl};
   }
+  &:last-child {
+    border-bottom: 0;
+  }
 `;
 
 const TitleBox = styled.div`

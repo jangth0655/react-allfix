@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import ImageUrl from "../../libs/imageUrl";
-import NoImageWithVideo from "../NoImageWithVideo";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import ImageUrl from '../../utils/imageUrl';
+import NoImageWithVideo from '../NoImageWithVideo';
 
 const SliderItem = styled.div`
   margin-right: ${(props) => props.theme.mp.md};
@@ -75,10 +75,10 @@ const RecommendationComp: React.FC<RecommendationCompProps> = ({
   return (
     <SliderItem onClick={() => onDetailPage(id, backdrop_path)}>
       {poster_path ? (
-        <ItemImage poster={ImageUrl(poster_path ? poster_path : "")} />
+        <ItemImage poster={ImageUrl(poster_path ? poster_path : '')} />
       ) : (
         <NoImageContainer>
-          <NoImageWithVideo text="이미지가 없습니다." />
+          <NoImageWithVideo text='이미지가 없습니다.' />
         </NoImageContainer>
       )}
       <ItemTitle>{title ? title : name}</ItemTitle>

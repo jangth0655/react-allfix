@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import Loading from '../../components/Loading';
-import ImageUrl from '../../libs/imageUrl';
+import ImageUrl from '../../utils/imageUrl';
 
 const Background = styled.div<{ backgroundImage?: string }>`
   position: fixed;

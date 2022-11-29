@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { Cast } from "../../interface/movie-interface";
-import { Crew } from "../../interface/tv-interface";
-import ImageUrl from "../../libs/imageUrl";
+import React from 'react';
+import styled from 'styled-components';
+import { Cast } from '../../interface/movie-interface';
+import { Crew } from '../../interface/tv-interface';
+import ImageUrl from '../../utils/imageUrl';
 
 const ActorBox = styled.div`
   width: 100%;

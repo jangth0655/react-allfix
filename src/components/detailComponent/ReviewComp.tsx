@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { ReviewResult } from "../../interface/shared-interface";
-import { FaUser } from "react-icons/fa";
-import ImageUrl from "../../libs/imageUrl";
+import styled from 'styled-components';
+import { ReviewResult } from '../../interface/shared-interface';
+import { FaUser } from 'react-icons/fa';
+import ImageUrl from '../../utils/imageUrl';
 
 const ReviewContainer = styled.div`
   display: flex;
@@ -72,14 +72,14 @@ interface ReviewCompProps {
 
 const ReviewComp: React.FC<ReviewCompProps> = ({ reviewResultArray }) => {
   const confirmAvatarPath = (avatar?: string) => {
-    if (avatar?.startsWith("/https") || !avatar) {
+    if (avatar?.startsWith('/https') || !avatar) {
       return false;
     }
     return true;
   };
 
   const dateForm = (date: Date) => {
-    return new Date(date).toLocaleDateString("ko");
+    return new Date(date).toLocaleDateString('ko');
   };
   return (
     <>
