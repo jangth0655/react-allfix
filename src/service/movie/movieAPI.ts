@@ -4,9 +4,9 @@ import { MovieClient } from './movieClient';
 export class MovieAPI {
   constructor(private api: MovieClient) {}
 
-  popular = async <T>(page: number) => {
+  popular = async <T>(page: number, moviePage: string) => {
     try {
-      const result = await this.api.popularMovie<T>({ page });
+      const result = await this.api.popularMovie<T>({ page }, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -16,9 +16,9 @@ export class MovieAPI {
     }
   };
 
-  nowPlay = async <T>(page: number) => {
+  nowPlay = async <T>(page: number, moviePage: string) => {
     try {
-      const result = await this.api.nowPlaying<T>({ page });
+      const result = await this.api.nowPlaying<T>({ page }, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -28,9 +28,9 @@ export class MovieAPI {
     }
   };
 
-  upComing = async <T>(page: number) => {
+  upComing = async <T>(page: number, moviePage: string) => {
     try {
-      const result = await this.api.upComing<T>({ page });
+      const result = await this.api.upComing<T>({ page }, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -40,9 +40,9 @@ export class MovieAPI {
     }
   };
 
-  topRated = async <T>(page: number) => {
+  topRated = async <T>(page: number, moviePage: string) => {
     try {
-      const result = await this.api.topRated<T>({ page });
+      const result = await this.api.topRated<T>({ page }, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -64,9 +64,9 @@ export class MovieAPI {
     }
   };
 
-  recommendation = async <T>(id: number) => {
+  recommendation = async <T>(id: number, moviePage: string) => {
     try {
-      const result = await this.api.recommendation<T>(id);
+      const result = await this.api.recommendation<T>(id, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -76,9 +76,9 @@ export class MovieAPI {
     }
   };
 
-  cast = async <T>(id: number) => {
+  cast = async <T>(id: number, moviePage: string) => {
     try {
-      const result = await this.api.cast<T>(id);
+      const result = await this.api.cast<T>(id, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -88,9 +88,9 @@ export class MovieAPI {
     }
   };
 
-  review = async <T>(id: number) => {
+  review = async <T>(id: number, moviePage: string) => {
     try {
-      const result = await this.api.reviews<T>(id);
+      const result = await this.api.reviews<T>(id, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {
@@ -100,9 +100,9 @@ export class MovieAPI {
     }
   };
 
-  keyword = async <T>(id: number) => {
+  keyword = async <T>(id: number, moviePage: string) => {
     try {
-      const result = await this.api.keyword<T>(id);
+      const result = await this.api.keyword<T>(id, moviePage);
       return result;
     } catch (error) {
       if (error instanceof Error) {

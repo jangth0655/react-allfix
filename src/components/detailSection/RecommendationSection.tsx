@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import styled from "styled-components";
+import { useQuery } from '@tanstack/react-query';
+import styled from 'styled-components';
 
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useRef } from "react";
-import { GetMovies } from "../../interface/movie-interface";
-import { fetchTVRecommendation } from "../../apis/tv-api";
-import { fetchMovieRecommendation } from "../../apis/movie-api";
-import RecommendationComp from "../detailComponent/RecommendationComp";
-import { GetTVs } from "../../interface/tv-interface";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useRef } from 'react';
+import { GetMovies } from '../../model/interface/movie-interface';
+import { fetchTVRecommendation } from '../../apis/tv-api';
+import { fetchMovieRecommendation } from '../../apis/movie-api';
+import RecommendationComp from '../detailComponent/RecommendationComp';
+import { GetTVs } from '../../model/interface/tv-interface';
 
 const SliderContainer = styled.div`
   width: 100%;
@@ -75,20 +75,20 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const { data: movieRecommendationData } = useQuery<GetMovies>(
-    ["movieRecommendation", movieId],
+    ['movieRecommendation', movieId],
     () => fetchMovieRecommendation(movieId),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
   );
 
   const { data: tvRecommendationData } = useQuery<GetTVs>(
-    ["tvRecommendation", tvId],
+    ['tvRecommendation', tvId],
     () => fetchTVRecommendation({ id: tvId }),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
   );
 
   const onHandleRightDirection = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 500, behavior: "smooth" });
+      sliderRef.current.scrollBy({ left: 500, behavior: 'smooth' });
     } else {
       return;
     }
@@ -96,7 +96,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
 
   const onHandleLeftDirection = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -500, behavior: "smooth" });
+      sliderRef.current.scrollBy({ left: -500, behavior: 'smooth' });
     } else {
       return;
     }

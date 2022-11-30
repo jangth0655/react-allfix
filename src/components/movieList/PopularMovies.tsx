@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { fetchPopularMovie } from "../../apis/movie-api";
-import { GetMovies } from "../../interface/movie-interface";
-import { pageNumbers } from "../../routes/movie/Movies";
-import MovieAndTV from "../MovieAndTV";
-import PageNumber from "../PageNumber";
-import { MoreButtonContainer, TotalContainer } from "../sharedStyled";
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { fetchPopularMovie } from '../../apis/movie-api';
+import { GetMovies } from '../../model/interface/movie-interface';
+import { pageNumbers } from '../../routes/movie/Movies';
+import MovieAndTV from '../MovieAndTV';
+import PageNumber from '../PageNumber';
+import { MoreButtonContainer, TotalContainer } from '../sharedStyled';
 
 const PopularMovies: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ const PopularMovies: React.FC = () => {
     refetch,
     isLoading,
   } = useQuery<GetMovies>(
-    ["popularMovies"],
+    ['popularMovies'],
     () => fetchPopularMovie({ page }),
     {
       staleTime: 60 * 60 * 24 * 7,

@@ -1,12 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { fetchUpcomingMovie } from "../../apis/movie-api";
-import { GetMovies } from "../../interface/movie-interface";
-import { pageNumbers } from "../../routes/movie/Movies";
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
+import { fetchUpcomingMovie } from '../../apis/movie-api';
+import { GetMovies } from '../../model/interface/movie-interface';
+import { pageNumbers } from '../../routes/movie/Movies';
 
-import MovieAndTV from "../MovieAndTV";
-import PageNumber from "../PageNumber";
-import { MoreButtonContainer, TotalContainer } from "../sharedStyled";
+import MovieAndTV from '../MovieAndTV';
+import PageNumber from '../PageNumber';
+import { MoreButtonContainer, TotalContainer } from '../sharedStyled';
 
 const UpcomingMovies: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ const UpcomingMovies: React.FC = () => {
     data: upcomingMovies,
     refetch,
     isLoading,
-  } = useQuery<GetMovies>(["upcoming"], () => fetchUpcomingMovie(page), {
+  } = useQuery<GetMovies>(['upcoming'], () => fetchUpcomingMovie(page), {
     staleTime: 60 * 60 * 24 * 7,
     suspense: true,
   });

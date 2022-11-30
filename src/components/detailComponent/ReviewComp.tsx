@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReviewResult } from '../../interface/shared-interface';
+import { ReviewResult } from '../../model/interface/shared-interface';
 import { FaUser } from 'react-icons/fa';
 import ImageUrl from '../../utils/imageUrl';
 

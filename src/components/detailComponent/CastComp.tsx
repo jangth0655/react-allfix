@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Cast } from '../../interface/movie-interface';
-import { Crew } from '../../interface/tv-interface';
+import { Cast } from '../../model/interface/movie-interface';
+import { Crew } from '../../model/interface/tv-interface';
 import ImageUrl from '../../utils/imageUrl';
 
 const ActorBox = styled.div`

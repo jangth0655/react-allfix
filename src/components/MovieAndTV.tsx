@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Movie } from '../interface/movie-interface';
-import { TV } from '../interface/tv-interface';
+import { Movie } from '../model/interface/movie-interface';
+import { TV } from '../model/interface/tv-interface';
 
 import ImageUrl from '../utils/imageUrl';
 import NoImageWithVideo from './NoImageWithVideo';

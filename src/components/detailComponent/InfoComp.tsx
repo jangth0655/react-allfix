@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { GetMovieKeyword } from '../../interface/movie-interface';
-import { Genre } from '../../interface/shared-interface';
-import { GetTVKeyword } from '../../interface/tv-interface';
+import { GetMovieKeyword } from '../../model/interface/movie-interface';
+import { Genre } from '../../model/interface/shared-interface';
+import { GetTVKeyword } from '../../model/interface/tv-interface';
 import ImageUrl from '../../utils/imageUrl';
 import NoImageWithVideo from '../NoImageWithVideo';
 

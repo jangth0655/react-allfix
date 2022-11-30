@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Video } from '../../interface/shared-interface';
+import { Video } from '../../model/interface/shared-interface';
 import { videoUrl } from '../../utils/videoUrl';
 import NoImageWithVideo from '../NoImageWithVideo';
 

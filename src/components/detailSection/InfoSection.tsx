@@ -1,11 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { fetchMovieDetail, fetchMovieKeywords } from "../../apis/movie-api";
-import { fetchTVDetail, fetchTVKeywords } from "../../apis/tv-api";
-import { IMovieDetail, GetMovieKeyword } from "../../interface/movie-interface";
-import { GetTVKeyword, ITVDetail } from "../../interface/tv-interface";
-import InfoComp from "../detailComponent/InfoComp";
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { fetchMovieDetail, fetchMovieKeywords } from '../../apis/movie-api';
+import { fetchTVDetail, fetchTVKeywords } from '../../apis/tv-api';
+import {
+  IMovieDetail,
+  GetMovieKeyword,
+} from '../../model/interface/movie-interface';
+import { GetTVKeyword, ITVDetail } from '../../model/interface/tv-interface';
+import InfoComp from '../detailComponent/InfoComp';
 
 interface InfoSectionProps {
   movieId?: number;
@@ -14,24 +17,24 @@ interface InfoSectionProps {
 
 const InfoSection: React.FC<InfoSectionProps> = ({ movieId, tvId }) => {
   const { data: movieDetailData } = useQuery<IMovieDetail>(
-    ["movieDetail", movieId],
+    ['movieDetail', movieId],
     () => fetchMovieDetail(movieId && movieId),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
   );
   const { data: movieKeywordData } = useQuery<GetMovieKeyword>(
-    ["movieKeyword", movieId],
+    ['movieKeyword', movieId],
     () => fetchMovieKeywords(movieId && movieId),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
   );
 
   const { data: tvDetailData } = useQuery<ITVDetail>(
-    ["tvDetail", tvId],
+    ['tvDetail', tvId],
     () => fetchTVDetail({ id: tvId }),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
   );
 
   const { data: tvKeywordData } = useQuery<GetTVKeyword>(
-    ["tvKeyword", tvId],
+    ['tvKeyword', tvId],
     () => fetchTVKeywords({ id: tvId }),
     { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
   );

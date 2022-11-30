@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { fetchMovieSearch } from "../../apis/movie-api";
-import { GetMovies } from "../../interface/movie-interface";
-import MovieAndTV from "../MovieAndTV";
-import { TotalContainer } from "../sharedStyled";
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { fetchMovieSearch } from '../../apis/movie-api';
+import { GetMovies } from '../../model/interface/movie-interface';
+import MovieAndTV from '../MovieAndTV';
+import { TotalContainer } from '../sharedStyled';
 
 interface MovieSearchProps {
   keyword: string;
@@ -11,7 +11,7 @@ interface MovieSearchProps {
 
 const MovieSearch: React.FC<MovieSearchProps> = ({ keyword }) => {
   const { data: movieSearchData, refetch } = useQuery<GetMovies>(
-    ["movieSearch"],
+    ['movieSearch'],
     () => fetchMovieSearch({ keyword }),
     { enabled: !!keyword, suspense: true }
   );
