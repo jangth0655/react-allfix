@@ -21,22 +21,22 @@ export class MovieClient {
     });
   }
 
-  movies = async <T>(params: ParamsType, moviePage: string) => {
-    return this.httpClient.get<T>(moviePage, {
+  movies = async (params: ParamsType, moviePage: string) => {
+    return this.httpClient.get(moviePage, {
       params,
     });
   };
 
-  movie = async <T>(id: number, moviePage: string) => {
-    return this.httpClient.get<T>(`${id + ''}/${moviePage}`);
+  movie = async (id: number, moviePage: string) => {
+    return this.httpClient.get(`${id + ''}/${moviePage}`);
   };
 
-  detail = async <T>(id: number) => {
-    return this.httpClient.get<T>(id + '');
+  detail = async (id: number) => {
+    return this.httpClient.get(id + '');
   };
 
-  search = async <T>(keyword: string) => {
-    return axios.get<T>(
+  search = async (keyword: string) => {
+    return axios.get(
       `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko&query=${keyword}`
     );
   };

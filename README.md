@@ -160,7 +160,7 @@
 ### ✓ Before
 
 <details>
-  <summary> api 통신 코드 개선 전</summary>
+  <summary> 개선 전 - api 통신 </summary>
   <br />
 
 ```typescript
@@ -261,6 +261,92 @@ export const fetchMovieSearch = async ({ keyword }: MovieArg) => {
   ).data;
   return response;
 };
+```
+
+</details>
+
+<details>
+  <summary>개선 전 - query 데이터 불러오기</summary>
+  <br />
+
+```typescript
+return (
+  <Layout isMainPaddingTop={true}>
+    <Helmet>
+      <title>{`${tapName.title}-AllFlix`}</title>
+    </Helmet>
+    <MainTitleContainer />
+    <AnimatePresence>
+      {tapName.title === '인기 영화' ? (
+        <Suspense fallback={<Loading />}>
+          <ComponentContainer
+            variants={containerVar}
+            initial='initial'
+            animate='animate'
+            exit='exit'
+          >
+            <PopularMovies />
+          </ComponentContainer>
+        </Suspense>
+      ) : null}
+    </AnimatePresence>
+
+    <AnimatePresence>
+      {tapName.title === '현재 상영중' ? (
+        <Suspense fallback={<Loading />}>
+          <ComponentContainer
+            variants={containerVar}
+            initial='initial'
+            animate='animate'
+            exit='exit'
+          >
+            <NowPlayingMovies />
+          </ComponentContainer>
+        </Suspense>
+      ) : null}
+    </AnimatePresence>
+
+    <AnimatePresence>
+      {tapName.title === '개봉 예정' ? (
+        <Suspense fallback={<Loading />}>
+          <ComponentContainer
+            variants={containerVar}
+            initial='initial'
+            animate='animate'
+            exit='exit'
+          >
+            <UpcomingMovies />
+          </ComponentContainer>
+        </Suspense>
+      ) : null}
+    </AnimatePresence>
+
+    <AnimatePresence>
+      {tapName.title === '평점높은 영화' ? (
+        <Suspense fallback={<Loading />}>
+          <ComponentContainer
+            variants={containerVar}
+            initial='initial'
+            animate='animate'
+            exit='exit'
+          >
+            <TopRatedMovies />
+          </ComponentContainer>
+        </Suspense>
+      ) : null}
+    </AnimatePresence>
+  </Layout>
+);
+```
+
+</details>
+
+<details>
+  <summary>개선 전</summary>
+  <br />
+
+```typescript
+
 ```
 
 </details>

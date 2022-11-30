@@ -4,10 +4,10 @@ import { MovieClient } from './movieClient';
 export class MovieAPI {
   constructor(private api: MovieClient) {}
 
-  moviesByCategory = async <T>(page: number, moviePage: string) => {
+  moviesByCategory = async (page: number, moviePage: string) => {
     try {
-      const result = await this.api.movies<T>({ page }, moviePage);
-      return result;
+      const result = await this.api.movies({ page }, moviePage);
+      return result.data;
     } catch (error) {
       if (error instanceof Error) {
         checkError(error);
@@ -16,10 +16,10 @@ export class MovieAPI {
     }
   };
 
-  moviesByType = async <T>(id: number, moviePage: string) => {
+  moviesByType = async (id: number, moviePage: string) => {
     try {
-      const result = await this.api.movie<T>(id, moviePage);
-      return result;
+      const result = await this.api.movie(id, moviePage);
+      return result.data;
     } catch (error) {
       if (error instanceof Error) {
         checkError(error);
@@ -28,10 +28,10 @@ export class MovieAPI {
     }
   };
 
-  detail = async <T>(id: number) => {
+  detail = async (id: number) => {
     try {
-      const result = await this.api.detail<T>(id);
-      return result;
+      const result = await this.api.detail(id);
+      return result.data;
     } catch (error) {
       if (error instanceof Error) {
         checkError(error);
@@ -43,7 +43,7 @@ export class MovieAPI {
   search = async (keyword: string) => {
     try {
       const result = await this.api.search(keyword);
-      return result;
+      return result.data;
     } catch (error) {
       if (error instanceof Error) {
         checkError(error);

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useCategory } from '../hooks/useCategory';
 import { useSearchParams } from 'react-router-dom';
 import { MOVIE_PAGE, QUERY_KEY } from '../model/types';
+import { Helmet } from 'react-helmet-async';
 
 export type CategoryTapType = {
   title?: string;
@@ -38,6 +39,9 @@ const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`AllFlix-${titleValue?.title}`}</title>
+      </Helmet>
       <TitleContainer>
         <Title>{titleValue?.title}</Title>
         <SubTitle>{titleValue?.subTitle}</SubTitle>
