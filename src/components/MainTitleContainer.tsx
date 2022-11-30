@@ -1,6 +1,63 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { useCategory } from '../hooks/useCategory';
+import { useSearchParams } from 'react-router-dom';
+import { MOVIE_PAGE, QUERY_KEY } from '../model/types';
+
+export type CategoryTapType = {
+  title?: string;
+  subtitle?: string;
+};
+
+interface MainTitleContainerProps {
+  tapArray: CategoryTapType[];
+  tapTitle?: string;
+  tapSubTitle?: string;
+  handleTap: (title?: string, subtitle?: string) => void;
+}
+
+const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
+  const [query, setQuery] = useSearchParams();
+  const { categories } = useCategory();
+
+  const queryKey = query.get(QUERY_KEY.CURRENT);
+
+  const titleValue = categories.find((category) => {
+    if (!queryKey) {
+      return {
+        title: categories[0].title,
+        subTitle: categories[0].subTitle,
+        key: MOVIE_PAGE.POPULAR,
+      };
+    }
+    return category.key === queryKey;
+  });
+
+  const handleCategory = (tap: string) => {
+    setQuery({
+      current: tap,
+    });
+  };
+
+  return (
+    <>
+      <TitleContainer>
+        <Title>{titleValue?.title}</Title>
+        <SubTitle>{titleValue?.subTitle}</SubTitle>
+      </TitleContainer>
+      <CategoryContainer>
+        {categories.map((tap) => (
+          <CategoryTap onClick={() => handleCategory(tap.key)} key={tap.title}>
+            {tap.title}
+            {tap.key === titleValue?.key && <CategoryMark layoutId='tap' />}
+          </CategoryTap>
+        ))}
+      </CategoryContainer>
+    </>
+  );
+};
+export default MainTitleContainer;
 
 const TitleContainer = styled.div`
   display: flex;
@@ -64,43 +121,3 @@ const CategoryMark = styled(motion.div)`
   height: ${(props) => props.theme.mp.xs};
   border-radius: 50%;
 `;
-
-export type CategoryTapType = {
-  title?: string;
-  subtitle?: string;
-};
-
-interface MainTitleContainerProps {
-  tapArray: CategoryTapType[];
-  tapTitle?: string;
-  tapSubTitle?: string;
-  handleTap: (title?: string, subtitle?: string) => void;
-}
-
-const MainTitleContainer: React.FC<MainTitleContainerProps> = ({
-  tapArray,
-  handleTap,
-  tapTitle,
-  tapSubTitle,
-}) => {
-  return (
-    <>
-      <TitleContainer>
-        <Title>{tapTitle}</Title>
-        <SubTitle>{tapSubTitle}</SubTitle>
-      </TitleContainer>
-      <CategoryContainer>
-        {tapArray.map((tap) => (
-          <CategoryTap
-            onClick={() => handleTap(tap.title, tap.subtitle)}
-            key={tap.title}
-          >
-            {tap.title}
-            {tap.title === tapTitle && <CategoryMark layoutId="tap" />}
-          </CategoryTap>
-        ))}
-      </CategoryContainer>
-    </>
-  );
-};
-export default MainTitleContainer;

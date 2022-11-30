@@ -17,7 +17,6 @@ const ToggleNav = createContext<InitialState>({
 export const ToggleNavProvider = ({ children }: Props) => {
   const [toggleNav, setToggleNav] = useState(false);
 
-  console.log('toggleContext', toggleNav);
   return (
     <ToggleNav.Provider value={{ toggleNav, setToggleNav }}>
       {children}
