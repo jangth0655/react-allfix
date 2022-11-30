@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 type MovieArg = {
@@ -44,8 +44,6 @@ export const fetchTopRatedMovie = async (page?: number) => {
   ).data;
   return response;
 };
-
-/* */
 
 export const fetchMovieDetail = async (id?: number) => {
   const response = await (

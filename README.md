@@ -80,7 +80,6 @@
 <br></br>
 
 > TV 상세정보
-> <br></br>
 
 - TV제목과, 평점, 날짜 , 장르, 설명, 키워드, 포스터 등 TV 정보를 확인 할 수 있습니다.
 - `react-query`를 이용하여 서버에서 영화 데이터를 가져왔습니다.
@@ -154,10 +153,114 @@
 
 ---
 
-<br></br>
-
-## Code
-
-<a href="https://github.com/jangth0655/react-allfix">🔥 GitHub</a>
-
 <br /><br />
+
+## 🔥 코드 개선
+
+### ✓ Before
+
+<details>
+  <summary> api 통신 코드 개선 전</summary>
+  <br />
+
+```typescript
+export const fetchPopularMovie = async ({ page }: MovieArg) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ko&page=${page}`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchNowPlayingMovie = async (page?: number) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=ko&page=${page}`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchUpcomingMovie = async (page?: number) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=ko&page=${page}`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchTopRatedMovie = async (page?: number) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ko&page=${page}`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchMovieDetail = async (id?: number) => {
+  const response = await (
+    await axios(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=ko`)
+  ).data;
+  return response;
+};
+
+export const fetchMovieRecommendation = async (id?: number) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=ko`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchMovieCasts = async (id?: number) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=ko`
+    )
+  ).data;
+  return response;
+};
+
+export const fetchMovieVideos = async (id?: number) => {
+  const response = await (
+    await axios(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=ko`)
+  ).data;
+  return response;
+};
+
+export const fetchMovieReviews = async ({ id, page }: MovieArg) => {
+  try {
+    const response = await (
+      await axios(
+        `${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}&language=en&page=${page}`
+      )
+    ).data;
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchMovieKeywords = async (id?: number) => {
+  const response = await (
+    await axios(`${BASE_URL}/movie/${id}/keywords?api_key=${API_KEY}`)
+  ).data;
+  return response;
+};
+
+export const fetchMovieSearch = async ({ keyword }: MovieArg) => {
+  const response = await (
+    await axios(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko&query=${keyword}`
+    )
+  ).data;
+  return response;
+};
+```
+
+</details>
