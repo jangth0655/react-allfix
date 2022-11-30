@@ -21,42 +21,13 @@ export class MovieClient {
     });
   }
 
-  popularMovie = async <T>(params: ParamsType, moviePage: string) => {
+  movies = async <T>(params: ParamsType, moviePage: string) => {
     return this.httpClient.get<T>(moviePage, {
       params,
     });
   };
 
-  nowPlaying = async <T>(params: ParamsType, moviePage: string) => {
-    return this.httpClient.get<T>(moviePage, {
-      params,
-    });
-  };
-
-  upComing = async <T>(params: ParamsType, moviePage: string) => {
-    return this.httpClient.get<T>(moviePage, {
-      params,
-    });
-  };
-  topRated = async <T>(params: ParamsType, moviePage: string) => {
-    return this.httpClient.get<T>(moviePage, {
-      params,
-    });
-  };
-
-  recommendation = async <T>(id: number, moviePage: string) => {
-    return this.httpClient.get<T>(`${id + ''}/${moviePage}`);
-  };
-
-  cast = async <T>(id: number, moviePage: string) => {
-    return this.httpClient.get<T>(`${id + ''}/${moviePage}`);
-  };
-
-  reviews = async <T>(id: number, moviePage: string) => {
-    return this.httpClient.get<T>(`${id + ''}/${moviePage}`);
-  };
-
-  keyword = async <T>(id: number, moviePage: string) => {
+  movie = async <T>(id: number, moviePage: string) => {
     return this.httpClient.get<T>(`${id + ''}/${moviePage}`);
   };
 

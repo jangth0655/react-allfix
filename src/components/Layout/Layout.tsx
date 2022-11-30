@@ -5,7 +5,7 @@ import { useAnimation, useScroll, Variants, motion } from 'framer-motion';
 
 import Navbar from './navbar/Navbar';
 import { ToggleNavProvider } from '../../context/toggleNavContext';
-import Main from '../Main';
+import Main from './Main';
 
 const ScrollVar: Variants = {
   top: {

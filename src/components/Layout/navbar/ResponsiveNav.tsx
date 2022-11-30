@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 
 import { useShowingNav } from '../../../context/toggleNavContext';
-import NavbarBoard from '../../NavbarBoard';
+import NavbarBoard from './NavbarBoard';
 
 const ResponsiveNav = () => {
   const { setToggleNav, toggleNav } = useShowingNav();

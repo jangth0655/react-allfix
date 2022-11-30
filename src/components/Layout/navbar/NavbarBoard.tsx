@@ -1,7 +1,7 @@
 import { motion, Variants } from 'framer-motion';
 import styled from 'styled-components';
 
-import useNavbar from '../hooks/useNavbar';
+import useNavbar from '../../../hooks/useNavbar';
 
 const sliderVar: Variants = {
   initial: {

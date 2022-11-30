@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useShowingNav } from '../context/toggleNavContext';
+import { useShowingNav } from '../../context/toggleNavContext';
 
 interface Props {
   isPaddingTop?: boolean;
