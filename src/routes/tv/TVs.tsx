@@ -58,12 +58,7 @@ const TVs: React.FC = () => {
       <Helmet>
         <title>{`${tapName.title}-AllFlix`}</title>
       </Helmet>
-      <MainTitleContainer
-        tapArray={categoryTapTextArray}
-        handleTap={handleTap}
-        tapSubTitle={tapName.subtitle}
-        tapTitle={tapName.title}
-      />
+      <MainTitleContainer />
       <AnimatePresence>
         {tapName.title === '인기 TV' ? (
           <Suspense fallback={<Loading />}>

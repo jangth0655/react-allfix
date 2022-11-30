@@ -32,6 +32,7 @@ const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
   const handleCategory = (tap: string) => {
     setQuery({
       current: tap,
+      page: 1 + '',
     });
   };
 

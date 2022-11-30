@@ -5,6 +5,7 @@ import { GetMovies } from '../../model/interface/movie-interface';
 import { pageNumbers } from '../../routes/movie/Movies';
 import MovieAndTV from '../MovieAndTV';
 import PageNumber from '../PageNumber';
+import Pagination from '../Pagination';
 import { MoreButtonContainer, TotalContainer } from '../sharedStyled';
 
 const PopularMovies: React.FC = () => {
@@ -37,7 +38,7 @@ const PopularMovies: React.FC = () => {
       </TotalContainer>
       {!isLoading && (
         <MoreButtonContainer>
-          <PageNumber setPage={setPage} page={page} pageNumbers={pageNumbers} />
+          <Pagination />
         </MoreButtonContainer>
       )}
     </>
