@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
-import { GetReview } from '../../model/interface/shared-interface';
-import { fetchMovieReviews } from '../../apis/movie-api';
-import { fetchTVReviews } from '../../apis/tv-api';
-import ReviewComp from '../detailComponent/ReviewComp';
+import { GetReview } from '../../../model/interface/shared-interface';
+import { fetchMovieReviews } from '../../../apis/movie-api';
+import { fetchTVReviews } from '../../../apis/tv-api';
+import ReviewComp from '../ReviewComp';
 
 const Container = styled.div``;
 

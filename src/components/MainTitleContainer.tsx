@@ -10,12 +10,7 @@ export type CategoryTapType = {
   subtitle?: string;
 };
 
-interface MainTitleContainerProps {
-  tapArray: CategoryTapType[];
-  tapTitle?: string;
-  tapSubTitle?: string;
-  handleTap: (title?: string, subtitle?: string) => void;
-}
+interface MainTitleContainerProps {}
 
 const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
   const [query, setQuery] = useSearchParams();

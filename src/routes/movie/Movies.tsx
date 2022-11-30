@@ -11,25 +11,6 @@ import {
 } from '../../components/sharedStyled';
 import { Helmet } from 'react-helmet-async';
 
-const categoryTapTextArray: CategoryTapType[] = [
-  {
-    title: '인기 영화',
-    subtitle: '현재 인기 있는 영화 목록',
-  },
-  {
-    title: '현재 상영중',
-    subtitle: '현재 상영중인 영화 목록',
-  },
-  {
-    title: '개봉 예정',
-    subtitle: '개뵹 예정 영화 목록',
-  },
-  {
-    title: '평점높은 영화',
-    subtitle: '평점 높은 영화 목록',
-  },
-];
-
 export const pageNumbers = [1, 2, 3, 4, 5];
 
 const Movies = () => {
@@ -54,22 +35,12 @@ const Movies = () => {
     () => import('../../components/movieList/TopRatedMovies')
   );
 
-  const handleTap = (title?: string, subtitle?: string) => {
-    if (!title || !subtitle) return;
-    setTapName({ title, subtitle });
-  };
-
   return (
     <Layout isMainPaddingTop={true}>
       <Helmet>
         <title>{`${tapName.title}-AllFlix`}</title>
       </Helmet>
-      <MainTitleContainer
-        tapArray={categoryTapTextArray}
-        handleTap={handleTap}
-        tapTitle={tapName.title}
-        tapSubTitle={tapName.subtitle}
-      />
+      <MainTitleContainer />
       <AnimatePresence>
         {tapName.title === '인기 영화' ? (
           <Suspense fallback={<Loading />}>

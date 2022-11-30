@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchMovieCasts } from '../../apis/movie-api';
-import { fetchTVCasts } from '../../apis/tv-api';
-import { GetMovieCast } from '../../model/interface/movie-interface';
-import { GetTVCast } from '../../model/interface/tv-interface';
+import { fetchMovieCasts } from '../../../apis/movie-api';
+import { fetchTVCasts } from '../../../apis/tv-api';
+import { GetMovieCast } from '../../../model/interface/movie-interface';
+import { GetTVCast } from '../../../model/interface/tv-interface';
 
-import CastComp from '../detailComponent/CastComp';
+import CastComp from '../CastComp';
 
 interface CastSectionProps {
   movieId?: number;

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useRef } from 'react';
-import { GetMovies } from '../../model/interface/movie-interface';
-import { fetchTVRecommendation } from '../../apis/tv-api';
-import { fetchMovieRecommendation } from '../../apis/movie-api';
-import RecommendationComp from '../detailComponent/RecommendationComp';
-import { GetTVs } from '../../model/interface/tv-interface';
+import { GetMovies } from '../../../model/interface/movie-interface';
+import { fetchTVRecommendation } from '../../../apis/tv-api';
+import { fetchMovieRecommendation } from '../../../apis/movie-api';
+import RecommendationComp from '../RecommendationComp';
+import { GetTVs } from '../../../model/interface/tv-interface';
 
 const SliderContainer = styled.div`
   width: 100%;

@@ -79,23 +79,23 @@ const TVDetail = () => {
   }, []);
 
   const InfoSectionComponent = React.lazy(
-    () => import('../../components/detailSection/InfoSection')
+    () => import('../../components/detail/detailSection/InfoSection')
   );
 
   const VideoSectionComponent = React.lazy(
-    () => import('../../components/detailSection/VideoSection')
+    () => import('../../components/detail/detailSection/VideoSection')
   );
 
   const CastSectionComponent = React.lazy(
-    () => import('../../components/detailSection/CastSection')
+    () => import('../../components/detail/detailSection/CastSection')
   );
 
   const ReviewSectionComponent = React.lazy(
-    () => import('../../components/detailSection/ReviewSection')
+    () => import('../../components/detail/detailSection/ReviewSection')
   );
 
   const RecommendationComponent = React.lazy(
-    () => import('../../components/detailSection/RecommendationSection')
+    () => import('../../components/detail/detailSection/RecommendationSection')
   );
 
   useEffect(() => {

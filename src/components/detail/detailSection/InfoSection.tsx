@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { fetchMovieDetail, fetchMovieKeywords } from '../../apis/movie-api';
-import { fetchTVDetail, fetchTVKeywords } from '../../apis/tv-api';
+import { fetchMovieDetail, fetchMovieKeywords } from '../../../apis/movie-api';
+import { fetchTVDetail, fetchTVKeywords } from '../../../apis/tv-api';
 import {
   IMovieDetail,
   GetMovieKeyword,
-} from '../../model/interface/movie-interface';
-import { GetTVKeyword, ITVDetail } from '../../model/interface/tv-interface';
-import InfoComp from '../detailComponent/InfoComp';
+} from '../../../model/interface/movie-interface';
+import { GetTVKeyword, ITVDetail } from '../../../model/interface/tv-interface';
+import InfoComp from '../InfoComp';
 
 interface InfoSectionProps {
   movieId?: number;

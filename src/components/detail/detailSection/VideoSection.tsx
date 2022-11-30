@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { fetchMovieVideos } from '../../apis/movie-api';
-import { fetchTVVideos } from '../../apis/tv-api';
+import { fetchMovieVideos } from '../../../apis/movie-api';
+import { fetchTVVideos } from '../../../apis/tv-api';
 
-import { GetVideos } from '../../model/interface/shared-interface';
-import VideoComp from '../detailComponent/VideoComp';
+import { GetVideos } from '../../../model/interface/shared-interface';
+import VideoComp from '../VideoComp';
 
 interface VideoSectionProps {
   movieId?: number;
