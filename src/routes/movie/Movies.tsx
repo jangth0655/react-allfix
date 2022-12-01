@@ -1,8 +1,6 @@
-import MovieList from '../../components/movieList/MovieList';
-
-export const pageNumbers = [1, 2, 3, 4, 5];
+import List from '../../components/List';
 
 const Movies = () => {
-  return <MovieList />;
+  return <List />;
 };
 export default Movies;

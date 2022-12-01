@@ -1,4 +1,5 @@
-import { Genre } from './shared_interface';
+import { Genre } from '../types';
+import { MovieWithTVResult } from './shared_interface';
 
 type Keyword = {
   id: number;
@@ -24,7 +25,7 @@ export interface GetMovieCast {
 
 export interface GetMovies {
   page: number;
-  results: Movie[];
+  results: MovieWithTVResult[];
   total_result: number;
   total_pages: number;
 }

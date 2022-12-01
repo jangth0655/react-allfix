@@ -1,11 +1,71 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Movie } from '../model/interface/movie_interface';
+
+import { MovieWithTVResult } from '../model/interface/shared_interface';
 import { TV } from '../model/interface/tv_interface';
 
 import ImageUrl from '../utils/imageUrl';
 import NoImageWithVideo from './NoImageWithVideo';
+
+interface MovieAndTVProps {
+  result?: MovieWithTVResult;
+  tv?: TV;
+}
+
+const MovieAndTV: React.FC<MovieAndTVProps> = ({ result, tv }) => {
+  const [showingLayer, setShowingLayer] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const onDetail = (id: number) => {
+    navigate(`${pathname}/${id}`, {});
+  };
+
+  const mouseHover = () => {
+    setShowingLayer(true);
+  };
+
+  return (
+    <Container>
+      {result && (
+        <>
+          {result?.poster_path ? (
+            <PosterBox
+              onMouseOver={mouseHover}
+              onMouseLeave={() => setShowingLayer(false)}
+              onClick={() => onDetail(result.id)}
+            >
+              {showingLayer && (
+                <LayerBox>
+                  <PosterLayer />
+                  <DetailButton onClick={() => onDetail(result.id)}>
+                    상세보기
+                  </DetailButton>
+                </LayerBox>
+              )}
+              <Poster
+                poster={ImageUrl(result?.poster_path || '이미지가 없습니다.')}
+              />
+            </PosterBox>
+          ) : (
+            <NoImageContainer>
+              <NoImageWithVideo text='이미지가 없습니다.' />
+            </NoImageContainer>
+          )}
+          <InfoBox>
+            <Title>{result?.title || result?.name}</Title>
+            <OpeningDate>
+              {result?.release_date || result?.first_air_date}
+            </OpeningDate>
+            <Rate>{`⭐️ ${result?.vote_average}`}</Rate>
+          </InfoBox>
+        </>
+      )}
+    </Container>
+  );
+};
+export default MovieAndTV;
 
 const Container = styled.div`
   transition: ${(props) => props.theme.transition.md};
@@ -95,111 +155,3 @@ const NoImageContainer = styled.div`
   width: 100%;
   height: 22rem;
 `;
-
-interface MovieAndTVProps {
-  movie?: Movie;
-  tv?: TV;
-}
-
-const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
-  const [showingLayer, setShowingLayer] = useState(false);
-  const navigate = useNavigate();
-
-  const onMovieDetail = (id: number) => {
-    navigate(`/movie/${id}`, {
-      state: {
-        backdrop_path: movie?.backdrop_path ? movie?.backdrop_path : '',
-        id: movie?.id,
-      },
-    });
-  };
-
-  const onTVDetail = (id: number) => {
-    navigate(`/tv/${id}`, {
-      state: {
-        backdrop_path: tv?.backdrop_path ? tv?.backdrop_path : '',
-        id: tv?.id,
-      },
-    });
-  };
-
-  const mouseHover = () => {
-    setShowingLayer(true);
-  };
-
-  const errorText = !movie?.poster_path ? ImageUrl(movie?.poster_path) : '';
-  return (
-    <Container>
-      {movie && (
-        <>
-          {movie?.poster_path ? (
-            <PosterBox
-              onMouseOver={mouseHover}
-              onMouseLeave={() => setShowingLayer(false)}
-              onClick={() => onMovieDetail(movie.id)}
-            >
-              {showingLayer && (
-                <LayerBox>
-                  <PosterLayer />
-                  <DetailButton onClick={() => onMovieDetail(movie.id)}>
-                    상세보기
-                  </DetailButton>
-                </LayerBox>
-              )}
-              <Poster
-                poster={ImageUrl(
-                  movie?.poster_path ? movie?.poster_path : '이미지가 없습니다.'
-                )}
-              />
-            </PosterBox>
-          ) : (
-            <NoImageContainer>
-              <NoImageWithVideo text={errorText} />
-            </NoImageContainer>
-          )}
-          <InfoBox>
-            <Title>{movie?.title}</Title>
-            <OpeningDate>{movie?.release_date}</OpeningDate>
-            <Rate>{`⭐️ ${movie?.vote_average}`}</Rate>
-          </InfoBox>
-        </>
-      )}
-
-      {tv && (
-        <>
-          {tv?.poster_path ? (
-            <PosterBox
-              onMouseOver={mouseHover}
-              onMouseLeave={() => setShowingLayer(false)}
-              onClick={() => onTVDetail(tv?.id)}
-            >
-              {showingLayer && (
-                <LayerBox>
-                  <PosterLayer />
-                  <DetailButton onClick={() => onTVDetail(tv?.id)}>
-                    상세보기
-                  </DetailButton>
-                </LayerBox>
-              )}
-              <Poster
-                poster={ImageUrl(
-                  tv?.poster_path ? tv?.poster_path : '이미지가 없습니다.'
-                )}
-              />
-            </PosterBox>
-          ) : (
-            <NoImageContainer>
-              <NoImageWithVideo text={errorText} />
-            </NoImageContainer>
-          )}
-          <InfoBox>
-            <Title>{tv?.name}</Title>
-            <OpeningDate>{tv?.first_air_date}</OpeningDate>
-            <Rate>{`⭐️ ${tv?.vote_average}`}</Rate>
-          </InfoBox>
-        </>
-      )}
-    </Container>
-  );
-};
-export default MovieAndTV;

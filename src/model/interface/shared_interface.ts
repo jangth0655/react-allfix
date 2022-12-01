@@ -1,13 +1,4 @@
-export type Genre = {
-  id: number;
-  name: string;
-};
-
-export type Video = {
-  id: string;
-  key: string;
-  name: string;
-};
+import { Video } from '../types';
 
 export interface GetVideos {
   id: number;
@@ -31,4 +22,23 @@ export interface GetReview {
   id: number;
   page: number;
   results: ReviewResult[];
+}
+
+export interface MovieWithTVResult {
+  backdrop_path: string;
+  poster_path: string;
+  id: number;
+  name: string;
+  title?: string;
+  overview: string;
+  first_air_date: string;
+  vote_average: number;
+  release_date: string;
+}
+
+export interface MovieWithTvList {
+  page: number;
+  results: MovieWithTVResult[];
+  total_result: number;
+  total_pages: number;
 }

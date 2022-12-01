@@ -1,8 +1,7 @@
 import React from 'react';
-
-import TvList from '../../components/tvList/TvList';
+import List from '../../components/List';
 
 const TVs: React.FC = () => {
-  return <TvList />;
+  return <List />;
 };
 export default TVs;

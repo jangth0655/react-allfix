@@ -4,6 +4,17 @@ export type Navbar = {
   pathname: string;
 };
 
+export type Genre = {
+  id: number;
+  name: string;
+};
+
+export type Video = {
+  id: string;
+  key: string;
+  name: string;
+};
+
 export const currentPage = {
   HOME: '/',
   MOVIE: '/movie',

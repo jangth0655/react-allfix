@@ -46,8 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children, isMainPaddingTop }) => {
 
   return (
     <ToggleNavProvider>
-      <Section>
-        <TopDiv ref={layoutRef} />
+      <Section ref={layoutRef}>
         <Navbar />
         <Main isPaddingTop={isMainPaddingTop}>
           {children}
@@ -88,5 +87,3 @@ const ScrollUpButton = styled(motion.div)`
     background-color: ${(props) => props.theme.color.highlight.md};
   }
 `;
-
-const TopDiv = styled.div``;

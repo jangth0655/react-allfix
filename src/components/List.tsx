@@ -1,21 +1,20 @@
 import { AnimatePresence } from 'framer-motion';
-import { useList } from '../../hooks/useFetchData';
 
-import { GetMovies } from '../../model/interface/movie_interface';
-import Layout from '../Layout/Layout';
-import Loading from '../Loading';
-import MainTitleContainer from '../MainTitleContainer';
-import MovieAndTV from '../MovieAndTV';
-import Pagination from '../Pagination';
+import { useList } from '../hooks/useFetchData';
+import { MovieWithTvList } from '../model/interface/shared_interface';
+import Layout from './Layout/Layout';
+import Loading from './Loading';
+import MainTitleContainer from './MainTitleContainer';
+import MovieAndTV from './MovieAndTV';
+import Pagination from './Pagination';
 import {
   ComponentContainer,
   containerVar,
   TotalContainer,
-} from '../sharedStyled';
+} from './sharedStyled';
 
-const MovieList = () => {
-  const { isLoading, list } = useList<GetMovies>();
-
+const List = () => {
+  const { isLoading, list } = useList<MovieWithTvList>();
   return (
     <Layout isMainPaddingTop={true}>
       <MainTitleContainer />
@@ -31,8 +30,8 @@ const MovieList = () => {
               exit='exit'
             >
               <TotalContainer>
-                {list?.results.map((movie) => (
-                  <MovieAndTV key={movie.id} movie={movie} />
+                {list?.results.map((result) => (
+                  <MovieAndTV key={result.id} result={result} />
                 ))}
               </TotalContainer>
             </ComponentContainer>
@@ -43,4 +42,4 @@ const MovieList = () => {
     </Layout>
   );
 };
-export default MovieList;
+export default List;
