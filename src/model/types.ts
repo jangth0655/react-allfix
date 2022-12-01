@@ -40,6 +40,7 @@ export enum TV_PAGE {
 export enum QUERY_KEY {
   CURRENT = 'current',
   PAGE = 'page',
+  TYPE = 'type',
 }
 
 export type CategoryType = {

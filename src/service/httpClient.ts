@@ -27,11 +27,11 @@ export class HttpClient {
     });
   };
 
-  relatedList = async (id: number, currentPage: string, moviePage: string) => {
-    return this.httpClient.get(`${currentPage}/${id + ''}/${moviePage}`);
+  relatedList = async (id: number, currentPage: string, pageType: string) => {
+    return this.httpClient.get(`${currentPage}/${id + ''}/${pageType}`);
   };
 
-  detail = async (id: number, currentPage: string) => {
+  detail = async (id?: number, currentPage?: string) => {
     return this.httpClient.get(`${currentPage}/${id + ''}`);
   };
 

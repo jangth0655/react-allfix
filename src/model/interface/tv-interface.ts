@@ -1,4 +1,4 @@
-import { Genre } from "./shared-interface";
+import { Genre } from './shared-interface';
 
 export type Crew = {
   original_name: string;

@@ -20,9 +20,9 @@ export class MovieWithTvApi {
     }
   };
 
-  relatedList = async (id: number, currentPage: string, moviePage: string) => {
+  relatedList = async (id: number, currentPage: string, pageType: string) => {
     try {
-      const result = await this.api.relatedList(id, currentPage, moviePage);
+      const result = await this.api.relatedList(id, currentPage, pageType);
       return result.data;
     } catch (error) {
       if (error instanceof Error) {
@@ -32,7 +32,7 @@ export class MovieWithTvApi {
     }
   };
 
-  detail = async (id: number, currentPage: string) => {
+  detail = async (id?: number, currentPage?: string) => {
     try {
       const result = await this.api.detail(id, currentPage);
       return result.data;

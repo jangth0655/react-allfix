@@ -106,7 +106,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   const navigate = useNavigate();
 
   const onMovieDetail = (id: number) => {
-    navigate(`/movies/${id}`, {
+    navigate(`/movie/${id}`, {
       state: {
         backdrop_path: movie?.backdrop_path ? movie?.backdrop_path : '',
         id: movie?.id,
@@ -115,7 +115,7 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   };
 
   const onTVDetail = (id: number) => {
-    navigate(`/tvs/${id}`, {
+    navigate(`/tv/${id}`, {
       state: {
         backdrop_path: tv?.backdrop_path ? tv?.backdrop_path : '',
         id: tv?.id,
