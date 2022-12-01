@@ -4,7 +4,13 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { MovieWithTvApi } from '../service/api';
 import { HttpClient } from '../service/httpClient';
 
-import { detailCategoryType, PAGE_TYPE, QUERY_KEY } from '../model/types';
+import {
+  detailCategoryType,
+  PAGE_TYPE,
+  QUERY_KEY,
+  searchCategoryType,
+} from '../model/types';
+import { searchCategory } from '../data/data';
 
 const client = new HttpClient();
 const movieWithTvApi = new MovieWithTvApi(client);
@@ -93,5 +99,28 @@ export const useRelatedList = <T = any,>() => {
   return {
     relatedList,
     isLoading,
+  };
+};
+
+export const useSearch = <T = any,>() => {
+  const [query, _] = useSearchParams();
+  const keyword = query.get(QUERY_KEY.KEYWORD) || undefined;
+  const currentPage = query.get(QUERY_KEY.CURRENT) || searchCategoryType.MOVIE;
+
+  const {
+    data: search,
+    isLoading,
+    isFetching,
+  } = useQuery<T>(
+    [currentPage, keyword],
+    () => movieWithTvApi.search(keyword || '', currentPage),
+    {
+      enabled: !!keyword,
+    }
+  );
+
+  return {
+    search,
+    isLoading: isLoading && isFetching,
   };
 };

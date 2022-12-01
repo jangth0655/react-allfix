@@ -44,9 +44,9 @@ export class HttpClient {
     return this.httpClient.get(`${currentPage}/${id + ''}`);
   };
 
-  search = async (keyword: string) => {
+  search = async (keyword?: string, currentPage?: string) => {
     return axios.get(
-      `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko&query=${keyword}`
+      `${BASE_URL}/search/${currentPage}?api_key=${API_KEY}&language=ko&query=${keyword}`
     );
   };
 }

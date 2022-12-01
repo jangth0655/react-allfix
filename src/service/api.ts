@@ -54,9 +54,10 @@ export class MovieWithTvApi {
     }
   };
 
-  search = async (keyword: string) => {
+  search = async (keyword?: string, currentPage?: string) => {
+    if (!keyword || keyword === '') return;
     try {
-      const result = await this.api.search(keyword);
+      const result = await this.api.search(keyword, currentPage);
       return result.data;
     } catch (error) {
       if (error instanceof Error) {

@@ -1,4 +1,9 @@
-import { CategoryType, Navbar, PAGE_TYPE } from '../model/types';
+import {
+  CategoryType,
+  Navbar,
+  PAGE_TYPE,
+  searchCategoryType,
+} from '../model/types';
 import { v4 } from 'uuid';
 
 export const navbarData: Navbar[] = [
@@ -65,5 +70,16 @@ export const detailCategory: CategoryType[] = [
   {
     title: '추천 영화',
     key: 'recommendations',
+  },
+];
+
+export const searchCategory: CategoryType[] = [
+  {
+    title: '영화',
+    key: searchCategoryType.MOVIE,
+  },
+  {
+    title: 'TV',
+    key: searchCategoryType.TV,
   },
 ];

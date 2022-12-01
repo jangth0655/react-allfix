@@ -22,6 +22,11 @@ export const currentPage = {
   SEARCH: '/search',
 };
 
+export const searchCategoryType = {
+  MOVIE: 'movie',
+  TV: 'tv',
+};
+
 export const detailCategoryType = {
   VIDEO: 'videos',
   CREDITS: 'credits',
@@ -47,10 +52,11 @@ export enum QUERY_KEY {
   CURRENT = 'current',
   PAGE = 'page',
   TYPE = 'type',
+  KEYWORD = 'keyword',
 }
 
 export type CategoryType = {
-  title: string;
+  title?: string;
   key: string;
   subTitle?: string;
 };
