@@ -4,12 +4,13 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { MovieWithTvApi } from '../service/api';
 import { HttpClient } from '../service/httpClient';
 
-import { QUERY_KEY } from '../model/types';
+import { detailCategoryType, PAGE_TYPE, QUERY_KEY } from '../model/types';
 
 const client = new HttpClient();
 const movieWithTvApi = new MovieWithTvApi(client);
 
 export const useList = <T = any,>() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [query, _] = useSearchParams();
   const queryKey = query.get(QUERY_KEY.CURRENT);
   const page = Number(query.get(QUERY_KEY.PAGE));
@@ -26,7 +27,7 @@ export const useList = <T = any,>() => {
       await movieWithTvApi.listByCategory(
         page || 1,
         currentPage,
-        queryKey || 'popular'
+        queryKey || PAGE_TYPE.POPULAR
       )
   );
 
@@ -65,6 +66,32 @@ export const useKeywords = <T = any,>() => {
 
   return {
     keywords,
+    isLoading,
+  };
+};
+
+export const useRelatedList = <T = any,>() => {
+  const [query, _] = useSearchParams();
+  const { id } = useParams();
+  const { pathname } = useLocation();
+
+  const queryKey = query.get(QUERY_KEY.TYPE) || detailCategoryType.VIDEO;
+  const itemId = Number(id);
+  const currentPage = pathname.split('/')[1];
+
+  const { data: relatedList, isLoading } = useQuery<T>(
+    [id, currentPage, queryKey],
+    () =>
+      movieWithTvApi.relatedList(
+        itemId,
+        currentPage,
+        queryKey,
+        queryKey === detailCategoryType.REVIEWS ? 'en' : 'ko'
+      )
+  );
+
+  return {
+    relatedList,
     isLoading,
   };
 };

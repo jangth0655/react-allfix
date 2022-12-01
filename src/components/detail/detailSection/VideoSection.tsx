@@ -1,38 +1,81 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { fetchMovieVideos } from '../../../apis/movie-api';
-import { fetchTVVideos } from '../../../apis/tv-api';
+import styled from 'styled-components';
 
-import { GetVideos } from '../../../model/interface/shared-interface';
-import VideoComp from '../VideoComp';
+import { useRelatedList } from '../../../hooks/useFetchData';
+import { GetVideos } from '../../../model/interface/shared_interface';
+import { videoUrl } from '../../../utils/videoUrl';
+import Loading from '../../Loading';
+import NoImageWithVideo from '../../NoImageWithVideo';
 
 interface VideoSectionProps {
   movieId?: number;
   tvId?: number;
 }
 
-const VideoSection: React.FC<VideoSectionProps> = ({ movieId, tvId }) => {
-  const { data: movieVideo } = useQuery<GetVideos>(
-    ['movieVideo', movieId],
-    () => fetchMovieVideos(movieId && movieId),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
-  );
+const VideoSection: React.FC<VideoSectionProps> = () => {
+  const { relatedList: videos, isLoading } = useRelatedList<GetVideos>();
+  const emptyVideo = !videos || videos.results.length === 0;
 
-  const { data: tvVideo } = useQuery<GetVideos>(
-    ['tvVideo', tvId],
-    () => fetchTVVideos({ id: tvId }),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
-  );
-
-  return (
-    <>
-      {movieId ? (
-        movieVideo && <VideoComp videoArray={movieVideo?.results} />
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <Container>
+      {emptyVideo ? (
+        <NoVideoContainer>
+          <NoImageWithVideo text='영상이 없습니다.' />
+        </NoVideoContainer>
       ) : (
-        <VideoComp videoArray={tvVideo?.results} />
+        videos?.results.slice(0, 3).map((video) => (
+          <VideoContainer key={video.id}>
+            <VideoPlayerBox>
+              <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />
+            </VideoPlayerBox>
+            <VideoTitle>{video.name}</VideoTitle>
+          </VideoContainer>
+        ))
       )}
-    </>
+    </Container>
   );
 };
-
 export default VideoSection;
+
+const Container = styled.div`
+  padding-bottom: ${(props) => props.theme.mp.lg};
+  display: flex;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.color.activeColor.xl};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.color.bg.xl};
+    border-radius: 10px;
+  }
+`;
+
+const VideoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: ${(props) => props.theme.mp.xxl};
+`;
+
+const VideoPlayerBox = styled.div`
+  width: 20rem;
+  height: 20rem;
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  margin-bottom: ${(props) => props.theme.mp.lg};
+`;
+const VideoPlay = styled.iframe`
+  border-radius: ${(props) => props.theme.borderRadius.md};
+`;
+
+const VideoTitle = styled.span``;
+
+const NoVideoContainer = styled.div`
+  width: 20rem;
+  height: 20rem;
+`;

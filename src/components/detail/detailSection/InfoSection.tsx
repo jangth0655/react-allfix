@@ -5,13 +5,12 @@ import styled from 'styled-components';
 import {
   IMovieDetail,
   GetMovieKeyword,
-} from '../../../model/interface/movie-interface';
-import { GetTVKeyword, ITVDetail } from '../../../model/interface/tv-interface';
+} from '../../../model/interface/movie_interface';
+import { GetTVKeyword, ITVDetail } from '../../../model/interface/tv_interface';
 import ImageUrl from '../../../utils/imageUrl';
 import NoImageWithVideo from '../../NoImageWithVideo';
 
 interface InfoSectionProps {
-  movieId?: number;
   tvId?: number;
   detail?: IMovieDetail & ITVDetail;
   keywords?: GetMovieKeyword & GetTVKeyword;

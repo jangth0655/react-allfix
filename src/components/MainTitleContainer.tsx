@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { useCategory } from '../hooks/useCategory';
+import { useListCategory } from '../hooks/useCategory';
 import { useSearchParams } from 'react-router-dom';
-import { MOVIE_PAGE, QUERY_KEY, TV_PAGE } from '../model/types';
+import { PAGE_TYPE, QUERY_KEY } from '../model/types';
 import { Helmet } from 'react-helmet-async';
 
 export type CategoryTapType = {
@@ -15,7 +15,7 @@ interface MainTitleContainerProps {}
 
 const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
   const [query, setQuery] = useSearchParams();
-  const { categories } = useCategory();
+  const { categories } = useListCategory();
 
   const queryKey = query.get(QUERY_KEY.CURRENT);
 
@@ -24,7 +24,7 @@ const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
       return {
         title: categories[0].title,
         subTitle: categories[0].subTitle,
-        key: MOVIE_PAGE.POPULAR || TV_PAGE.POPULAR,
+        key: PAGE_TYPE.POPULAR,
       };
     }
     return category.key === queryKey;

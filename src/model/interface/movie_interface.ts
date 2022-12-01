@@ -1,4 +1,4 @@
-import { Genre } from "./shared-interface";
+import { Genre } from './shared_interface';
 
 type Keyword = {
   id: number;
@@ -34,6 +34,7 @@ export interface Movie {
   poster_path: string;
   id: number;
   title: string;
+  name?: string;
   overview: string;
   release_date: string;
   vote_average: number;

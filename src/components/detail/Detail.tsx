@@ -4,12 +4,14 @@ import { useDetail, useKeywords } from '../../hooks/useFetchData';
 import {
   GetMovieKeyword,
   IMovieDetail,
-} from '../../model/interface/movie-interface';
-import { GetTVKeyword, ITVDetail } from '../../model/interface/tv-interface';
+} from '../../model/interface/movie_interface';
+import { GetTVKeyword, ITVDetail } from '../../model/interface/tv_interface';
 import ImageUrl from '../../utils/imageUrl';
 
 import Layout from '../Layout/Layout';
 import Loading from '../Loading';
+import DetailCategory from './DetailCategory';
+import DetailSection from './detailSection/DetailSection';
 import InfoSection from './detailSection/InfoSection';
 
 const Detail = () => {
@@ -22,7 +24,7 @@ const Detail = () => {
         <Loading />
       ) : (
         detail?.backdrop_path && (
-          <Background backgroundImage={ImageUrl(detail.backdrop_path || '')} />
+          <Background backgroundImage={ImageUrl(detail.backdrop_path)} />
         )
       )}
       <BackgroundLayer />
@@ -30,6 +32,8 @@ const Detail = () => {
         <InfoContainer>
           <InfoSection detail={detail} keywords={keywords} />
         </InfoContainer>
+        <DetailCategory />
+        <DetailSection />
       </Container>
     </Layout>
   );
@@ -49,16 +53,9 @@ const ContainerSection = styled.section`
   }
 `;
 
-const VideoContainer = styled(ContainerSection)``;
-
-const CastContainer = styled(ContainerSection)``;
-
-const ReviewContainer = styled(ContainerSection)``;
-
-const RecommendationContainer = styled(ContainerSection)``;
-
 const InfoContainer = styled(ContainerSection)`
   display: flex;
+
   @media screen and (max-width: ${(props) => props.theme.responsive.md}) {
     flex-direction: column;
     align-items: center;

@@ -1,4 +1,4 @@
-import { movieCategory, tvCategory } from '../data/data';
+import { detailCategory, movieCategory, tvCategory } from '../data/data';
 import { CategoryType } from '../model/types';
 
 class Category {
@@ -11,3 +11,4 @@ class Category {
 
 export const movie = new Category(movieCategory);
 export const tv = new Category(tvCategory);
+export const detail = new Category(detailCategory);

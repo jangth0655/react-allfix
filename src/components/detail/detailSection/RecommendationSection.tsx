@@ -1,13 +1,94 @@
-import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useRef } from 'react';
-import { GetMovies } from '../../../model/interface/movie-interface';
-import { fetchTVRecommendation } from '../../../apis/tv-api';
-import { fetchMovieRecommendation } from '../../../apis/movie-api';
-import RecommendationComp from '../RecommendationComp';
-import { GetTVs } from '../../../model/interface/tv-interface';
+
+import { GetMovies } from '../../../model/interface/movie_interface';
+import { GetTVs } from '../../../model/interface/tv_interface';
+import { useRelatedList } from '../../../hooks/useFetchData';
+import NoImageWithVideo from '../../NoImageWithVideo';
+import ImageUrl from '../../../utils/imageUrl';
+import Loading from '../../Loading';
+import { currentPage } from '../../../model/types';
+
+interface RecommendationSectionProps {
+  movieId?: number;
+  tvId?: number;
+}
+
+const RecommendationSection: React.FC<RecommendationSectionProps> = ({
+  tvId,
+}) => {
+  const { pathname } = useLocation();
+  const { isLoading, relatedList: recommendation } = useRelatedList<
+    GetTVs & GetMovies
+  >();
+
+  const navigate = useNavigate();
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const handleRightDirection = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+    } else {
+      return;
+    }
+  };
+
+  const handleLeftDirection = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+    } else {
+      return;
+    }
+  };
+
+  const onDetailPage = (id?: number) => {
+    navigate(`${pathname}/${id}`);
+  };
+
+  const isEmptyRecommendation =
+    !recommendation?.results || recommendation.results.length === 0;
+
+  return isLoading ? (
+    <Loading />
+  ) : isEmptyRecommendation ? (
+    <NoImageContainer>
+      <NoImageWithVideo
+        text={
+          pathname === currentPage.MOVIE
+            ? '영화가없습니다.'
+            : 'TV프로그램이 없습니다.'
+        }
+      />
+    </NoImageContainer>
+  ) : (
+    <SliderContainer>
+      <Left onClick={handleLeftDirection}>
+        <FaArrowLeft />
+      </Left>
+      <Right onClick={handleRightDirection}>
+        <FaArrowRight />
+      </Right>
+
+      <SliderBox ref={sliderRef}>
+        {recommendation?.results.map((re) => (
+          <SliderItem key={re.id} onClick={() => onDetailPage(re.id)}>
+            {re.poster_path ? (
+              <ItemImage poster={ImageUrl(re.poster_path)} />
+            ) : (
+              <NoImageContainer>
+                <NoImageWithVideo text='이미지가 없습니다.' />
+              </NoImageContainer>
+            )}
+            <ItemTitle>{re.title || re.name}</ItemTitle>
+          </SliderItem>
+        ))}
+      </SliderBox>
+    </SliderContainer>
+  );
+};
+export default RecommendationSection;
 
 const SliderContainer = styled.div`
   width: 100%;
@@ -63,79 +144,35 @@ const Right = styled(Direction)`
   right: 0;
 `;
 
-interface RecommendationSectionProps {
-  movieId?: number;
-  tvId?: number;
-}
+const SliderItem = styled.div`
+  margin-right: ${(props) => props.theme.mp.md};
+  cursor: pointer;
+  transition: ${(props) => props.theme.transition.md};
+  &:last-child {
+    margin-right: 0;
+  }
+  &:hover {
+    transform: translateY(-10px);
+  }
+`;
 
-const RecommendationSection: React.FC<RecommendationSectionProps> = ({
-  movieId,
-  tvId,
-}) => {
-  const sliderRef = useRef<HTMLDivElement>(null);
+const ItemImage = styled.div<{ poster?: string }>`
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  box-shadow: ${(props) => props.theme.shadow.md};
+  background-image: url(${(props) => props.poster});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: ${(props) => props.theme.mp.md};
+  width: 15rem;
+  height: 90%;
+  @media screen and (max-width: ${(props) => props.theme.responsive.sm}) {
+  }
+`;
 
-  const { data: movieRecommendationData } = useQuery<GetMovies>(
-    ['movieRecommendation', movieId],
-    () => fetchMovieRecommendation(movieId),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!movieId }
-  );
+const ItemTitle = styled.h1`
+  width: 100%;
+  height: 10%;
+`;
 
-  const { data: tvRecommendationData } = useQuery<GetTVs>(
-    ['tvRecommendation', tvId],
-    () => fetchTVRecommendation({ id: tvId }),
-    { staleTime: 60 * 60 * 24 * 7, suspense: true, enabled: !!tvId }
-  );
-
-  const onHandleRightDirection = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 500, behavior: 'smooth' });
-    } else {
-      return;
-    }
-  };
-
-  const onHandleLeftDirection = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -500, behavior: 'smooth' });
-    } else {
-      return;
-    }
-  };
-
-  return (
-    <SliderContainer>
-      <Left onClick={onHandleLeftDirection}>
-        <FaArrowLeft />
-      </Left>
-      <Right onClick={onHandleRightDirection}>
-        <FaArrowRight />
-      </Right>
-      <SliderBox ref={sliderRef}>
-        <>
-          {movieId
-            ? movieRecommendationData &&
-              movieRecommendationData?.results.map((movie) => (
-                <RecommendationComp
-                  key={movie.id}
-                  backdrop_path={movie.backdrop_path}
-                  id={movie.id}
-                  poster_path={movie.poster_path}
-                  title={movie.title}
-                />
-              ))
-            : tvRecommendationData &&
-              tvRecommendationData.results.map((tv) => (
-                <RecommendationComp
-                  key={tv.id}
-                  backdrop_path={tv.backdrop_path}
-                  id={tv.id}
-                  poster_path={tv.poster_path}
-                  name={tv.name}
-                />
-              ))}
-        </>
-      </SliderBox>
-    </SliderContainer>
-  );
-};
-export default RecommendationSection;
+const NoImageContainer = styled(ItemImage)``;

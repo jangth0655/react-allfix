@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { movie, tv } from '../utils/category';
 
-export const useCategory = () => {
+export const useListCategory = () => {
   const { pathname } = useLocation();
 
   const currentPathname = pathname.split('/')[1];

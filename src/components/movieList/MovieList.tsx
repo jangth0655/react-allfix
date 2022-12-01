@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import { useList } from '../../hooks/useFetchData';
 
-import { GetMovies } from '../../model/interface/movie-interface';
+import { GetMovies } from '../../model/interface/movie_interface';
 import Layout from '../Layout/Layout';
 import Loading from '../Loading';
 import MainTitleContainer from '../MainTitleContainer';

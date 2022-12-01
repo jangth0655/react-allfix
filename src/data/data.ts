@@ -1,4 +1,4 @@
-import { CategoryType, MOVIE_PAGE, Navbar, TV_PAGE } from '../model/types';
+import { CategoryType, Navbar, PAGE_TYPE } from '../model/types';
 import { v4 } from 'uuid';
 
 export const navbarData: Navbar[] = [
@@ -11,22 +11,22 @@ export const navbarData: Navbar[] = [
 export const movieCategory: CategoryType[] = [
   {
     title: '인기영화',
-    key: MOVIE_PAGE.POPULAR,
+    key: PAGE_TYPE.POPULAR,
     subTitle: '현재 인기 있는 영화 목록',
   },
   {
     title: '현재 상영중',
-    key: MOVIE_PAGE.NOW_PLAY,
+    key: PAGE_TYPE.NOW_PLAY,
     subTitle: '현재 상영중인 영화 목록',
   },
   {
     title: '개봉 예정',
-    key: MOVIE_PAGE.UPCOMING,
+    key: PAGE_TYPE.UPCOMING,
     subTitle: '개뵹 예정 영화 목록',
   },
   {
     title: '평점높은 영화',
-    key: MOVIE_PAGE.TOP_RATED,
+    key: PAGE_TYPE.TOP_RATED,
     subTitle: '평점 높은 영화 목록',
   },
 ];
@@ -34,17 +34,36 @@ export const movieCategory: CategoryType[] = [
 export const tvCategory: CategoryType[] = [
   {
     title: '인기 TV',
-    key: TV_PAGE.POPULAR,
+    key: PAGE_TYPE.POPULAR,
     subTitle: '현재 인기 있는 TV 목록',
   },
   {
     title: '현재 방영중',
-    key: TV_PAGE.ON_THE_AIR,
+    key: PAGE_TYPE.ON_THE_AIR,
     subTitle: '현재 방영중인 TV 목록',
   },
   {
     title: '평점높은 TV',
-    key: TV_PAGE.TOP_RATED,
+    key: PAGE_TYPE.TOP_RATED,
     subTitle: '평점 높은 영TV 목록',
+  },
+];
+
+export const detailCategory: CategoryType[] = [
+  {
+    title: '트레일러',
+    key: 'videos',
+  },
+  {
+    title: '배우',
+    key: 'credits',
+  },
+  {
+    title: '리뷰',
+    key: 'reviews',
+  },
+  {
+    title: '추천 영화',
+    key: 'recommendations',
   },
 ];

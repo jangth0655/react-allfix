@@ -27,8 +27,17 @@ export class HttpClient {
     });
   };
 
-  relatedList = async (id: number, currentPage: string, pageType: string) => {
-    return this.httpClient.get(`${currentPage}/${id + ''}/${pageType}`);
+  relatedList = async (
+    id?: number,
+    currentPage?: string,
+    pageType?: string,
+    language?: 'ko' | 'en'
+  ) => {
+    return this.httpClient.get(`${currentPage}/${id + ''}/${pageType}`, {
+      params: {
+        language,
+      },
+    });
   };
 
   detail = async (id?: number, currentPage?: string) => {

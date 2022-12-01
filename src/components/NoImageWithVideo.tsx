@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const NoItem = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ const NoItem = styled.div`
 `;
 
 interface NoImageWithVideoProps {
-  text: string;
+  text?: string;
 }
 
 const NoImageWithVideo: React.FC<NoImageWithVideoProps> = ({ text }) => {

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { fetchMovieSearch } from '../../apis/movie-api';
-import { GetMovies } from '../../model/interface/movie-interface';
+import { GetMovies } from '../../model/interface/movie_interface';
 import MovieAndTV from '../MovieAndTV';
 import { TotalContainer } from '../sharedStyled';
 

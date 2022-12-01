@@ -1,4 +1,4 @@
-import { Genre } from './shared-interface';
+import { Genre } from './shared_interface';
 
 export type Crew = {
   original_name: string;
@@ -34,6 +34,7 @@ export interface TV {
   poster_path: string;
   id: number;
   name: string;
+  title?: string;
   overview: string;
   first_air_date: string;
   vote_average: number;

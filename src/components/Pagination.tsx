@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MOVIE_PAGE, QUERY_KEY } from '../model/types';
+import { PAGE_TYPE, QUERY_KEY } from '../model/types';
 
 const MAX_PAGE = 5;
 
@@ -20,7 +20,7 @@ const Pagination = () => {
   const handlePage = (number = 1) => {
     const page = number.toString();
     setQuery({
-      current: key || 'popular',
+      current: key || PAGE_TYPE.POPULAR,
       page: page,
     });
   };

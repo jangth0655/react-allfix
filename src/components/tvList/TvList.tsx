@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 
 import { useList } from '../../hooks/useFetchData';
-import { GetTVs } from '../../model/interface/tv-interface';
+import { GetTVs } from '../../model/interface/tv_interface';
 import Layout from '../Layout/Layout';
 import Loading from '../Loading';
 import MainTitleContainer from '../MainTitleContainer';

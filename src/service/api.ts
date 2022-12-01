@@ -20,9 +20,19 @@ export class MovieWithTvApi {
     }
   };
 
-  relatedList = async (id: number, currentPage: string, pageType: string) => {
+  relatedList = async (
+    id?: number,
+    currentPage?: string,
+    pageType?: string,
+    language?: 'ko' | 'en'
+  ) => {
     try {
-      const result = await this.api.relatedList(id, currentPage, pageType);
+      const result = await this.api.relatedList(
+        id,
+        currentPage,
+        pageType,
+        language
+      );
       return result.data;
     } catch (error) {
       if (error instanceof Error) {

@@ -11,25 +11,20 @@ export const currentPage = {
   SEARCH: '/search',
 };
 
-export enum MOVIE_PAGE {
+export const detailCategoryType = {
+  VIDEO: 'videos',
+  CREDITS: 'credits',
+  REVIEWS: 'reviews',
+  RECOMMENDATION: 'recommendations',
+};
+
+export enum PAGE_TYPE {
   POPULAR = 'popular',
   NOW_PLAY = 'now_playing',
   UPCOMING = 'upcoming',
   TOP_RATED = 'top_rated',
   RECOMMENDATION = 'recommendations',
-  CREDIT = 'credits',
-  VIDEO = 'videos',
-  REVIEW = 'reviews',
-  KEYWORD = 'keywords',
-  SEARCH = 'search',
-}
-
-export enum TV_PAGE {
-  POPULAR = 'popular',
   ON_THE_AIR = 'on_the_air',
-  UPCOMING = 'upcoming',
-  TOP_RATED = 'top_rated',
-  RECOMMENDATION = 'recommendations',
   CREDIT = 'credits',
   VIDEO = 'videos',
   REVIEW = 'reviews',
@@ -46,5 +41,5 @@ export enum QUERY_KEY {
 export type CategoryType = {
   title: string;
   key: string;
-  subTitle: string;
+  subTitle?: string;
 };
