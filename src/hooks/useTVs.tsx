@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { QUERY_KEY, TV_PAGE } from '../model/types';
 import { TvAPI } from '../service/tv/TvAPI';
@@ -11,12 +11,14 @@ export const useTVs = <T = any,>() => {
   const [query, _] = useSearchParams();
   const queryKey = query.get(QUERY_KEY.CURRENT);
   const page = Number(query.get(QUERY_KEY.PAGE));
+  const location = useLocation();
+  const tvPath = location.pathname;
   const {
     data: tvs,
     isLoading,
     error,
   } = useQuery<T>(
-    [queryKey, page],
+    [queryKey, page, tvPath],
     async () =>
       await tvAPI.tvsByCategory(page || 1, queryKey || TV_PAGE.POPULAR)
   );

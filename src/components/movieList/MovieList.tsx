@@ -15,6 +15,7 @@ import {
 
 const MovieList = () => {
   const { isLoading, movies } = useMovies<GetMovies>();
+
   return (
     <Layout isMainPaddingTop={true}>
       <MainTitleContainer />
