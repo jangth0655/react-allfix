@@ -7,7 +7,7 @@ export const useCategory = () => {
   const currentPathname = pathname.split('/')[1];
 
   const categories =
-    currentPathname === 'movies' ? movie.Categories : tv.Categories;
+    currentPathname === 'movie' ? movie.Categories : tv.Categories;
 
   return {
     categories,

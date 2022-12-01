@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Header = () => {
   const navigate = useNavigate();
   const onMoviePage = () => {
-    navigate('/movies');
+    navigate('/movie');
   };
 
   return (

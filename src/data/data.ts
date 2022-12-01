@@ -3,8 +3,8 @@ import { v4 } from 'uuid';
 
 export const navbarData: Navbar[] = [
   { key: v4(), name: '홈', pathname: '/' },
-  { key: v4(), name: '영화', pathname: '/movies' },
-  { key: v4(), name: 'TV', pathname: '/tvs' },
+  { key: v4(), name: '영화', pathname: '/movie' },
+  { key: v4(), name: 'TV', pathname: '/tv' },
   { key: v4(), name: '검색', pathname: '/search' },
 ];
 

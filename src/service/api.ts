@@ -1,12 +1,16 @@
-import { checkError } from '../httpError';
-import { TvClient } from './TvClient';
+import { HttpClient } from './httpClient';
+import { checkError } from './httpError';
 
-export class TvAPI {
-  constructor(private api: TvClient) {}
+export class MovieWithTvApi {
+  constructor(private api: HttpClient) {}
 
-  tvsByCategory = async (page: number, tvPage: string) => {
+  listByCategory = async (
+    page: number,
+    currentPage: string,
+    pageType: string
+  ) => {
     try {
-      const result = await this.api.tvs({ page }, tvPage);
+      const result = await this.api.list({ page }, currentPage, pageType);
       return result.data;
     } catch (error) {
       if (error instanceof Error) {
@@ -16,9 +20,9 @@ export class TvAPI {
     }
   };
 
-  tvsByType = async (id: number, tvPage: string) => {
+  relatedList = async (id: number, currentPage: string, moviePage: string) => {
     try {
-      const result = await this.api.tv(id, tvPage);
+      const result = await this.api.relatedList(id, currentPage, moviePage);
       return result.data;
     } catch (error) {
       if (error instanceof Error) {
@@ -28,9 +32,9 @@ export class TvAPI {
     }
   };
 
-  detail = async (id: number) => {
+  detail = async (id: number, currentPage: string) => {
     try {
-      const result = await this.api.detail(id);
+      const result = await this.api.detail(id, currentPage);
       return result.data;
     } catch (error) {
       if (error instanceof Error) {

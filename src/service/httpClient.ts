@@ -9,11 +9,11 @@ type ParamsType = {
   keyword?: string;
 };
 
-export class MovieClient {
+export class HttpClient {
   private httpClient: AxiosInstance;
   constructor() {
     this.httpClient = axios.create({
-      baseURL: `${BASE_URL}/movie`,
+      baseURL: `${BASE_URL}`,
       params: {
         api_key: API_KEY,
         language: 'ko',
@@ -21,18 +21,18 @@ export class MovieClient {
     });
   }
 
-  movies = async (params: ParamsType, moviePage: string) => {
-    return this.httpClient.get(moviePage, {
+  list = async (params: ParamsType, currentPage: string, moviePage: string) => {
+    return this.httpClient.get(`${currentPage}/${moviePage}`, {
       params,
     });
   };
 
-  movie = async (id: number, moviePage: string) => {
-    return this.httpClient.get(`${id + ''}/${moviePage}`);
+  relatedList = async (id: number, currentPage: string, moviePage: string) => {
+    return this.httpClient.get(`${currentPage}/${id + ''}/${moviePage}`);
   };
 
-  detail = async (id: number) => {
-    return this.httpClient.get(id + '');
+  detail = async (id: number, currentPage: string) => {
+    return this.httpClient.get(`${currentPage}/${id + ''}`);
   };
 
   search = async (keyword: string) => {

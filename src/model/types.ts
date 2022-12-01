@@ -4,6 +4,13 @@ export type Navbar = {
   pathname: string;
 };
 
+export const currentPage = {
+  HOME: '/',
+  MOVIE: '/movie',
+  TV: '/tv',
+  SEARCH: '/search',
+};
+
 export enum MOVIE_PAGE {
   POPULAR = 'popular',
   NOW_PLAY = 'now_playing',

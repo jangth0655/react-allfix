@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { currentPage } from '../model/types';
 import navbar from '../utils/navbarMenu';
 
 const useNavbar = () => {
@@ -7,16 +8,16 @@ const useNavbar = () => {
   const onPage = (pageName: string) => {
     switch (pageName) {
       case '홈':
-        navigate('/');
+        navigate(currentPage.HOME);
         break;
       case '영화':
-        navigate('/movies');
+        navigate(currentPage.MOVIE);
         break;
       case 'TV':
-        navigate('/tvs');
+        navigate(currentPage.TV);
         break;
       case '검색':
-        navigate('/search');
+        navigate(currentPage.SEARCH);
     }
   };
 

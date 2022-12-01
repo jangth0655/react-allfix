@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
+import { useList } from '../../hooks/useFetchData';
 
-import { useMovies } from '../../hooks/useMovies';
 import { GetMovies } from '../../model/interface/movie-interface';
 import Layout from '../Layout/Layout';
 import Loading from '../Loading';
@@ -14,7 +14,7 @@ import {
 } from '../sharedStyled';
 
 const MovieList = () => {
-  const { isLoading, movies } = useMovies<GetMovies>();
+  const { isLoading, list } = useList<GetMovies>();
 
   return (
     <Layout isMainPaddingTop={true}>
@@ -31,7 +31,7 @@ const MovieList = () => {
               exit='exit'
             >
               <TotalContainer>
-                {movies?.results.map((movie) => (
+                {list?.results.map((movie) => (
                   <MovieAndTV key={movie.id} movie={movie} />
                 ))}
               </TotalContainer>

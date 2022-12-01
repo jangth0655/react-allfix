@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
-import { useTVs } from '../../hooks/useTVs';
+
+import { useList } from '../../hooks/useFetchData';
 import { GetTVs } from '../../model/interface/tv-interface';
 import Layout from '../Layout/Layout';
 import Loading from '../Loading';
@@ -13,7 +14,7 @@ import {
 } from '../sharedStyled';
 
 const TvList = () => {
-  const { isLoading, tvs } = useTVs<GetTVs>();
+  const { isLoading, list } = useList<GetTVs>();
 
   return (
     <Layout isMainPaddingTop={true}>
@@ -30,7 +31,7 @@ const TvList = () => {
               exit='exit'
             >
               <TotalContainer>
-                {tvs?.results.map((tv) => (
+                {list?.results.map((tv) => (
                   <MovieAndTV key={tv.id} tv={tv} />
                 ))}
               </TotalContainer>
