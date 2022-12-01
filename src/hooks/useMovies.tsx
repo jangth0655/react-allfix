@@ -24,8 +24,6 @@ export const useMovies = <T = any,>() => {
       )
   );
 
-  console.log(error);
-
   return {
     movies,
     isLoading,

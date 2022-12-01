@@ -20,7 +20,7 @@ const Pagination = () => {
   const handlePage = (number = 1) => {
     const page = number.toString();
     setQuery({
-      current: key ? key : MOVIE_PAGE.POPULAR,
+      current: key || 'popular',
       page: page,
     });
   };

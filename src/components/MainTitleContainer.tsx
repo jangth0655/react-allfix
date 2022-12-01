@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useCategory } from '../hooks/useCategory';
 import { useSearchParams } from 'react-router-dom';
-import { MOVIE_PAGE, QUERY_KEY } from '../model/types';
+import { MOVIE_PAGE, QUERY_KEY, TV_PAGE } from '../model/types';
 import { Helmet } from 'react-helmet-async';
 
 export type CategoryTapType = {
@@ -24,7 +24,7 @@ const MainTitleContainer: React.FC<MainTitleContainerProps> = () => {
       return {
         title: categories[0].title,
         subTitle: categories[0].subTitle,
-        key: MOVIE_PAGE.POPULAR,
+        key: MOVIE_PAGE.POPULAR || TV_PAGE.POPULAR,
       };
     }
     return category.key === queryKey;

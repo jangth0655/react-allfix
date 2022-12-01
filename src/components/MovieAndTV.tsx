@@ -128,7 +128,6 @@ const MovieAndTV: React.FC<MovieAndTVProps> = ({ movie, tv }) => {
   };
 
   const errorText = !movie?.poster_path ? ImageUrl(movie?.poster_path) : '';
-
   return (
     <Container>
       {movie && (
