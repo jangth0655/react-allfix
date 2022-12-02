@@ -33,12 +33,19 @@ const Detail = () => {
           <InfoSection detail={detail} keywords={keywords} />
         </InfoContainer>
         <DetailCategory />
-        <DetailSection />
+        <DetailSectionContainer>
+          <DetailSection />
+        </DetailSectionContainer>
       </Container>
     </Layout>
   );
 };
 export default Detail;
+
+const DetailSectionContainer = styled.div`
+  margin-top: ${(props) => props.theme.mp.xxxxl};
+  min-height: 100vh;
+`;
 
 const ContainerSection = styled.section`
   padding-bottom: 5rem;
