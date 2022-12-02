@@ -1,6 +1,19 @@
 ![header](https://capsule-render.vercel.app/api?type=wave&color=auto&height=400&section=header&text=ALLFlex&fontSize=70)
 
 [✅ 배포링크](https://taehee-allflix.netlify.app)
+<br />
+
+1. 의존성 패키지를 설치합니다.
+
+```zsh
+$ npm install
+```
+
+2. 프로젝트를 실행합니다.
+
+```zsh
+$ npm start
+```
 
 ## Content
 
