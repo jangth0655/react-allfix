@@ -20,9 +20,11 @@ const CastSection: React.FC<CastSectionProps> = ({ movieId, tvId }) => {
 
   const emptyCasts = !casts?.cast || casts.cast.length === 0;
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return (
     <ActorBox>
       {errors ? (
         <h1>{errors}</h1>

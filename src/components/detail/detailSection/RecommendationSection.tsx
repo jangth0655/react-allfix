@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useRef } from 'react';
 
@@ -11,15 +11,10 @@ import ImageUrl from '../../../utils/imageUrl';
 import Loading from '../../Loading';
 import { currentPage } from '../../../model/types';
 
-interface RecommendationSectionProps {
-  movieId?: number;
-  tvId?: number;
-}
-
-const RecommendationSection: React.FC<RecommendationSectionProps> = ({
-  tvId,
-}) => {
+const RecommendationSection: React.FC = () => {
   const { pathname } = useLocation();
+  const { id } = useParams();
+  const currentParamPage = id && pathname.split(`/${id}`)[0];
   const {
     isLoading,
     relatedList: recommendation,
@@ -49,21 +44,19 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
     navigate(`${pathname}/${id}`);
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const isEmptyRecommendation =
     !recommendation?.results || recommendation.results.length === 0;
 
-  return isLoading ? (
-    <Loading />
-  ) : isEmptyRecommendation ? (
-    <NoImageContainer>
-      <NoImageWithVideo
-        text={
-          pathname === currentPage.MOVIE
-            ? '영화가없습니다.'
-            : 'TV프로그램이 없습니다.'
-        }
-      />
-    </NoImageContainer>
+  return isEmptyRecommendation ? (
+    <h1>
+      {currentParamPage === currentPage.MOVIE
+        ? '영화가없습니다.'
+        : 'TV프로그램이 없습니다.'}
+    </h1>
   ) : (
     <SliderContainer>
       <Left onClick={handleLeftDirection}>

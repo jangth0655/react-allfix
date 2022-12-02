@@ -68,7 +68,7 @@ export const detailCategory: CategoryType[] = [
     key: 'reviews',
   },
   {
-    title: '추천 영화',
+    title: '추천',
     key: 'recommendations',
   },
 ];

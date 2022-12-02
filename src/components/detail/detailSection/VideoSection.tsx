@@ -20,9 +20,11 @@ const VideoSection: React.FC<VideoSectionProps> = () => {
   } = useRelatedList<GetVideos>();
   const emptyVideo = !videos || videos.results.length === 0;
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return (
     <Container>
       {errors ? (
         <h1>{errors}</h1>

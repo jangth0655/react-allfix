@@ -11,16 +11,11 @@ import ImageUrl from '../../../utils/imageUrl';
 import NoImageWithVideo from '../../NoImageWithVideo';
 
 interface InfoSectionProps {
-  tvId?: number;
   detail?: IMovieDetail & ITVDetail;
   keywords?: GetMovieKeyword & GetTVKeyword;
 }
 
-const InfoSection: React.FC<InfoSectionProps> = ({
-  tvId,
-  detail,
-  keywords,
-}) => {
+const InfoSection: React.FC<InfoSectionProps> = ({ detail, keywords }) => {
   const keyword = keywords?.keywords || keywords?.results;
 
   return (

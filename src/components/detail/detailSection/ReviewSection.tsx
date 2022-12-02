@@ -24,12 +24,18 @@ const ReviewSection: React.FC<ReviewSectionProps> = () => {
     return avatar?.startsWith('/https') || !avatar;
   };
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const noReviews = !reviews || reviews.results.length === 0;
+
+  return (
     <Container>
       {errors ? (
         <h1>errors</h1>
+      ) : noReviews ? (
+        <h1>리뷰가 없습니다.</h1>
       ) : (
         reviews?.results?.map((review) => (
           <ReviewContainer key={review.author}>
@@ -59,7 +65,9 @@ const ReviewSection: React.FC<ReviewSectionProps> = () => {
           </ReviewContainer>
         ))
       )}
-      <Pagination totalLength={reviews?.total_pages} type='review' />
+      {!noReviews && (
+        <Pagination totalLength={reviews?.total_pages} type='review' />
+      )}
     </Container>
   );
 };
