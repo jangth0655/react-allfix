@@ -24,24 +24,22 @@ const VideoSection: React.FC<VideoSectionProps> = () => {
     return <Loading />;
   }
 
-  return (
+  return errors ? (
+    <h1>{errors}</h1>
+  ) : emptyVideo ? (
+    <NoVideoContainer>
+      <NoImageWithVideo text='영상이 없습니다.' />
+    </NoVideoContainer>
+  ) : (
     <Container>
-      {errors ? (
-        <h1>{errors}</h1>
-      ) : emptyVideo ? (
-        <NoVideoContainer>
-          <NoImageWithVideo text='영상이 없습니다.' />
-        </NoVideoContainer>
-      ) : (
-        videos?.results.slice(0, 4).map((video) => (
-          <VideoContainer key={video.id}>
-            <VideoPlayerBox>
-              <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />
-            </VideoPlayerBox>
-            <VideoTitle>{video.name}</VideoTitle>
-          </VideoContainer>
-        ))
-      )}
+      {videos?.results.slice(0, 4).map((video) => (
+        <VideoContainer key={video.id}>
+          <VideoPlayerBox>
+            <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />
+          </VideoPlayerBox>
+          <VideoTitle>{video.name}</VideoTitle>
+        </VideoContainer>
+      ))}
     </Container>
   );
 };
