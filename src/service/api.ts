@@ -1,3 +1,4 @@
+import { RelatedListType } from '../model/types';
 import { HttpClient } from './httpClient';
 import { checkError } from './httpError';
 
@@ -20,19 +21,21 @@ export class MovieWithTvApi {
     }
   };
 
-  relatedList = async (
-    id?: number,
-    currentPage?: string,
-    pageType?: string,
-    language?: 'ko' | 'en'
-  ) => {
+  relatedList = async ({
+    id,
+    currentPage,
+    language,
+    page,
+    pageType,
+  }: RelatedListType) => {
     try {
-      const result = await this.api.relatedList(
+      const result = await this.api.relatedList({
         id,
         currentPage,
         pageType,
-        language
-      );
+        language,
+        page,
+      });
       return result.data;
     } catch (error) {
       if (error instanceof Error) {

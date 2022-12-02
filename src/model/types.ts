@@ -60,3 +60,11 @@ export type CategoryType = {
   key: string;
   subTitle?: string;
 };
+
+export type RelatedListType = {
+  id?: number;
+  currentPage?: string;
+  pageType?: string;
+  language?: 'ko' | 'en';
+  page?: number;
+};

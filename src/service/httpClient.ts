@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { RelatedListType } from '../model/types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -27,15 +28,17 @@ export class HttpClient {
     });
   };
 
-  relatedList = async (
-    id?: number,
-    currentPage?: string,
-    pageType?: string,
-    language?: 'ko' | 'en'
-  ) => {
+  relatedList = async ({
+    id,
+    currentPage,
+    pageType,
+    language,
+    page,
+  }: RelatedListType) => {
     return this.httpClient.get(`${currentPage}/${id + ''}/${pageType}`, {
       params: {
         language,
+        page,
       },
     });
   };

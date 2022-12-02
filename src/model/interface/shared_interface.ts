@@ -22,6 +22,8 @@ export interface GetReview {
   id: number;
   page: number;
   results: ReviewResult[];
+  total_pages: number;
+  total_results: number;
 }
 
 export interface MovieWithTVResult {
