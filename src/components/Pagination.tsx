@@ -1,13 +1,25 @@
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { PAGE_TYPE, QUERY_KEY } from '../model/types';
+import { detailCategoryType, PAGE_TYPE, QUERY_KEY } from '../model/types';
 
-const MAX_PAGE = 5;
+interface Props {
+  totalLength?: number;
+  offset?: number;
+  type?: 'list' | 'review';
+}
 
-const Pagination = () => {
+const Pagination = ({ totalLength, type }: Props) => {
   const [query, setQuery] = useSearchParams();
   const key = query.get(QUERY_KEY.CURRENT);
+
+  const MAX_PAGE = (totalLength && totalLength) || 5;
+
+  const pages: number[] = [];
+  let i = 1;
+  for (i; i <= MAX_PAGE; i++) {
+    pages.push(i);
+  }
 
   const checkPage = () => {
     const page = query.get(QUERY_KEY.PAGE);
@@ -19,10 +31,18 @@ const Pagination = () => {
 
   const handlePage = (number = 1) => {
     const page = number.toString();
+    if (type === 'list') {
+      setQuery({
+        current: key || PAGE_TYPE.POPULAR,
+        page,
+      });
+      return;
+    }
     setQuery({
-      current: key || PAGE_TYPE.POPULAR,
-      page: page,
+      type: detailCategoryType.REVIEWS,
+      page,
     });
+    return;
   };
 
   return (
@@ -37,13 +57,6 @@ const Pagination = () => {
   );
 };
 export default Pagination;
-
-const pages: number[] = [];
-
-let i = 1;
-for (i; i <= MAX_PAGE; i++) {
-  pages.push(i);
-}
 
 const MoreItemsButton = styled.div`
   width: 100%;

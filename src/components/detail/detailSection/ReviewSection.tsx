@@ -6,23 +6,25 @@ import { useRelatedList } from '../../../hooks/useFetchData';
 import ImageUrl from '../../../utils/imageUrl';
 import { dateForm } from '../../../utils/dateFormat';
 import Loading from '../../Loading';
+import Pagination from '../../Pagination';
 
 interface ReviewSectionProps {
   movieId?: number;
   tvId?: number;
 }
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({ movieId, tvId }) => {
+const ReviewSection: React.FC<ReviewSectionProps> = () => {
   const { isLoading, relatedList: reviews } = useRelatedList<GetReview>();
 
   const isEmptyAvatar = (avatar: string) => {
     return avatar?.startsWith('/https') || !avatar;
   };
+
   return isLoading ? (
     <Loading />
   ) : (
     <Container>
-      {reviews?.results.map((review) => (
+      {reviews?.results?.map((review) => (
         <ReviewContainer key={review.author}>
           <ReviewAvatarBox>
             {isEmptyAvatar(review.author_details.avatar_path) ? (
@@ -49,6 +51,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ movieId, tvId }) => {
           </ReviewBox>
         </ReviewContainer>
       ))}
+      <Pagination totalLength={reviews?.total_pages} type='review' />
     </Container>
   );
 };
