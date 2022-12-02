@@ -559,22 +559,32 @@ export const useSearch = <T = any>() => {
 
 ## Project
 
+> 배포영상
+
+<br />
+
+<img height="400" src="./preview/movie.gif" />
+
+<br /><br />
+
+<img height="400" src="./preview/responsive_search.gif" />
+
+<br /><br />
+
 > 영화
 
 - 인기 영화, 현재 상영중, 상영 예정, 평점높은 영화를 확인할 수 있습니다.
 - 영화 포스터와 영화 제목, 개봉 일, 평점을 확인할 수 있습니다.
 - 클릭하면 영화 상세정보 페이지로 이동합니다.
 
-<br></br>
+<br />
 
 > 영화 상세정보
 
 - 영화제목과, 평점, 날짜 , 장르, 설명, 키워드, 포스터 등 영화 정보를 확인 할 수 있습니다.
 - 카테고리 별로 트레일러, 배우, 추천영화, 리뷰를 확인할 수 있습니다.
 
-<br></br>
-<img height="500" src="./preview/movie.gif" />
-<br></br>
+<br />
 
 > TV
 
@@ -582,22 +592,16 @@ export const useSearch = <T = any>() => {
 - TV 포스터와 영화 제목, 개봉 일, 평점을 확인할 수 있습니다.
 - 클릭하면 TV 상세정보 페이지로 이동합니다.
 
-<br></br>
+<br />
 
 > TV 상세정보
 
 - TV제목과, 평점, 날짜 , 장르, 설명, 키워드, 포스터 등 TV 정보를 확인 할 수 있습니다.
 - 카테고리 별로 TV 출연자, 추천 TV, 리뷰를 확인할 수 있습니다.
 
-<br></br>
-
-<img height="500" src="./preview/tv.gif" />
-<br></br>
+<br />
 
 > TV 프로그램, 영화 검색
 
 - 검색 페이지에서 영화 또는 TV프로그램들을 검색할 수 있습니다.
 - 영화 또는 TV프로그램의 제목을 입력하여 검색시, 해당 제목이 포함된 전체 영화와 TV프로그램을 찾을 수 있습니다.
-
-<br></br>
-<img height="500" src="./preview/search.gif" />
