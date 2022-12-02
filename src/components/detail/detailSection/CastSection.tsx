@@ -12,9 +12,11 @@ interface CastSectionProps {
 }
 
 const CastSection: React.FC<CastSectionProps> = ({ movieId, tvId }) => {
-  const { isLoading, relatedList: casts } = useRelatedList<
-    GetMovieCast & GetTVCast
-  >();
+  const {
+    isLoading,
+    relatedList: casts,
+    errors,
+  } = useRelatedList<GetMovieCast & GetTVCast>();
 
   const emptyCasts = !casts?.cast || casts.cast.length === 0;
 
@@ -22,7 +24,9 @@ const CastSection: React.FC<CastSectionProps> = ({ movieId, tvId }) => {
     <Loading />
   ) : (
     <ActorBox>
-      {emptyCasts ? (
+      {errors ? (
+        <h1>{errors}</h1>
+      ) : emptyCasts ? (
         <NoActorImage>이미지가 없습니다.</NoActorImage>
       ) : (
         casts?.cast.slice(0, 6).map((actor) => (

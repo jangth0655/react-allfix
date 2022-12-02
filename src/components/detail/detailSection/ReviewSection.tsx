@@ -14,7 +14,11 @@ interface ReviewSectionProps {
 }
 
 const ReviewSection: React.FC<ReviewSectionProps> = () => {
-  const { isLoading, relatedList: reviews } = useRelatedList<GetReview>();
+  const {
+    isLoading,
+    relatedList: reviews,
+    errors,
+  } = useRelatedList<GetReview>();
 
   const isEmptyAvatar = (avatar: string) => {
     return avatar?.startsWith('/https') || !avatar;
@@ -24,33 +28,37 @@ const ReviewSection: React.FC<ReviewSectionProps> = () => {
     <Loading />
   ) : (
     <Container>
-      {reviews?.results?.map((review) => (
-        <ReviewContainer key={review.author}>
-          <ReviewAvatarBox>
-            {isEmptyAvatar(review.author_details.avatar_path) ? (
-              <NoReviewAvatar>
-                <FaUser size={30} />
-              </NoReviewAvatar>
-            ) : (
-              <ReviewAvatar
-                avatar={ImageUrl(review.author_details.avatar_path)}
-              />
-            )}
-          </ReviewAvatarBox>
-          <ReviewBox>
-            <ReviewInfo>
-              <ReviewName>{review.author}</ReviewName>
-              <ReviewNameBorderBar>|</ReviewNameBorderBar>
-              <ReviewDate>{dateForm(review.created_at)}</ReviewDate>
-              <ReviewNameBorderBar>|</ReviewNameBorderBar>
-              <ReviewVote>평점 {review.author_details.rating}</ReviewVote>
-            </ReviewInfo>
-            <Review>
-              <p>{review.content}</p>
-            </Review>
-          </ReviewBox>
-        </ReviewContainer>
-      ))}
+      {errors ? (
+        <h1>errors</h1>
+      ) : (
+        reviews?.results?.map((review) => (
+          <ReviewContainer key={review.author}>
+            <ReviewAvatarBox>
+              {isEmptyAvatar(review.author_details.avatar_path) ? (
+                <NoReviewAvatar>
+                  <FaUser size={30} />
+                </NoReviewAvatar>
+              ) : (
+                <ReviewAvatar
+                  avatar={ImageUrl(review.author_details.avatar_path)}
+                />
+              )}
+            </ReviewAvatarBox>
+            <ReviewBox>
+              <ReviewInfo>
+                <ReviewName>{review.author}</ReviewName>
+                <ReviewNameBorderBar>|</ReviewNameBorderBar>
+                <ReviewDate>{dateForm(review.created_at)}</ReviewDate>
+                <ReviewNameBorderBar>|</ReviewNameBorderBar>
+                <ReviewVote>평점 {review.author_details.rating}</ReviewVote>
+              </ReviewInfo>
+              <Review>
+                <p>{review.content}</p>
+              </Review>
+            </ReviewBox>
+          </ReviewContainer>
+        ))
+      )}
       <Pagination totalLength={reviews?.total_pages} type='review' />
     </Container>
   );

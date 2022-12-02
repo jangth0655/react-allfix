@@ -13,19 +13,25 @@ interface VideoSectionProps {
 }
 
 const VideoSection: React.FC<VideoSectionProps> = () => {
-  const { relatedList: videos, isLoading } = useRelatedList<GetVideos>();
+  const {
+    relatedList: videos,
+    isLoading,
+    errors,
+  } = useRelatedList<GetVideos>();
   const emptyVideo = !videos || videos.results.length === 0;
 
   return isLoading ? (
     <Loading />
   ) : (
     <Container>
-      {emptyVideo ? (
+      {errors ? (
+        <h1>{errors}</h1>
+      ) : emptyVideo ? (
         <NoVideoContainer>
           <NoImageWithVideo text='영상이 없습니다.' />
         </NoVideoContainer>
       ) : (
-        videos?.results.slice(0, 3).map((video) => (
+        videos?.results.slice(0, 4).map((video) => (
           <VideoContainer key={video.id}>
             <VideoPlayerBox>
               <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />

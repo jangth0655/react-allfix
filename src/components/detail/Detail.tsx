@@ -15,7 +15,7 @@ import DetailSection from './detailSection/DetailSection';
 import InfoSection from './detailSection/InfoSection';
 
 const Detail = () => {
-  const { detail, isLoading } = useDetail<IMovieDetail & ITVDetail>();
+  const { detail, isLoading, errors } = useDetail<IMovieDetail & ITVDetail>();
   const { keywords } = useKeywords<GetMovieKeyword & GetTVKeyword>();
 
   return (
@@ -23,19 +23,23 @@ const Detail = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        detail?.backdrop_path && (
-          <Background backgroundImage={ImageUrl(detail.backdrop_path)} />
-        )
+        <Background backgroundImage={ImageUrl(detail?.backdrop_path)} />
       )}
       <BackgroundLayer />
       <Container>
-        <InfoContainer>
-          <InfoSection detail={detail} keywords={keywords} />
-        </InfoContainer>
-        <DetailCategory />
-        <DetailSectionContainer>
-          <DetailSection />
-        </DetailSectionContainer>
+        {errors ? (
+          <h1>{errors}</h1>
+        ) : (
+          <>
+            <InfoContainer>
+              <InfoSection detail={detail} keywords={keywords} />
+            </InfoContainer>
+            <DetailCategory />
+            <DetailSectionContainer>
+              <DetailSection />
+            </DetailSectionContainer>
+          </>
+        )}
       </Container>
     </Layout>
   );

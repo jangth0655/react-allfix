@@ -14,7 +14,7 @@ import {
 } from './sharedStyled';
 
 const List = () => {
-  const { isLoading, list } = useList<MovieWithTvList>();
+  const { isLoading, list, errors } = useList<MovieWithTvList>();
   return (
     <Layout isMainPaddingTop={true}>
       <MainTitleContainer />
@@ -30,9 +30,13 @@ const List = () => {
               exit='exit'
             >
               <TotalContainer>
-                {list?.results.map((result) => (
-                  <MovieAndTV key={result.id} result={result} />
-                ))}
+                {errors ? (
+                  <h1>{errors}</h1>
+                ) : (
+                  list?.results.map((result) => (
+                    <MovieAndTV key={result.id} result={result} />
+                  ))
+                )}
               </TotalContainer>
             </ComponentContainer>
             <Pagination />

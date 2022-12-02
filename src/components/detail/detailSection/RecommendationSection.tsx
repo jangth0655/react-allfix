@@ -20,9 +20,11 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
   tvId,
 }) => {
   const { pathname } = useLocation();
-  const { isLoading, relatedList: recommendation } = useRelatedList<
-    GetTVs & GetMovies
-  >();
+  const {
+    isLoading,
+    relatedList: recommendation,
+    errors,
+  } = useRelatedList<GetTVs & GetMovies>();
 
   const navigate = useNavigate();
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -72,18 +74,22 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({
       </Right>
 
       <SliderBox ref={sliderRef}>
-        {recommendation?.results.map((re) => (
-          <SliderItem key={re.id} onClick={() => onDetailPage(re.id)}>
-            {re.poster_path ? (
-              <ItemImage poster={ImageUrl(re.poster_path)} />
-            ) : (
-              <NoImageContainer>
-                <NoImageWithVideo text='이미지가 없습니다.' />
-              </NoImageContainer>
-            )}
-            <ItemTitle>{re.title || re.name}</ItemTitle>
-          </SliderItem>
-        ))}
+        {errors ? (
+          <h1>{errors}</h1>
+        ) : (
+          recommendation?.results.map((re) => (
+            <SliderItem key={re.id} onClick={() => onDetailPage(re.id)}>
+              {re.poster_path ? (
+                <ItemImage poster={ImageUrl(re.poster_path)} />
+              ) : (
+                <NoImageContainer>
+                  <NoImageWithVideo text='이미지가 없습니다.' />
+                </NoImageContainer>
+              )}
+              <ItemTitle>{re.title || re.name}</ItemTitle>
+            </SliderItem>
+          ))
+        )}
       </SliderBox>
     </SliderContainer>
   );

@@ -10,6 +10,8 @@ import {
   QUERY_KEY,
   searchCategoryType,
 } from '../model/types';
+import { useState } from 'react';
+import { HttpError } from '../service/httpError';
 
 const client = new HttpClient();
 const movieWithTvApi = new MovieWithTvApi(client);
@@ -17,7 +19,7 @@ const movieWithTvApi = new MovieWithTvApi(client);
 export const useList = <T = any,>() => {
   const [query, _] = useSearchParams();
   const { pathname } = useLocation();
-
+  const [errors, setErrors] = useState('');
   const queryKey = query.get(QUERY_KEY.CURRENT);
   const page = Number(query.get(QUERY_KEY.PAGE));
 
@@ -25,17 +27,25 @@ export const useList = <T = any,>() => {
 
   const { data: list, isLoading } = useQuery<T>(
     [queryKey, page, currentPage],
-    async () =>
-      await movieWithTvApi.listByCategory(
-        page || 1,
-        currentPage,
-        queryKey || PAGE_TYPE.POPULAR
-      )
+    async () => {
+      try {
+        return await movieWithTvApi.listByCategory(
+          page || 1,
+          currentPage,
+          queryKey || PAGE_TYPE.POPULAR
+        );
+      } catch (error) {
+        console.info(error);
+        error instanceof HttpError && setErrors(error.errorMassage);
+        return;
+      }
+    }
   );
 
   return {
     list,
     isLoading,
+    errors,
   };
 };
 
@@ -44,14 +54,25 @@ export const useDetail = <T = any,>() => {
   const { pathname } = useLocation();
   const currentPage = pathname.split('/')[1];
   const itemId = Number(id);
+  const [errors, setErrors] = useState('');
 
-  const { data: detail, isLoading } = useQuery<T>([id, currentPage], () =>
-    movieWithTvApi.detail(itemId, currentPage)
+  const { data: detail, isLoading } = useQuery<T>(
+    [id, currentPage],
+    async () => {
+      try {
+        return await movieWithTvApi.detail(itemId, currentPage);
+      } catch (error) {
+        console.info(error);
+        error instanceof HttpError && setErrors(error.errorMassage);
+        return;
+      }
+    }
   );
 
   return {
     detail,
     isLoading,
+    errors,
   };
 };
 
@@ -60,20 +81,29 @@ export const useKeywords = <T = any,>() => {
   const { pathname } = useLocation();
   const currentPage = pathname.split('/')[1];
   const itemId = Number(id);
+  const [errors, setErrors] = useState('');
 
   const { data: keywords, isLoading } = useQuery<T>(
     [id, currentPage, 'keywords'],
-    () =>
-      movieWithTvApi.relatedList({
-        id: itemId,
-        currentPage,
-        pageType: 'keywords',
-      })
+    async () => {
+      try {
+        return await movieWithTvApi.relatedList({
+          id: itemId,
+          currentPage,
+          pageType: 'keywords',
+        });
+      } catch (error) {
+        console.info(error);
+        error instanceof HttpError && setErrors(error.errorMassage);
+        return;
+      }
+    }
   );
 
   return {
     keywords,
     isLoading,
+    errors,
   };
 };
 
@@ -81,6 +111,7 @@ export const useRelatedList = <T = any,>() => {
   const [query, _] = useSearchParams();
   const { id } = useParams();
   const { pathname } = useLocation();
+  const [errors, setErrors] = useState('');
 
   const queryKey = query.get(QUERY_KEY.TYPE) || detailCategoryType.VIDEO;
   const itemId = Number(id);
@@ -89,19 +120,27 @@ export const useRelatedList = <T = any,>() => {
   const language = queryKey === detailCategoryType.REVIEWS ? 'en' : 'ko';
   const { data: relatedList, isLoading } = useQuery<T>(
     [id, currentPage, queryKey, page],
-    () =>
-      movieWithTvApi.relatedList({
-        currentPage,
-        id: itemId,
-        pageType: queryKey,
-        language,
-        page,
-      })
+    async () => {
+      try {
+        return await movieWithTvApi.relatedList({
+          currentPage,
+          id: itemId,
+          pageType: queryKey,
+          language,
+          page,
+        });
+      } catch (error) {
+        console.info(error);
+        error instanceof HttpError && setErrors(error.errorMassage);
+        return;
+      }
+    }
   );
 
   return {
     relatedList,
     isLoading,
+    errors,
   };
 };
 
@@ -109,6 +148,7 @@ export const useSearch = <T = any,>() => {
   const [query, _] = useSearchParams();
   const keyword = query.get(QUERY_KEY.KEYWORD) || undefined;
   const currentPage = query.get(QUERY_KEY.CURRENT) || searchCategoryType.MOVIE;
+  const [errors, setErrors] = useState('');
 
   const {
     data: search,
@@ -116,7 +156,15 @@ export const useSearch = <T = any,>() => {
     isFetching,
   } = useQuery<T>(
     [currentPage, keyword],
-    () => movieWithTvApi.search(keyword || '', currentPage),
+    async () => {
+      try {
+        return await movieWithTvApi.search(keyword || '', currentPage);
+      } catch (error) {
+        console.info(error);
+        error instanceof HttpError && setErrors(error.errorMassage);
+        return;
+      }
+    },
     {
       enabled: !!keyword,
     }
@@ -125,5 +173,6 @@ export const useSearch = <T = any,>() => {
   return {
     search,
     isLoading: isLoading && isFetching,
+    errors,
   };
 };
