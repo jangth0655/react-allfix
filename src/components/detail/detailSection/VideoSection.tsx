@@ -7,12 +7,7 @@ import { videoUrl } from '../../../utils/videoUrl';
 import Loading from '../../Loading';
 import NoImageWithVideo from '../../NoImageWithVideo';
 
-interface VideoSectionProps {
-  movieId?: number;
-  tvId?: number;
-}
-
-const VideoSection: React.FC<VideoSectionProps> = () => {
+const VideoSection: React.FC = () => {
   const {
     relatedList: videos,
     isLoading,

@@ -6,12 +6,7 @@ import { GetTVCast } from '../../../model/interface/tv_interface';
 import ImageUrl from '../../../utils/imageUrl';
 import Loading from '../../Loading';
 
-interface CastSectionProps {
-  movieId?: number;
-  tvId?: number;
-}
-
-const CastSection: React.FC<CastSectionProps> = ({ movieId, tvId }) => {
+const CastSection: React.FC = () => {
   const {
     isLoading,
     relatedList: casts,

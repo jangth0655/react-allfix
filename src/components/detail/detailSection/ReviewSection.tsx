@@ -8,12 +8,7 @@ import { dateForm } from '../../../utils/dateFormat';
 import Loading from '../../Loading';
 import Pagination from '../../Pagination';
 
-interface ReviewSectionProps {
-  movieId?: number;
-  tvId?: number;
-}
-
-const ReviewSection: React.FC<ReviewSectionProps> = () => {
+const ReviewSection: React.FC = () => {
   const {
     isLoading,
     relatedList: reviews,
