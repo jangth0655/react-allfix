@@ -27,7 +27,7 @@ const VideoSection: React.FC = () => {
     </NoVideoContainer>
   ) : (
     <Container>
-      {videos?.results.slice(0, 4).map((video) => (
+      {videos?.results.slice(0, 3).map((video) => (
         <VideoContainer key={video.id}>
           <VideoPlayerBox>
             <VideoPlay src={videoUrl(video.key)} width='100%' height='100%' />
