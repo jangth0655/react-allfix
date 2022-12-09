@@ -41,7 +41,7 @@ const RecommendationSection: React.FC = () => {
   };
 
   const onDetailPage = (id?: number) => {
-    navigate(`${pathname}/${id}`);
+    navigate(`/movie/${id}`);
   };
 
   if (isLoading) {

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDetail, useKeywords } from '../../hooks/useFetchData';
 
@@ -17,6 +19,11 @@ import InfoSection from './detailSection/InfoSection';
 const Detail = () => {
   const { detail, isLoading, errors } = useDetail<IMovieDetail & ITVDetail>();
   const { keywords } = useKeywords<GetMovieKeyword & GetTVKeyword>();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <Layout isMainPaddingTop={false} isMainMaxWidth={false}>
