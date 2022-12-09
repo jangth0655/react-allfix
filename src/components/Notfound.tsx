@@ -21,8 +21,7 @@ const Section = styled.section`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
-  max-width: 50rem;
+  width: 100vw;
   background-color: rgb(31 41 55);
 `;
 const Title = styled.h1`
